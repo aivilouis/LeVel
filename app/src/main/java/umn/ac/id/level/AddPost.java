@@ -16,13 +16,15 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.Objects;
 
 public class AddPost extends AppCompatActivity {
 
     private ImageView img;
 
-    @SuppressLint("QueryPermissionsNeeded")
+    @SuppressLint({"QueryPermissionsNeeded", "NonConstantResourceId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,29 @@ public class AddPost extends AppCompatActivity {
             intent.setType("image/*");
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        });
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_addpost);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch(item.getItemId()) {
+                case R.id.action_home:
+                    startActivity(new Intent(getApplicationContext(), Home.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.action_addpost:
+                    return true;
+                case R.id.action_save:
+                    startActivity(new Intent(getApplicationContext(), Saved.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.action_account:
+                    startActivity(new Intent(getApplicationContext(), Account.class));
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
         });
     }
 

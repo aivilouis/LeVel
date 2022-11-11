@@ -5,25 +5,25 @@
     <item
         android:id="@+id/action_home"
         android:enabled="true"
-        android:icon="@drawable/icon_home"
+        android:icon="@drawable/home_selector"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
     <item
         android:id="@+id/action_addpost"
         android:enabled="true"
-        android:icon="@drawable/icon_addpost"
+        android:icon="@drawable/addpost_selector"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
     <item
         android:id="@+id/action_save"
         android:enabled="true"
-        android:icon="@drawable/icon_saved"
+        android:icon="@drawable/saved_selector"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
     <item
         android:id="@+id/action_account"
         android:enabled="true"
-        android:icon="@drawable/icon_account"
+        android:icon="@drawable/account_selector"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
 </menu>
