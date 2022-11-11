@@ -9,15 +9,21 @@
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
     <item
-        android:id="@+id/action_camera"
+        android:id="@+id/action_addpost"
         android:enabled="true"
-        android:icon="@drawable/icon_camera"
+        android:icon="@drawable/icon_addpost"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
     <item
         android:id="@+id/action_save"
         android:enabled="true"
-        android:icon="@drawable/icon_save"
+        android:icon="@drawable/icon_saved"
+        app:showAsAction="ifRoom"
+        tools:ignore="MenuTitle" />
+    <item
+        android:id="@+id/action_account"
+        android:enabled="true"
+        android:icon="@drawable/icon_account"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
 </menu>
