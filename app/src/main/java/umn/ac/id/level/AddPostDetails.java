@@ -29,10 +29,10 @@ public class AddPostDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         Bitmap bm = (Bitmap)intent.getParcelableExtra("IMG");
-
-        days = findViewById(R.id.input_days);
         ImageView img = findViewById(R.id.imgView);
         img.setImageBitmap(bm);
+
+        days = findViewById(R.id.input_days);
     }
 
     @Override
