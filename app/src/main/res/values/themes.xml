@@ -14,4 +14,14 @@
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/josefinsans_regular</item>
     </style>
+
+    <!-- Toolbar -->
+    <style name="customToolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextAppearance">@style/toolbar</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+    <style name="toolbar" parent="@style/Theme.LeVel">
+        <item name="android:fontFamily">@font/josefinsans_regular</item>
+    </style>
 </resources>
