@@ -38,12 +38,12 @@
             android:layout_marginTop="36dp"
             android:background="@drawable/rounded_button"
             android:drawableStart="@drawable/gallery_icon"
-            android:letterSpacing="0.1"
             android:paddingStart="35dp"
             android:paddingEnd="20dp"
             android:text="Gallery"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
+            android:textAllCaps="false"
             tools:ignore="HardcodedText" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -52,13 +52,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
             android:background="@drawable/rounded_button"
-            android:letterSpacing="0.1"
             android:text="Camera"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
             android:drawableStart="@drawable/camera_icon"
             android:paddingStart="35dp"
             android:paddingEnd="20dp"
+            android:textAllCaps="false"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
