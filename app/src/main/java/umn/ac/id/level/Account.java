@@ -20,8 +20,6 @@ public class Account extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-//        Objects.requireNonNull(getSupportActionBar()).hide();
-
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.account_actionbar);
         getSupportActionBar().setElevation(0);
