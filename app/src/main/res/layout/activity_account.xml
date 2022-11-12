@@ -6,8 +6,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    tools:context=".Account"
-    android:background="@drawable/background">
+    tools:context=".Account">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -19,4 +18,10 @@
         app:itemIconTint="#0D797D"
         app:labelVisibilityMode="unlabeled"/>
 
+    <com.google.android.material.appbar.CollapsingToolbarLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/background"
+        android:fitsSystemWindows="true"
+        />
 </RelativeLayout>

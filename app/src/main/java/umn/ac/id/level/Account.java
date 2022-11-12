@@ -21,8 +21,10 @@ public class Account extends AppCompatActivity {
         setContentView(R.layout.activity_account);
 
 //        Objects.requireNonNull(getSupportActionBar()).hide();
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.account_actionbar);
+        getSupportActionBar().setElevation(0);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_account);
