@@ -4,10 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_next"
+        android:id="@+id/action_setting"
         android:orderInCategory="100"
         app:showAsAction="always"
         android:icon="@drawable/setting_icon"
-        tools:ignore="MenuTitle" />
+        tools:ignore="MenuTitle">
+
+        <menu>
+            <item
+                android:id="@+id/faq"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/faq_icon"
+                android:title="FAQ"/>
+
+            <item
+                android:id="@+id/info"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/info_icon"
+                android:title="Info"/>
+
+            <item
+                android:id="@+id/signout"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/signout_icon"
+                android:title="Sign Out"/>
+        </menu>
+    </item>
 
 </menu>

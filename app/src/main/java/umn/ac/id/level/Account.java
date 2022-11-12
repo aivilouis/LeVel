@@ -2,12 +2,15 @@ package umn.ac.id.level;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -15,6 +18,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Objects;
 
 public class Account extends AppCompatActivity {
+    private RecyclerView mRecyclerView;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -27,11 +31,13 @@ public class Account extends AppCompatActivity {
         getSupportActionBar().setElevation(0);
 
         Button editBtn = findViewById(R.id.editprofileBtn);
-
         editBtn.setOnClickListener(v -> {
             Intent intent = new Intent(Account.this, EditAccount.class);
             this.startActivity(intent);
         });
+
+        mRecyclerView = findViewById(R.id.recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_account);
@@ -63,4 +69,5 @@ public class Account extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_account, menu);
         return true;
     }
+
 }
