@@ -40,6 +40,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".EditAccount"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Saved"
             android:exported="false">
             <meta-data
