@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -23,6 +24,8 @@ import java.util.Objects;
 public class AddPost extends AppCompatActivity {
 
     private ImageView img;
+    private Uri path;
+    private String imgPath;
 
     @SuppressLint({"QueryPermissionsNeeded", "NonConstantResourceId"})
     @Override
@@ -70,6 +73,9 @@ public class AddPost extends AppCompatActivity {
             startActivity(intent);
         });
 
+        path = Uri.parse("android.resource://umn.ac.id.LeVel/" + img);
+        imgPath = path.toString();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_addpost);
 
@@ -105,6 +111,7 @@ public class AddPost extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_next) {
             Intent intent = new Intent(AddPost.this, AddPostDetails.class);
+            intent.putExtra("IMG", imgPath);
             this.startActivity(intent);
             return true;
         }

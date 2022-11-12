@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.util.Objects;
 
 public class AddPostDetails extends AppCompatActivity {
+
+    private EditText days;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,8 @@ public class AddPostDetails extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.addpost_actionbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        days = findViewById(R.id.input_days);
     }
 
     @Override
@@ -33,7 +38,8 @@ public class AddPostDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_done) {
-            Intent intent = new Intent(AddPostDetails.this, Home.class);
+            Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
+            intent.putExtra("DAYS", days.getText().toString());
             this.startActivity(intent);
             return true;
         }
