@@ -7,6 +7,11 @@
     tools:context=".AddPostDetails"
     tools:ignore="HardcodedText, ContentDescription, Autofill">
 
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

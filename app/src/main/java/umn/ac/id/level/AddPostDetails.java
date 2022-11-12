@@ -4,10 +4,12 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.util.Objects;
 
@@ -25,7 +27,12 @@ public class AddPostDetails extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Intent intent = getIntent();
+        Bitmap bm = (Bitmap)intent.getParcelableExtra("IMG");
+
         days = findViewById(R.id.input_days);
+        ImageView img = findViewById(R.id.imgView);
+        img.setImageBitmap(bm);
     }
 
     @Override
