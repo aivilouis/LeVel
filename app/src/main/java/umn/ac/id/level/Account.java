@@ -7,18 +7,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class Account extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
+    private final LinkedList<Image> feeds = new LinkedList<>();
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -36,7 +36,9 @@ public class Account extends AppCompatActivity {
             this.startActivity(intent);
         });
 
-        mRecyclerView = findViewById(R.id.recyclerview);
+        RecyclerView mRecyclerView = findViewById(R.id.recyclerview2);
+        AdapterPosts mAdapter = new AdapterPosts(this, feeds);
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
