@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -18,7 +18,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class Account extends AppCompatActivity {
-    private final LinkedList<Image> feeds = new LinkedList<>();
+    private final LinkedList<ImageButton> feeds = new LinkedList<>();
 
     @SuppressLint("NonConstantResourceId")
     @Override

@@ -5,7 +5,7 @@ import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.LinkedList;
 
 public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.ViewHolder> {
-    private final LinkedList<Image> feeds;
+    private final LinkedList<ImageButton> feeds;
     private final LayoutInflater mInflater;
 
-    AdapterPosts(Context context, LinkedList<Image> daftarPosts){
+    AdapterPosts(Context context, LinkedList<ImageButton> daftarPosts){
         mInflater = LayoutInflater.from(context);
         feeds = daftarPosts;
     }
@@ -30,7 +30,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull AdapterPosts.ViewHolder holder, int position) {
-        Image mCurrent = feeds.get(position);
+        ImageButton mCurrent = feeds.get(position);
         holder.post.setImageResource(Integer.parseInt(String.valueOf(mCurrent)));
     }
 
@@ -40,7 +40,7 @@ public class AdapterPosts extends RecyclerView.Adapter<AdapterPosts.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final ImageView post;
+        public final ImageButton post;
         final AdapterPosts mAdapter;
 
         public ViewHolder(@NonNull View itemView, AdapterPosts adapter) {
