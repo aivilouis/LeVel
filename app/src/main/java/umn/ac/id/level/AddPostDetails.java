@@ -15,7 +15,7 @@ import java.util.Objects;
 
 public class AddPostDetails extends AppCompatActivity {
 
-    private EditText days;
+    private EditText location, days, totalcost, ticketprice, hotel, costpernight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,12 @@ public class AddPostDetails extends AppCompatActivity {
         ImageView img = findViewById(R.id.imgView);
         img.setImageBitmap(bm);
 
+        location = findViewById(R.id.input_location);
         days = findViewById(R.id.input_days);
+        totalcost = findViewById(R.id.input_totalcost);
+        ticketprice = findViewById(R.id.input_ticketprice);
+        hotel = findViewById(R.id.input_hotel);
+        costpernight = findViewById(R.id.input_costpernight);
     }
 
     @Override
@@ -45,10 +50,12 @@ public class AddPostDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_done) {
-            Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
-            intent.putExtra("DAYS", days.getText().toString());
-            this.startActivity(intent);
-            return true;
+            if (CheckAllFields()) {
+                Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
+                intent.putExtra("DAYS", days.getText().toString());
+                this.startActivity(intent);
+                return true;
+            }
         }
         if (id == android.R.id.home) {
             Intent intent = new Intent(AddPostDetails.this, AddPost.class);
@@ -56,5 +63,33 @@ public class AddPostDetails extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean CheckAllFields() {
+        if (location.length() == 0) {
+            location.setError("This field is required");
+            return false;
+        }
+        if (days.length() == 0) {
+            days.setError("This field is required");
+            return false;
+        }
+        if (totalcost.length() == 0) {
+            totalcost.setError("This field is required");
+            return false;
+        }
+        if (ticketprice.length() == 0) {
+            ticketprice.setError("This field is required");
+            return false;
+        }
+        if (hotel.length() == 0) {
+            hotel.setError("This field is required");
+            return false;
+        }
+        if (costpernight.length() == 0) {
+            costpernight.setError("This field is required");
+            return false;
+        }
+        return true;
     }
 }

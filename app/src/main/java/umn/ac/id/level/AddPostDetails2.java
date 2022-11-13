@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -16,6 +17,7 @@ import java.util.Objects;
 public class AddPostDetails2 extends AppCompatActivity {
 
     private final LinkedList<String> totalDays = new LinkedList<>();
+    private EditText destination, cost, review;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,10 @@ public class AddPostDetails2 extends AppCompatActivity {
         InputAdapter mAdapter = new InputAdapter(this, totalDays);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        destination = mRecyclerView.findViewById(R.id.input_destination);
+        cost = mRecyclerView.findViewById(R.id.input_cost);
+        review = mRecyclerView.findViewById(R.id.input_review);
     }
 
     @Override
@@ -50,9 +56,11 @@ public class AddPostDetails2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_done) {
-            Intent intent = new Intent(AddPostDetails2.this, Home.class);
-            this.startActivity(intent);
-            return true;
+            if (CheckAllFields()) {
+                Intent intent = new Intent(AddPostDetails2.this, Home.class);
+                this.startActivity(intent);
+                return true;
+            }
         }
         if (id == android.R.id.home) {
             Intent intent = new Intent(AddPostDetails2.this, AddPostDetails.class);
@@ -60,5 +68,21 @@ public class AddPostDetails2 extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean CheckAllFields() {
+        if (destination.length() == 0) {
+            destination.setError("This field is required");
+            return false;
+        }
+        if (cost.length() == 0) {
+            cost.setError("This field is required");
+            return false;
+        }
+        if (review.length() == 0) {
+            review.setError("This field is required");
+            return false;
+        }
+        return true;
     }
 }
