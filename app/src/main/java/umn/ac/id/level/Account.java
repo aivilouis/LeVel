@@ -1,5 +1,6 @@
 package umn.ac.id.level;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -72,4 +74,23 @@ public class Account extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.faq:
+                Intent intentFAQ = new Intent(Account.this, FAQ.class);
+                startActivity(intentFAQ);
+                return true;
+            case R.id.about:
+                Intent intentAbout = new Intent(Account.this, About.class);
+                startActivity(intentAbout);
+                return true;
+//            case R.id.signout:
+//                Intent intentSignOut = new Intent(Account.this, About.class);
+//                startActivity(intentSignOut);
+//                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
