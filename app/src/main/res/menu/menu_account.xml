@@ -15,7 +15,7 @@
                 android:id="@+id/faq"
                 app:showAsAction="ifRoom"
                 android:icon="@drawable/faq_icon"
-                android:title="FAQ"/>
+                android:title="FAQ" />
 
             <item
                 android:id="@+id/info"
