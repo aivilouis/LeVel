@@ -1,9 +1,12 @@
 package umn.ac.id.level;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,8 +16,10 @@ import java.util.LinkedList;
 
 public class InputAdapter extends RecyclerView.Adapter<InputAdapter.ViewHolder> {
 
-    private final LinkedList<String> mDays;
-    private final LayoutInflater mInflater;
+    LinkedList<String> mDays;
+    LayoutInflater mInflater;
+    boolean onChange = false;
+    public static boolean valid = false;
 
     InputAdapter(Context context, LinkedList<String> days) {
         mInflater = LayoutInflater.from(context);
@@ -31,7 +36,33 @@ public class InputAdapter extends RecyclerView.Adapter<InputAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String mCurrent = mDays.get(position);
-        holder.tv.setText(mCurrent);
+        holder.title.setText(mCurrent);
+        holder.destination.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                onChange = true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (onChange) {
+                    onChange = false;
+                    for (int i = 0; i <= holder.getAdapterPosition(); i++) {
+                        if (i == holder.getAdapterPosition()) {
+                            if (editable.toString().length() == 0) {
+                                holder.destination.setError("This field is required");
+                                valid = false;
+                            } else {
+                                valid = true;
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -40,12 +71,14 @@ public class InputAdapter extends RecyclerView.Adapter<InputAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tv;
-        final InputAdapter mAdapter;
+        TextView title;
+        EditText destination;
+        InputAdapter mAdapter;
 
         public ViewHolder(@NonNull View itemView, InputAdapter adapter) {
             super(itemView);
-            tv = itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.title);
+            destination = itemView.findViewById(R.id.input_destination);
             this.mAdapter = adapter;
         }
     }

@@ -16,8 +16,9 @@ import java.util.Objects;
 
 public class AddPostDetails2 extends AppCompatActivity {
 
-    private final LinkedList<String> totalDays = new LinkedList<>();
-    private EditText destination, cost, review;
+    LinkedList<String> totalDays = new LinkedList<>();
+    EditText destination, cost, review;
+    RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class AddPostDetails2 extends AppCompatActivity {
             totalDays.add("Day " + i);
         }
 
-        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         InputAdapter mAdapter = new InputAdapter(this, totalDays);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -56,7 +57,7 @@ public class AddPostDetails2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_done) {
-            if (CheckAllFields()) {
+            if (InputAdapter.valid) {
                 Intent intent = new Intent(AddPostDetails2.this, Home.class);
                 this.startActivity(intent);
                 return true;
@@ -70,19 +71,4 @@ public class AddPostDetails2 extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean CheckAllFields() {
-        if (destination.length() == 0) {
-            destination.setError("This field is required");
-            return false;
-        }
-        if (cost.length() == 0) {
-            cost.setError("This field is required");
-            return false;
-        }
-        if (review.length() == 0) {
-            review.setError("This field is required");
-            return false;
-        }
-        return true;
-    }
 }
