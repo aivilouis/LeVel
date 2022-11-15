@@ -9,12 +9,12 @@
     android:layout_marginBottom="20dp">
 
     <ImageView
-        android:id="@+id/profileImg"
+        android:id="@+id/profileImgSaved"
         android:layout_width="35dp"
         android:layout_height="35dp"/>
 
     <TextView
-        android:id="@+id/profileTxt"
+        android:id="@+id/profileTxtSaved"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginLeft="50dp"
@@ -25,7 +25,7 @@
         />
 
     <ImageView
-        android:id="@+id/iconSaved"
+        android:id="@+id/iconSavedSaved"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="270dp"
@@ -33,7 +33,7 @@
         />
 
     <ImageView
-        android:id="@+id/iconShare"
+        android:id="@+id/iconShareSaved"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="245dp"
@@ -41,7 +41,7 @@
         />
 
     <ImageView
-        android:id="@+id/locationImg"
+        android:id="@+id/locationImgSaved"
         android:layout_width="370dp"
         android:layout_height="370dp"
         android:layout_marginTop="5dp"
@@ -55,7 +55,7 @@
         android:background="@color/bottomBar" />
 
     <TextView
-        android:id="@+id/locationTxt"
+        android:id="@+id/locationTxtSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="305dp"
@@ -65,7 +65,7 @@
         android:textSize="20dp"/>
 
     <ImageView
-        android:id="@+id/iconDuration"
+        android:id="@+id/iconDurationSaved"
         android:layout_marginTop="341dp"
         android:layout_marginLeft="5dp"
         android:layout_width="30dp"
@@ -73,7 +73,7 @@
         />
 
     <TextView
-        android:id="@+id/durationTxt"
+        android:id="@+id/durationTxtSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -82,7 +82,7 @@
         android:textColor="@color/black"/>
 
     <ImageView
-        android:id="@+id/iconBudget"
+        android:id="@+id/iconBudgetSaved"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginLeft="200dp"
@@ -90,7 +90,7 @@
         />
 
     <TextView
-        android:id="@+id/budgetTxt"
+        android:id="@+id/budgetTxtSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="230dp"

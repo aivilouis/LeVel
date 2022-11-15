@@ -2,6 +2,8 @@ package umn.ac.id.level;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,6 +11,8 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Saved extends AppCompatActivity {
@@ -44,5 +48,16 @@ public class Saved extends AppCompatActivity {
             }
             return false;
         });
+        //Saved
+        RecyclerView srecyclerView = findViewById(R.id.savedRecycleView);
+
+        //Listitem
+        List<SavedItem> itemss = new ArrayList<SavedItem>();
+        itemss.add(new SavedItem("taoPhiang77","BANGKOK, THAILAND","5 days (7 November 2022)","Rp 6.000.000,-",R.drawable.profile1,R.drawable.explore_thailand,R.drawable.icon_saved_selected,R.drawable.icon_share,R.drawable.icon_days,R.drawable.icon_totalcost));
+        itemss.add(new SavedItem("won.young211","SARAWAK, MALAYSIA","2 days (10 July 2022)","Rp 5.000.000,-",R.drawable.profile3,R.drawable.explore_malaysia,R.drawable.icon_saved_selected,R.drawable.icon_share,R.drawable.icon_days,R.drawable.icon_totalcost));
+
+        //Explore recycle
+        srecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        srecyclerView.setAdapter(new SavedAdapter(getApplicationContext(),itemss));
     }
 }

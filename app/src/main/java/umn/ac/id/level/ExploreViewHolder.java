@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ExploreViewHolder extends RecyclerView.ViewHolder {
-    ImageView profileView, locationView, iconSavedView, iconDurationView, iconBudgetView;
+    ImageView profileView, locationView, iconSavedView, iconShareView,iconDurationView, iconBudgetView;
     TextView profileTxtView, locationTxtView, durationTxtView, budgetTxtView;
 
     public ExploreViewHolder(@NonNull View itemView) {
@@ -16,6 +16,7 @@ public class ExploreViewHolder extends RecyclerView.ViewHolder {
         profileView = itemView.findViewById(R.id.profileImg);
         locationView = itemView.findViewById(R.id.locationImg);
         iconSavedView = itemView.findViewById(R.id.iconSaved);
+        iconShareView = itemView.findViewById(R.id.iconShare);
         iconBudgetView = itemView.findViewById(R.id.iconBudget);
         iconDurationView = itemView.findViewById(R.id.iconDuration);
         profileTxtView = itemView.findViewById(R.id.profileTxt);

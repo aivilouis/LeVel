@@ -8,10 +8,11 @@ public class ExploreItem {
     int profileImage;
     int locationImage;
     int iconSaved;
+    int iconShare;
     int iconDuration;
     int iconBudget;
 
-    public ExploreItem(String namaAkun, String namaLokasi, String durasiTrip, String totalBudget, int profileImage, int locationImage, int iconSaved, int iconDuration, int iconBudget) {
+    public ExploreItem(String namaAkun, String namaLokasi, String durasiTrip, String totalBudget, int profileImage, int locationImage, int iconSaved, int iconShare,int iconDuration, int iconBudget) {
         this.namaAkun = namaAkun;
         this.namaLokasi = namaLokasi;
         this.durasiTrip = durasiTrip;
@@ -19,6 +20,7 @@ public class ExploreItem {
         this.profileImage = profileImage;
         this.locationImage = locationImage;
         this.iconSaved = iconSaved;
+        this.iconShare= iconShare;
         this.iconDuration = iconDuration;
         this.iconBudget = iconBudget;
     }
@@ -49,6 +51,10 @@ public class ExploreItem {
 
     public int getIconSaved() {
         return iconSaved;
+    }
+
+    public int getIconShare() {
+        return iconShare;
     }
 
     public int getIconDuration() {

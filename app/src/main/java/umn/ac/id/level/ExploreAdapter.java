@@ -30,6 +30,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreViewHolder> {
     holder.profileView.setImageResource(items.get(position).getProfileImage());
     holder.locationView.setImageResource(items.get(position).getLocationImage());
     holder.iconSavedView.setImageResource(items.get(position).getIconSaved());
+    holder.iconShareView.setImageResource(items.get(position).getIconShare());
     holder.iconDurationView.setImageResource(items.get(position).getIconDuration());
     holder.iconBudgetView.setImageResource(items.get(position).getIconBudget());
     holder.profileTxtView.setText(items.get(position).getNamaAkun());
