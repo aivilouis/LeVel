@@ -6,7 +6,29 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    tools:context=".Home">
+    tools:context=".Home"
+    tools:ignore="HardcodedText, AutoFill, ContentDescription">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/primary"/>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/icon_search"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"/>
+
+    <EditText
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="50dp"
+        android:hint="Search"
+        android:inputType="text"
+        android:textColor="@color/white"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,7 +43,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecycleView"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="72dp"
         android:layout_width="match_parent"
         android:layout_height="674dp"
         android:layout_marginRight="30dp"
