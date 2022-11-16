@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.ActionBar;
@@ -31,9 +32,22 @@ public class EditAccount extends AppCompatActivity {
         EditText bio = findViewById(R.id.input_bio);
 
         username.setText("han.sohee");
+        username.setSelection(username.getText().length());
         country.setText("South Korea");
+        country.setSelection(country.getText().length());
         category.setText("Business Traveler");
+        category.setSelection(category.getText().length());
         bio.setText("안녕하십니까");
+        bio.setSelection(bio.getText().length());
+
+        Button editProfile = findViewById(R.id.editprofileBtn);
+        editProfile.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setAction(android.content.Intent.ACTION_VIEW);
+            intent.setType("image/*");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
     }
 
     @Override
