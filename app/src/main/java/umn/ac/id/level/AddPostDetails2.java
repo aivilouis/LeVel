@@ -57,11 +57,11 @@ public class AddPostDetails2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_done) {
-            if (InputAdapter.valid) {
+//            if (InputAdapter.valid) {
                 Intent intent = new Intent(AddPostDetails2.this, Home.class);
                 this.startActivity(intent);
                 return true;
-            }
+//            }
         }
         if (id == android.R.id.home) {
             Intent intent = new Intent(AddPostDetails2.this, AddPostDetails.class);
