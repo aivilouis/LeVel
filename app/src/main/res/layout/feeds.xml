@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/tableLayout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:stretchColumns="*">
+    android:stretchColumns="*"
+    tools:ignore="HardcodedText, ContentDescription, Autofill">
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_marginBottom="5dp">
@@ -11,7 +13,7 @@
                 android:layout_width="55dp"
                 android:layout_height="120dp"
                 android:src="@drawable/bali"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginEnd="5dp"/>
             <ImageButton
                 android:layout_width="55dp"
                 android:layout_height="120dp"
@@ -20,7 +22,7 @@
                 android:layout_width="55dp"
                 android:layout_height="120dp"
                 android:src="@drawable/bali"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginStart="5dp"/>
         </TableRow>
         <TableRow
             android:id="@+id/tableRow2"
@@ -29,7 +31,7 @@
                 android:layout_width="55dp"
                 android:layout_height="120dp"
                 android:src="@drawable/bali"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginEnd="5dp"/>
             <ImageButton
                 android:layout_width="55dp"
                 android:layout_height="120dp"
@@ -38,7 +40,7 @@
                 android:layout_width="55dp"
                 android:layout_height="120dp"
                 android:src="@drawable/bali"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginStart="5dp"/>
         </TableRow>
         <TableRow
             android:id="@+id/tableRow3"
@@ -47,7 +49,7 @@
                 android:layout_width="55dp"
                 android:layout_height="120dp"
                 android:src="@drawable/bali"
-                android:layout_marginRight="5dp"/>
+                android:layout_marginEnd="5dp"/>
             <ImageButton
                 android:layout_width="55dp"
                 android:layout_height="120dp"
@@ -56,7 +58,7 @@
                 android:layout_width="55dp"
                 android:layout_height="120dp"
                 android:src="@drawable/bali"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginStart="5dp"/>
         </TableRow>
 
 </TableLayout>

@@ -2,11 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="20dp"
     android:gravity="center"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="20dp"
+    tools:ignore="HardcodedText, ContentDescription, Autofill, UnusedAttribute, SpUsage">
 
     <ImageView
         android:id="@+id/profileImgSaved"
@@ -17,7 +17,7 @@
         android:id="@+id/profileTxtSaved"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
         android:text="namaprofil"
         android:textColor="@color/black"
@@ -28,7 +28,7 @@
         android:id="@+id/iconSavedSaved"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginLeft="270dp"
+        android:layout_marginStart="270dp"
         android:layout_marginTop="5dp"
         />
 
@@ -36,7 +36,7 @@
         android:id="@+id/iconShareSaved"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginLeft="245dp"
+        android:layout_marginStart="245dp"
         android:layout_marginTop="5dp"
         />
 
@@ -60,14 +60,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="305dp"
         android:textColor="@color/white"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
         android:textFontWeight="50"
         android:textSize="20dp"/>
 
     <ImageView
         android:id="@+id/iconDurationSaved"
         android:layout_marginTop="341dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
         />
@@ -76,7 +76,7 @@
         android:id="@+id/durationTxtSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="347dp"
         android:textSize="10dp"
         android:textColor="@color/black"/>
@@ -85,7 +85,7 @@
         android:id="@+id/iconBudgetSaved"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="200dp"
+        android:layout_marginStart="200dp"
         android:layout_marginTop="342dp"
         />
 
@@ -93,7 +93,7 @@
         android:id="@+id/budgetTxtSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="230dp"
+        android:layout_marginStart="230dp"
         android:layout_marginTop="347dp"
         android:textSize="10dp"
         android:textColor="@color/black"/>

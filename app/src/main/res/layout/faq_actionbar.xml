@@ -5,7 +5,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    tools:context=".FAQ">
+    tools:context=".FAQ"
+    tools:ignore="HardcodedText">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:gravity="center_horizontal"

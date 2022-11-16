@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 public class EditAccount extends AppCompatActivity {
 
-    @SuppressLint("NonConstantResourceId")
+    @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +24,16 @@ public class EditAccount extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.editaccount_actionbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        EditText username = findViewById(R.id.input_username);
+        EditText country = findViewById(R.id.input_country);
+        EditText category = findViewById(R.id.input_category);
+        EditText bio = findViewById(R.id.input_bio);
+
+        username.setText("han.sohee");
+        country.setText("South Korea");
+        category.setText("Business Traveler");
+        bio.setText("안녕하십니까");
     }
 
     @Override
