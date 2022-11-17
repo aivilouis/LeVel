@@ -16,11 +16,12 @@ import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Account extends AppCompatActivity {
-    private final LinkedList<ImageButton> feeds = new LinkedList<>();
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -38,10 +39,14 @@ public class Account extends AppCompatActivity {
             this.startActivity(intent);
         });
 
+
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview2);
-        AdapterPosts mAdapter = new AdapterPosts(this, feeds);
-        mRecyclerView.setAdapter(mAdapter);
+        List<Posts> items = new ArrayList<Posts>();
+        items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
+        items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(new AccountAdapter(getApplicationContext(),items));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_account);
