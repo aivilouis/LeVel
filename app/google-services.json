@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "813200406763",
+    "project_id": "level-fecbd",
+    "storage_bucket": "level-fecbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813200406763:android:d4161a8f0d74ff998c66ae",
+        "android_client_info": {
+          "package_name": "umn.ac.id.level"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813200406763-dtq7mcjegk7o30gl26pj5cavrg71tke5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmWZ6eLlcyBRbRpWlXg1q7KyJF3SAgSO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813200406763-dtq7mcjegk7o30gl26pj5cavrg71tke5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
