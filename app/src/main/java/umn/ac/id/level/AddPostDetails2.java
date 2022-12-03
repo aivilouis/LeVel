@@ -31,7 +31,8 @@ public class AddPostDetails2 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
-        int days = Integer.parseInt(intent.getStringExtra("DAYS"));
+        UserPosts userPost = (UserPosts)intent.getSerializableExtra("DATA");
+        int days = userPost.getDays();
 
         for (int i = 1; i <= days; i++) {
             totalDays.add("Day " + i);

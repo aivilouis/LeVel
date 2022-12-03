@@ -16,6 +16,7 @@ import java.util.Objects;
 public class AddPostDetails extends AppCompatActivity {
 
     private EditText location, days, totalcost, ticketprice, hotel, costpernight;
+    private final UserPosts userPost = new UserPosts();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +52,17 @@ public class AddPostDetails extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_done) {
             if (CheckAllFields()) {
+                userPost.setLocation(location.getText().toString());
+                userPost.setDays(Integer.parseInt(days.getText().toString()));
+                userPost.setTotalcost(Integer.parseInt(totalcost.getText().toString()));
+                userPost.setTicketprice(Integer.parseInt(ticketprice.getText().toString()));
+                userPost.setHotel(hotel.getText().toString());
+                userPost.setCostpernight(Integer.parseInt(costpernight.getText().toString()));
+
                 Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
-                intent.putExtra("DAYS", days.getText().toString());
+                intent.putExtra("DATA", userPost);
                 this.startActivity(intent);
+
                 return true;
             }
         }
