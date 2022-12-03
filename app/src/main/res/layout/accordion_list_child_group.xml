@@ -5,7 +5,8 @@
     android:background="@color/primary"
     android:orientation="vertical"
     android:paddingLeft="20dip"
-    android:paddingTop="10dip">
+    android:paddingTop="10dip"
+    android:layout_marginBottom="20dip">
 
     <TextView
         android:id="@+id/tvGroup"
