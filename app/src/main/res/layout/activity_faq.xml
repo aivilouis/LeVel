@@ -9,8 +9,13 @@
 
     <ImageView
         android:layout_width="wrap_content"
+<<<<<<< Updated upstream
         android:layout_height="261dp"
         android:src="@drawable/faq"/>
+=======
+        android:layout_height="205dp"
+        android:src="@drawable/faq" />
+>>>>>>> Stashed changes
 
     <RelativeLayout
         android:layout_width="match_parent"
