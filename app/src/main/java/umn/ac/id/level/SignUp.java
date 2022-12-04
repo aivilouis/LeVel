@@ -11,11 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
 
-    private EditText emailTextView, passwordTextView;
+    private EditText etUsername, etEmail, etPassword;
     private FirebaseAuth mAuth;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,12 +30,14 @@ public class SignUp extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        emailTextView = findViewById(R.id.email);
-        passwordTextView = findViewById(R.id.password);
+        etUsername = findViewById(R.id.username);
+        etEmail = findViewById(R.id.email);
+        etPassword = findViewById(R.id.password);
         Button btn = findViewById(R.id.signupBtn);
         TextView tvSignIn = findViewById(R.id.tvSignIn);
 
         btn.setOnClickListener(v -> registerNewUser());
+
         tvSignIn.setOnClickListener(v -> {
             Intent intent = new Intent(SignUp.this, Login.class);
             startActivity(intent);
@@ -39,10 +46,19 @@ public class SignUp extends AppCompatActivity {
 
     private void registerNewUser()
     {
-        String email, password;
-        email = emailTextView.getText().toString();
-        password = passwordTextView.getText().toString();
+        rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        ref = rootNode.getReference("Users");
 
+        String id, username, email, password;
+        id = ref.push().getKey();
+        username = etUsername.getText().toString();
+        email = etEmail.getText().toString();
+        password = etPassword.getText().toString();
+
+        if (TextUtils.isEmpty(username)) {
+            Toast.makeText(getApplicationContext(), "Please enter username", Toast.LENGTH_LONG).show();
+            return;
+        }
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(), "Please enter email", Toast.LENGTH_LONG).show();
             return;
@@ -62,5 +78,10 @@ public class SignUp extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Registration failed." + " Please try again later", Toast.LENGTH_LONG).show();
                     }
                 });
+
+        UserData user = new UserData(id, username, email);
+
+        assert id != null;
+        ref.child(id).setValue(user);
     }
 }
