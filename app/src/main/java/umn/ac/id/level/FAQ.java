@@ -39,7 +39,7 @@ public class FAQ extends AppCompatActivity {
         ExpandListGroup gru1 = new ExpandListGroup();
         gru1.setName("What is LeVel?");
         ExpandListChild ch1_1 = new ExpandListChild();
-        ch1_1.setName("LeVel stands for Let's Travel is a travel social media app where you can share your itinerary and experience. Let's Travel!");
+        ch1_1.setName("LeVel stands for Let's Travel is a travel social media app where you can share your itinerary and experience.");
         ch1_1.setTag(null);
         list2.add(ch1_1);
         gru1.setItems(list2);
