@@ -8,19 +8,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class AddPostDetails extends AppCompatActivity {
 
-    private EditText etLocation, etDays, etTotalCost, etTicketPrice, etHotel, etCostPerNight;
+    EditText etLocation, etDays, etTotalCost, etTicketPrice, etHotel, etCostPerNight;
+    LinearLayout container;
+    View newView;
+    ArrayList<Details> postDetails = new ArrayList<>();
+
     SharedPreferences sharedPreferences;
     String email;
 
@@ -53,6 +65,59 @@ public class AddPostDetails extends AppCompatActivity {
         etTicketPrice = findViewById(R.id.input_ticketprice);
         etHotel = findViewById(R.id.input_hotel);
         etCostPerNight = findViewById(R.id.input_costpernight);
+        container = findViewById(R.id.newView);
+        Button addDestination = findViewById(R.id.addDestinationBtn);
+        addDestination.setOnClickListener(v -> addNewView());
+    }
+
+    private void addNewView() {
+        if (etLocation.length() == 0) {
+            etLocation.setError("This field is required");
+            return;
+        }
+        if (etDays.length() == 0) {
+            etDays.setError("This field is required");
+            return;
+        }
+        if (etTotalCost.length() == 0) {
+            etTotalCost.setError("This field is required");
+            return;
+        }
+        if (etTicketPrice.length() == 0) {
+            etTicketPrice.setError("This field is required");
+            return;
+        }
+        if (etHotel.length() == 0) {
+            etHotel.setError("This field is required");
+            return;
+        }
+        if (etCostPerNight.length() == 0) {
+            etCostPerNight.setError("This field is required");
+            return;
+        }
+
+        int totalDays = Integer.parseInt(etDays.getText().toString());
+
+        newView = LayoutInflater.from(this).inflate(R.layout.items, container, false);
+
+        newView.findViewById(R.id.addPhotoBtn).setOnClickListener(v -> {
+            Context context = v.getContext();
+            Intent intent = new Intent();
+            intent.setAction(android.content.Intent.ACTION_VIEW);
+            intent.setType("image/*");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        });
+
+        Spinner dropdown = newView.findViewById(R.id.label);
+        String[] items = new String[totalDays];
+        for (int i = 0; i < totalDays; i++) {
+            items[i] = "Day " + (i + 1);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown.setAdapter(adapter);
+
+        container.addView(newView, container.getChildCount());
     }
 
     @Override
@@ -78,30 +143,42 @@ public class AddPostDetails extends AppCompatActivity {
 
     private void saveData() {
         ref = rootNode.getReference("Posts");
+        postDetails.clear();
+        int count = container.getChildCount();
+        View v;
 
-        if (etLocation.length() == 0) etLocation.setError("This field is required");
-        else if (etDays.length() == 0) etDays.setError("This field is required");
-        else if (etTotalCost.length() == 0) etTotalCost.setError("This field is required");
-        else if (etTicketPrice.length() == 0) etTicketPrice.setError("This field is required");
-        else if (etHotel.length() == 0) etHotel.setError("This field is required");
-        else if (etCostPerNight.length() == 0) etCostPerNight.setError("This field is required");
-        else {
-            String id = ref.push().getKey();
-            String location = etLocation.getText().toString();
-            String hotel = etHotel.getText().toString();
-            int days = Integer.parseInt(etDays.getText().toString());
-            int totalCost = Integer.parseInt(etTotalCost.getText().toString());
-            int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
-            int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
+        String id = ref.push().getKey();
+        String location = etLocation.getText().toString();
+        String hotel = etHotel.getText().toString();
+        int days = Integer.parseInt(etDays.getText().toString());
+        int totalCost = Integer.parseInt(etTotalCost.getText().toString());
+        int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
+        int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
 
-            Post post = new Post(id, email, location, hotel, days, totalCost, ticketPrice, costPerNight);
+        for (int i = 0; i < count; i++) {
+            v = container.getChildAt(i);
 
-            assert id != null;
-            ref.child(id).setValue(post);
+            Spinner spinner = v.findViewById(R.id.label);
+            EditText etDestination = v.findViewById(R.id.input_destination);
+            EditText etCost = v.findViewById(R.id.input_cost);
+            EditText etReview = v.findViewById(R.id.input_review);
+            RatingBar ratingBar = v.findViewById(R.id.rating);
 
-            Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
-            intent.putExtra("POST", post);
-            this.startActivity(intent);
+            String label = spinner.getSelectedItem().toString();
+            String destination = etDestination.getText().toString();
+            int cost = Integer.parseInt(etCost.getText().toString());
+            String review = etReview.getText().toString();
+            float rating = ratingBar.getRating();
+
+            postDetails.add(new Details(label, cost, destination, review, rating));
         }
+
+        Post post = new Post(id, email, location, hotel, days, totalCost, ticketPrice, costPerNight, postDetails);
+
+        assert id != null;
+        ref.child(id).setValue(post);
+
+        Intent intent = new Intent(AddPostDetails.this, Home.class);
+        this.startActivity(intent);
     }
 }

@@ -140,6 +140,27 @@
                 android:inputType="number"/>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/newView"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addDestinationBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_button"
+            android:drawableStart="@drawable/icon_addphoto"
+            android:paddingStart="100dp"
+            android:paddingEnd="85dp"
+            android:text="Add Destination"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="30dp"/>
+
     </LinearLayout>
 
 </ScrollView>

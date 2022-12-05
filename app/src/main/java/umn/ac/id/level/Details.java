@@ -1,13 +1,13 @@
 package umn.ac.id.level;
 
 public class Details {
-    private int day, cost;
-    private String destination, review;
+    private String day, destination, review;
+    private int cost;
     private float rating;
 
     public Details() {}
 
-    public Details(int day, int cost, String destination, String review, float rating) {
+    public Details(String day, int cost, String destination, String review, float rating) {
         this.day = day;
         this.cost = cost;
         this.destination = destination;
@@ -15,11 +15,11 @@ public class Details {
         this.rating = rating;
     }
 
-    public int getDay() {
+    public String getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(String day) {
         this.day = day;
     }
 

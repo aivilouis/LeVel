@@ -6,15 +6,43 @@
     android:layout_height="wrap_content"
     tools:ignore="HardcodedText, Autofill">
 
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@color/teal_200"
-        android:textStyle="bold"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"/>
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Label: "
+            android:textSize="18sp"
+            android:textColor="@color/teal_200"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+        <Spinner
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addPhotoBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:drawableStart="@drawable/camera_icon"
+        android:paddingStart="100dp"
+        android:paddingEnd="85dp"
+        android:text="Add Photo"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        android:textAllCaps="false"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="30dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,20 +107,5 @@
         android:hint="Review"
         android:layout_marginHorizontal="30dp"
         android:layout_marginBottom="10dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/addPhotoBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
-        android:drawableStart="@drawable/icon_addphoto"
-        android:paddingStart="100dp"
-        android:paddingEnd="85dp"
-        android:text="Add Photo"
-        android:textColor="#FFFFFF"
-        android:textSize="17sp"
-        android:textAllCaps="false"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginBottom="30dp"/>
 
 </LinearLayout>

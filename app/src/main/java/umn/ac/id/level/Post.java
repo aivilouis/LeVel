@@ -1,15 +1,17 @@
 package umn.ac.id.level;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Post implements Serializable {
     private String id, user, location, hotel;
     private int travelDays, totalCost, ticketPrice, costPerNight;
-    private Object postDetails;
+    private ArrayList<Details> postDetails;
 
     public Post() {}
 
-    public Post(String id, String user, String location, String hotel, int travelDays, int totalCost, int ticketPrice, int costPerNight) {
+    public Post(String id, String user, String location, String hotel, int travelDays, int totalCost,
+                int ticketPrice, int costPerNight, ArrayList<Details> postDetails) {
         this.id = id;
         this.user = user;
         this.location = location;
@@ -18,7 +20,7 @@ public class Post implements Serializable {
         this.totalCost = totalCost;
         this.ticketPrice = ticketPrice;
         this.costPerNight = costPerNight;
-        this.postDetails = null;
+        this.postDetails = postDetails;
     }
 
     public String getId() {
@@ -85,11 +87,11 @@ public class Post implements Serializable {
         this.costPerNight = costPerNight;
     }
 
-    public Object getPostDetails() {
+    public ArrayList<Details> getPostDetails() {
         return postDetails;
     }
 
-    public void setPostDetails(Object postDetails) {
+    public void setPostDetails(ArrayList<Details> postDetails) {
         this.postDetails = postDetails;
     }
 }

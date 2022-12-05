@@ -64,13 +64,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".AddPostDetails2"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".AddPostDetails"
             android:exported="false">
             <meta-data
