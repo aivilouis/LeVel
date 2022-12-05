@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="55dip"
-    android:background="@color/bottomBar"
+    android:layout_height="60dip"
     android:orientation="vertical"
-    android:paddingLeft="20dip">
+    android:paddingLeft="-20dip"
+    android:paddingRight="20dip"
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/tvChild"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/secondPrimary"
-        android:textSize="17dip" />
+        android:textSize="16dip"
+        android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
+        android:textAlignment="gravity"/>
 
 </LinearLayout>

@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="60dip"
-    android:background="@color/primary"
     android:orientation="vertical"
     android:paddingLeft="20dip"
     android:paddingTop="10dip"
@@ -12,7 +11,7 @@
         android:id="@+id/tvGroup"
         android:layout_width="fill_parent"
         android:layout_height="39dp"
-        android:textColor="@color/white"
-        android:textSize="17dip" />
+        android:textColor="@color/teal_200"
+        android:textSize="18dip" />
 
 </LinearLayout>

@@ -37,36 +37,20 @@ public class FAQ extends AppCompatActivity {
         ArrayList<ExpandListGroup> list = new ArrayList<ExpandListGroup>();
         ArrayList<ExpandListChild> list2 = new ArrayList<ExpandListChild>();
         ExpandListGroup gru1 = new ExpandListGroup();
-        gru1.setName("File");
+        gru1.setName("What is LeVel?");
         ExpandListChild ch1_1 = new ExpandListChild();
-        ch1_1.setName("New");
+        ch1_1.setName("LeVel stands for Let's Travel is a travel social media app where you can share your itinerary and experience. Let's Travel!");
         ch1_1.setTag(null);
         list2.add(ch1_1);
-        ExpandListChild ch1_2 = new ExpandListChild();
-        ch1_2.setName("Open");
-        ch1_2.setTag(null);
-        list2.add(ch1_2);
-        ExpandListChild ch1_3 = new ExpandListChild();
-        ch1_3.setName("Close");
-        ch1_3.setTag(null);
-        list2.add(ch1_3);
         gru1.setItems(list2);
 
         list2 = new ArrayList<ExpandListChild>();
         ExpandListGroup gru2 = new ExpandListGroup();
-        gru2.setName("Edit");
+        gru2.setName("What is ");
         ExpandListChild ch2_1 = new ExpandListChild();
-        ch2_1.setName("Undo");
+        ch2_1.setName("Blablabala");
         ch2_1.setTag(null);
         list2.add(ch2_1);
-        ExpandListChild ch2_2 = new ExpandListChild();
-        ch2_2.setName("Copy");
-        ch2_2.setTag(null);
-        list2.add(ch2_2);
-        ExpandListChild ch2_3 = new ExpandListChild();
-        ch2_3.setName("Paste");
-        ch2_3.setTag(null);
-        list2.add(ch2_3);
         gru2.setItems(list2);
 
         list2 = new ArrayList<ExpandListChild>();
@@ -76,18 +60,21 @@ public class FAQ extends AppCompatActivity {
         ch3_1.setName("Daily Report");
         ch3_1.setTag(null);
         list2.add(ch3_1);
-        ExpandListChild ch3_2 = new ExpandListChild();
-        ch3_2.setName("Monthly Report");
-        ch3_2.setTag(null);
-        list2.add(ch3_2);
-        ExpandListChild ch3_3 = new ExpandListChild();
-        ch3_3.setName("Annual Report");
-        ch3_3.setTag(null);
-        list2.add(ch3_3);
         gru3.setItems(list2);
+
+        list2 = new ArrayList<ExpandListChild>();
+        ExpandListGroup gru4 = new ExpandListGroup();
+        gru4.setName("Report");
+        ExpandListChild ch4_1 = new ExpandListChild();
+        ch4_1.setName("Daily Report");
+        ch4_1.setTag(null);
+        list2.add(ch4_1);
+        gru4.setItems(list2);
+
         list.add(gru1);
         list.add(gru2);
         list.add(gru3);
+        list.add(gru4);
         return list;
     }
 

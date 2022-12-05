@@ -20,6 +20,8 @@
             android:id="@+id/ExpList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:groupIndicator="@null" />
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:layoutDirection="rtl"
+            />
     </RelativeLayout>
 </LinearLayout>
