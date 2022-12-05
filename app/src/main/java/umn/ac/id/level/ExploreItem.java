@@ -1,112 +1,41 @@
 package umn.ac.id.level;
 
-import android.widget.Button;
-
 public class ExploreItem {
-    String namaAkun;
-    String namaLokasi;
-    String durasiTrip;
-    String totalBudget;
-    int detailsButton;
-    int profileImage;
-    int locationImage;
-    int iconSaved;
-    int iconShare;
-    int iconDuration;
-    int iconBudget;
+    String user, location;
+    int travelDays, totalCost;
 
-    public ExploreItem(String namaAkun, String namaLokasi, String durasiTrip, String totalBudget, int detailsButton, int profileImage, int locationImage, int iconSaved, int iconShare, int iconDuration, int iconBudget) {
-        this.namaAkun = namaAkun;
-        this.namaLokasi = namaLokasi;
-        this.durasiTrip = durasiTrip;
-        this.totalBudget = totalBudget;
-        this.detailsButton = detailsButton;
-        this.profileImage = profileImage;
-        this.locationImage = locationImage;
-        this.iconSaved = iconSaved;
-        this.iconShare = iconShare;
-        this.iconDuration = iconDuration;
-        this.iconBudget = iconBudget;
+    public ExploreItem() {}
+
+    public String getUser() {
+        return user;
     }
 
-
-    public String getNamaAkun() {
-        return namaAkun;
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    public String getNamaLokasi() {
-        return namaLokasi;
+    public String getLocation() {
+        return location;
     }
 
-    public String getDurasiTrip() {
-        return durasiTrip;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
-    public String getTotalBudget() {
-        return totalBudget;
+    public int getTravelDays() {
+        return travelDays;
     }
 
-    public int detailsButton() {
-        return detailsButton;
+    public void setTravelDays(int travelDays) {
+        this.travelDays = travelDays;
     }
 
-    public int getProfileImage() {
-        return profileImage;
+    public int getTotalCost() {
+        return totalCost;
     }
 
-    public int getLocationImage() {
-        return locationImage;
+    public void setTotalCost(int totalCost) {
+        this.totalCost = totalCost;
     }
 
-    public int getIconSaved() {
-        return iconSaved;
-    }
-
-    public int getIconShare() {
-        return iconShare;
-    }
-
-    public int getIconDuration() {
-        return iconDuration;
-    }
-
-    public int getIconBudget() {
-        return iconBudget;
-    }
-
-    public void setNamaAkun(String namaAkun) {
-        this.namaAkun = namaAkun;
-    }
-
-    public void setNamaLokasi(String namaLokasi) {
-        this.namaLokasi = namaLokasi;
-    }
-
-    public void setDurasiTrip(String durasiTrip) {
-        this.durasiTrip = durasiTrip;
-    }
-
-    public void setTotalBudget(String totalBudget) {
-        this.totalBudget = totalBudget;
-    }
-
-    public void setProfileImage(int profileImage) {
-        this.profileImage = profileImage;
-    }
-
-    public void setLocationImage(int locationImage) {
-        this.locationImage = locationImage;
-    }
-
-    public void setIconSaved(int iconSaved) {
-        this.iconSaved = iconSaved;
-    }
-
-    public void setIconDuration(int iconDuration) {
-        this.iconDuration = iconDuration;
-    }
-
-    public void setIconBudget(int iconBudget) {
-        this.iconBudget = iconBudget;
-    }
 }

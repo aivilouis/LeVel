@@ -1,48 +1,52 @@
 package umn.ac.id.level;
 
-import android.content.ClipData;
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import java.util.Objects;
 
-public class ExploreAdapter extends RecyclerView.Adapter<ExploreViewHolder> {
-    Context context;
-    List<ExploreItem> items;
+public class ExploreAdapter extends
+        FirebaseRecyclerAdapter<ExploreItem, ExploreAdapter.ExploreViewHolder> {
+//    List<ExploreItem> items;
 
-    public ExploreAdapter(Context context, List<ExploreItem> items) {
-        this.context = context;
-        this.items = items;
+    public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options) {
+        super(Objects.requireNonNull(options));
     }
 
     @NonNull
     @Override
     public ExploreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ExploreViewHolder(LayoutInflater.from(context).inflate(R.layout.home_recycler_view_row,parent,false));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view_row, parent, false);
+        return new ExploreViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull ExploreViewHolder holder, int position) {
-    holder.profileView.setImageResource(items.get(position).getProfileImage());
-    holder.locationView.setImageResource(items.get(position).getLocationImage());
-    holder.iconSavedView.setImageResource(items.get(position).getIconSaved());
-    holder.iconShareView.setImageResource(items.get(position).getIconShare());
-    holder.iconDurationView.setImageResource(items.get(position).getIconDuration());
-    holder.iconBudgetView.setImageResource(items.get(position).getIconBudget());
-    holder.profileTxtView.setText(items.get(position).getNamaAkun());
-    holder.locationTxtView.setText(items.get(position).getNamaLokasi());
-    holder.durationTxtView.setText(items.get(position).getDurasiTrip());
-    holder.budgetTxtView.setText(items.get(position).getTotalBudget());
-
+    protected void onBindViewHolder(@NonNull ExploreAdapter.ExploreViewHolder holder, int position, @NonNull ExploreItem model) {
+        holder.user.setText(model.getUser());
+        holder.location.setText(model.getLocation());
+        holder.travelDays.setText(model.getTravelDays() + " days");
+        holder.totalCost.setText("Rp " + model.getTotalCost() + ",-");
     }
 
-    @Override
-    public int getItemCount() {
-        return items.size();
+    static class ExploreViewHolder extends RecyclerView.ViewHolder {
+        TextView user, location, travelDays, totalCost;
+
+        public ExploreViewHolder(@NonNull View itemView) {
+            super(itemView);
+            user = itemView.findViewById(R.id.user);
+            location = itemView.findViewById(R.id.location);
+            travelDays = itemView.findViewById(R.id.travelDays);
+            totalCost = itemView.findViewById(R.id.totalCost);
+        }
     }
 }

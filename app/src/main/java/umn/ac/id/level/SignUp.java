@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 public class SignUp extends AppCompatActivity {
 
     private EditText etUsername, etEmail, etPassword;
@@ -50,7 +52,8 @@ public class SignUp extends AppCompatActivity {
         ref = rootNode.getReference("Users");
 
         String id, username, email, password;
-        id = ref.push().getKey();
+//        id = ref.push().getKey();
+        id = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         username = etUsername.getText().toString();
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
@@ -81,7 +84,6 @@ public class SignUp extends AppCompatActivity {
 
         UserData user = new UserData(id, username, email);
 
-        assert id != null;
         ref.child(id).setValue(user);
     }
 }

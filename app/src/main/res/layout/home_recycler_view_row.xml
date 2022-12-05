@@ -8,21 +8,22 @@
     android:layout_marginBottom="20dp"
     tools:ignore="HardcodedText, ContentDescription, Autofill, UnusedAttribute, SpUsage">
 
+    <!--blm retrieve data-->
     <ImageView
         android:id="@+id/profileImg"
         android:layout_width="35dp"
-        android:layout_height="35dp"/>
+        android:layout_height="35dp"
+        android:src="@drawable/profile1"/>
 
     <TextView
-        android:id="@+id/profileTxt"
+        android:id="@+id/user"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
         android:text="namaprofil"
         android:textColor="@color/black"
-        android:textFontWeight="10"
-        />
+        android:textFontWeight="10"/>
 
     <ImageView
         android:id="@+id/iconSaved"
@@ -30,7 +31,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="270dp"
         android:layout_marginTop="5dp"
-        />
+        android:src="@drawable/icon_saved"/>
 
     <ImageView
         android:id="@+id/iconShare"
@@ -38,15 +39,16 @@
         android:layout_height="20dp"
         android:layout_marginStart="245dp"
         android:layout_marginTop="5dp"
-        />
+        android:src="@drawable/icon_share"/>
 
+    <!--blm retrieve data-->
     <ImageView
         android:id="@+id/locationImg"
         android:layout_width="370dp"
         android:layout_height="370dp"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        />
+        android:src="@drawable/bali"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/detailsBtn"
@@ -64,7 +66,7 @@
         android:background="@color/bottomBar" />
 
     <TextView
-        android:id="@+id/locationTxt"
+        android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="305dp"
@@ -79,10 +81,10 @@
         android:layout_marginStart="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        />
+        android:src="@drawable/icon_days"/>
 
     <TextView
-        android:id="@+id/durationTxt"
+        android:id="@+id/travelDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -96,16 +98,15 @@
         android:layout_height="30dp"
         android:layout_marginStart="200dp"
         android:layout_marginTop="342dp"
-        />
+        android:src="@drawable/icon_totalcost"/>
 
     <TextView
-        android:id="@+id/budgetTxt"
+        android:id="@+id/totalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="230dp"
         android:layout_marginTop="347dp"
         android:textSize="10dp"
         android:textColor="@color/black"/>
-
 
 </RelativeLayout>
