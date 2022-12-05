@@ -7,21 +7,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public class Account extends AppCompatActivity {
+
+    SharedPreferences sharedPreferences;
+    String email;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -33,6 +37,9 @@ public class Account extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.account_actionbar);
         getSupportActionBar().setElevation(0);
 
+        sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
+        email = sharedPreferences.getString("EMAIL_KEY", "");
+
         Button editBtn = findViewById(R.id.editprofileBtn);
         editBtn.setOnClickListener(v -> {
             Intent intent = new Intent(Account.this, EditAccount.class);
@@ -41,7 +48,7 @@ public class Account extends AppCompatActivity {
 
 
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview2);
-        List<Posts> items = new ArrayList<Posts>();
+        List<Posts> items = new ArrayList<>();
         items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
         items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
 
@@ -79,6 +86,7 @@ public class Account extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -90,10 +98,15 @@ public class Account extends AppCompatActivity {
                 Intent intentAbout = new Intent(Account.this, About.class);
                 startActivity(intentAbout);
                 return true;
-//            case R.id.signout:
-//                Intent intentSignOut = new Intent(Account.this, About.class);
-//                startActivity(intentSignOut);
-//                return true;
+            case R.id.signout:
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+
+                Intent i = new Intent(Account.this, Login.class);
+                startActivity(i);
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
