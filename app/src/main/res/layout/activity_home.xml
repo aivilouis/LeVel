@@ -15,19 +15,20 @@
         android:background="@color/primary"/>
 
        <EditText
-            android:layout_width="270dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginLeft="42dp"
             android:hint="Search"
-           android:textColorHint="#BFBDE8"
+            android:textColorHint="#BFBDE8"
+           android:layout_marginHorizontal="20dp"
             android:inputType="text"
             android:textColor="@color/white"
             android:radius="20dp"
-           android:textSize="15dp"
-           android:textAlignment="gravity"
+            android:textSize="15sp"
+            android:textAlignment="gravity"
             android:background="@drawable/search_bg"
-            android:drawableRight="@drawable/search_eye"
-           android:paddingLeft="7dp"/>
+            android:drawableEnd="@drawable/search_eye"
+            android:paddingStart="15dp"
+           android:paddingEnd="8dp"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,8 +39,7 @@
         app:menu="@menu/bottom_nav_menu"
         app:itemBackground="@color/bottomBar"
         app:itemIconTint="#0D797D"
-        app:labelVisibilityMode="unlabeled"
-       />
+        app:labelVisibilityMode="unlabeled"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecycleView"
@@ -48,7 +48,6 @@
         android:layout_height="674dp"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginBottom="35dp"
-        />
+        android:layout_marginBottom="35dp"/>
 
 </RelativeLayout>
