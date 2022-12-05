@@ -3,20 +3,30 @@ package umn.ac.id.level;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Objects;
 
 public class AddPostDetails extends AppCompatActivity {
 
-    private EditText location, days, totalcost, ticketprice, hotel, costpernight;
-    private final UserPosts userPost = new UserPosts();
+    private EditText etLocation, etDays, etTotalCost, etTicketPrice, etHotel, etCostPerNight;
+    SharedPreferences sharedPreferences;
+    String email;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,17 +38,22 @@ public class AddPostDetails extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+        sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
+        email = sharedPreferences.getString("EMAIL_KEY", "");
+
         Intent intent = getIntent();
-        Bitmap bm = (Bitmap)intent.getParcelableExtra("IMG");
+        Bitmap bm = intent.getParcelableExtra("IMG");
         ImageView img = findViewById(R.id.imgView);
         img.setImageBitmap(bm);
 
-        location = findViewById(R.id.input_location);
-        days = findViewById(R.id.input_days);
-        totalcost = findViewById(R.id.input_totalcost);
-        ticketprice = findViewById(R.id.input_ticketprice);
-        hotel = findViewById(R.id.input_hotel);
-        costpernight = findViewById(R.id.input_costpernight);
+        etLocation = findViewById(R.id.input_location);
+        etDays = findViewById(R.id.input_days);
+        etTotalCost = findViewById(R.id.input_totalcost);
+        etTicketPrice = findViewById(R.id.input_ticketprice);
+        etHotel = findViewById(R.id.input_hotel);
+        etCostPerNight = findViewById(R.id.input_costpernight);
     }
 
     @Override
@@ -51,20 +66,11 @@ public class AddPostDetails extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_done) {
-            if (CheckAllFields()) {
-                userPost.setLocation(location.getText().toString());
-                userPost.setDays(Integer.parseInt(days.getText().toString()));
-                userPost.setTotalcost(Integer.parseInt(totalcost.getText().toString()));
-                userPost.setTicketprice(Integer.parseInt(ticketprice.getText().toString()));
-                userPost.setHotel(hotel.getText().toString());
-                userPost.setCostpernight(Integer.parseInt(costpernight.getText().toString()));
-
-                Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
-                intent.putExtra("DATA", userPost);
-                this.startActivity(intent);
-
-                return true;
-            }
+            saveData();
+            Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
+            intent.putExtra("DAYS", Integer.parseInt(etDays.getText().toString()));
+            this.startActivity(intent);
+            return true;
         }
         if (id == android.R.id.home) {
             Intent intent = new Intent(AddPostDetails.this, AddPost.class);
@@ -74,31 +80,28 @@ public class AddPostDetails extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean CheckAllFields() {
-        if (location.length() == 0) {
-            location.setError("This field is required");
-            return false;
+    private void saveData() {
+        ref = rootNode.getReference("Posts");
+
+        String id = ref.push().getKey();
+        String location = etLocation.getText().toString();
+        String hotel = etHotel.getText().toString();
+        int days = Integer.parseInt(etDays.getText().toString());
+        int totalCost = Integer.parseInt(etTotalCost.getText().toString());
+        int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
+        int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
+
+        if (TextUtils.isEmpty(location)) etLocation.setError("This field is required");
+        else if (TextUtils.isEmpty(hotel)) etHotel.setError("This field is required");
+        else if (etDays.length() == 0) etDays.setError("This field is required");
+        else if (etTotalCost.length() == 0) etTotalCost.setError("This field is required");
+        else if (etTicketPrice.length() == 0) etTicketPrice.setError("This field is required");
+        else if (etCostPerNight.length() == 0) etCostPerNight.setError("This field is required");
+        else {
+            Post post = new Post(id, email, location, hotel, days, totalCost, ticketPrice, costPerNight);
+
+            assert id != null;
+            ref.child(id).setValue(post);
         }
-        if (days.length() == 0) {
-            days.setError("This field is required");
-            return false;
-        }
-        if (totalcost.length() == 0) {
-            totalcost.setError("This field is required");
-            return false;
-        }
-        if (ticketprice.length() == 0) {
-            ticketprice.setError("This field is required");
-            return false;
-        }
-        if (hotel.length() == 0) {
-            hotel.setError("This field is required");
-            return false;
-        }
-        if (costpernight.length() == 0) {
-            costpernight.setError("This field is required");
-            return false;
-        }
-        return true;
     }
 }
