@@ -155,7 +155,6 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_navigation"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="91dp"
         android:layout_marginTop="303dp"
         tools:ignore="NotSibling" />
 </RelativeLayout>
