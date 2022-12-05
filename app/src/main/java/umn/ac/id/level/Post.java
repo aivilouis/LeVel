@@ -1,20 +1,24 @@
 package umn.ac.id.level;
 
-public class Post {
+import java.io.Serializable;
+
+public class Post implements Serializable {
     private String id, user, location, hotel;
-    private int days, totalCost, ticketPrice, costPerNight;
+    private int travelDays, totalCost, ticketPrice, costPerNight;
+    private Object postDetails;
 
     public Post() {}
 
-    public Post(String id, String user, String location, String hotel, int days, int totalCost, int ticketPrice, int costPerNight) {
+    public Post(String id, String user, String location, String hotel, int travelDays, int totalCost, int ticketPrice, int costPerNight) {
         this.id = id;
         this.user = user;
         this.location = location;
         this.hotel = hotel;
-        this.days = days;
+        this.travelDays = travelDays;
         this.totalCost = totalCost;
         this.ticketPrice = ticketPrice;
         this.costPerNight = costPerNight;
+        this.postDetails = null;
     }
 
     public String getId() {
@@ -49,12 +53,12 @@ public class Post {
         this.hotel = hotel;
     }
 
-    public int getDays() {
-        return days;
+    public int getTravelDays() {
+        return travelDays;
     }
 
-    public void setDays(int days) {
-        this.days = days;
+    public void setTravelDays(int travelDays) {
+        this.travelDays = travelDays;
     }
 
     public int getTotalCost() {
@@ -79,5 +83,13 @@ public class Post {
 
     public void setCostPerNight(int costPerNight) {
         this.costPerNight = costPerNight;
+    }
+
+    public Object getPostDetails() {
+        return postDetails;
+    }
+
+    public void setPostDetails(Object postDetails) {
+        this.postDetails = postDetails;
     }
 }

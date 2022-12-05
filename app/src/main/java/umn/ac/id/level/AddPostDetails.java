@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -67,9 +66,6 @@ public class AddPostDetails extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_done) {
             saveData();
-            Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
-            intent.putExtra("DAYS", Integer.parseInt(etDays.getText().toString()));
-            this.startActivity(intent);
             return true;
         }
         if (id == android.R.id.home) {
@@ -83,25 +79,29 @@ public class AddPostDetails extends AppCompatActivity {
     private void saveData() {
         ref = rootNode.getReference("Posts");
 
-        String id = ref.push().getKey();
-        String location = etLocation.getText().toString();
-        String hotel = etHotel.getText().toString();
-        int days = Integer.parseInt(etDays.getText().toString());
-        int totalCost = Integer.parseInt(etTotalCost.getText().toString());
-        int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
-        int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
-
-        if (TextUtils.isEmpty(location)) etLocation.setError("This field is required");
-        else if (TextUtils.isEmpty(hotel)) etHotel.setError("This field is required");
+        if (etLocation.length() == 0) etLocation.setError("This field is required");
         else if (etDays.length() == 0) etDays.setError("This field is required");
         else if (etTotalCost.length() == 0) etTotalCost.setError("This field is required");
         else if (etTicketPrice.length() == 0) etTicketPrice.setError("This field is required");
+        else if (etHotel.length() == 0) etHotel.setError("This field is required");
         else if (etCostPerNight.length() == 0) etCostPerNight.setError("This field is required");
         else {
+            String id = ref.push().getKey();
+            String location = etLocation.getText().toString();
+            String hotel = etHotel.getText().toString();
+            int days = Integer.parseInt(etDays.getText().toString());
+            int totalCost = Integer.parseInt(etTotalCost.getText().toString());
+            int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
+            int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
+
             Post post = new Post(id, email, location, hotel, days, totalCost, ticketPrice, costPerNight);
 
             assert id != null;
             ref.child(id).setValue(post);
+
+            Intent intent = new Intent(AddPostDetails.this, AddPostDetails2.class);
+            intent.putExtra("POST", post);
+            this.startActivity(intent);
         }
     }
 }
