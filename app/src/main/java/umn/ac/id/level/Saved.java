@@ -53,8 +53,8 @@ public class Saved extends AppCompatActivity {
 
         //Listitem
         List<SavedItem> itemss = new ArrayList<SavedItem>();
-        itemss.add(new SavedItem("taoPhiang77","BANGKOK, THAILAND","5 days (7 November 2022)","Rp 6.000.000,-",R.drawable.profile1,R.drawable.explore_thailand,R.drawable.icon_saved_selected,R.drawable.icon_share,R.drawable.icon_days,R.drawable.icon_totalcost));
-        itemss.add(new SavedItem("won.young211","SARAWAK, MALAYSIA","2 days (10 July 2022)","Rp 5.000.000,-",R.drawable.profile3,R.drawable.explore_malaysia,R.drawable.icon_saved_selected,R.drawable.icon_share,R.drawable.icon_days,R.drawable.icon_totalcost));
+        itemss.add(new SavedItem("taoPhiang77","BANGKOK, THAILAND","5 days (7 November 2022)","Rp 6.000.000,-",R.drawable.details_button,R.drawable.profile1,R.drawable.explore_thailand,R.drawable.icon_saved_selected,R.drawable.icon_share,R.drawable.icon_days,R.drawable.icon_totalcost));
+        itemss.add(new SavedItem("won.young211","SARAWAK, MALAYSIA","2 days (10 July 2022)","Rp 5.000.000,-",R.drawable.details_button,R.drawable.profile3,R.drawable.explore_malaysia,R.drawable.icon_saved_selected,R.drawable.icon_share,R.drawable.icon_days,R.drawable.icon_totalcost));
 
         //Explore recycle
         srecyclerView.setLayoutManager(new LinearLayoutManager(this));

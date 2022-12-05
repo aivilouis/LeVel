@@ -1,10 +1,13 @@
 package umn.ac.id.level;
 
+import android.widget.Button;
+
 public class ExploreItem {
     String namaAkun;
     String namaLokasi;
     String durasiTrip;
     String totalBudget;
+    int detailsButton;
     int profileImage;
     int locationImage;
     int iconSaved;
@@ -12,18 +15,20 @@ public class ExploreItem {
     int iconDuration;
     int iconBudget;
 
-    public ExploreItem(String namaAkun, String namaLokasi, String durasiTrip, String totalBudget, int profileImage, int locationImage, int iconSaved, int iconShare,int iconDuration, int iconBudget) {
+    public ExploreItem(String namaAkun, String namaLokasi, String durasiTrip, String totalBudget, int detailsButton, int profileImage, int locationImage, int iconSaved, int iconShare, int iconDuration, int iconBudget) {
         this.namaAkun = namaAkun;
         this.namaLokasi = namaLokasi;
         this.durasiTrip = durasiTrip;
         this.totalBudget = totalBudget;
+        this.detailsButton = detailsButton;
         this.profileImage = profileImage;
         this.locationImage = locationImage;
         this.iconSaved = iconSaved;
-        this.iconShare= iconShare;
+        this.iconShare = iconShare;
         this.iconDuration = iconDuration;
         this.iconBudget = iconBudget;
     }
+
 
     public String getNamaAkun() {
         return namaAkun;
@@ -39,6 +44,10 @@ public class ExploreItem {
 
     public String getTotalBudget() {
         return totalBudget;
+    }
+
+    public int detailsButton() {
+        return detailsButton;
     }
 
     public int getProfileImage() {

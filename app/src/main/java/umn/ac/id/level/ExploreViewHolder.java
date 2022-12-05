@@ -1,6 +1,7 @@
 package umn.ac.id.level;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ExploreViewHolder extends RecyclerView.ViewHolder {
     ImageView profileView, locationView, iconSavedView, iconShareView,iconDurationView, iconBudgetView;
     TextView profileTxtView, locationTxtView, durationTxtView, budgetTxtView;
+    Button detailsButtonView;
 
     public ExploreViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -19,6 +21,7 @@ public class ExploreViewHolder extends RecyclerView.ViewHolder {
         iconShareView = itemView.findViewById(R.id.iconShare);
         iconBudgetView = itemView.findViewById(R.id.iconBudget);
         iconDurationView = itemView.findViewById(R.id.iconDuration);
+        detailsButtonView = itemView.findViewById(R.id.detailsBtn);
         profileTxtView = itemView.findViewById(R.id.profileTxt);
         locationTxtView = itemView.findViewById(R.id.locationTxt);
         durationTxtView = itemView.findViewById(R.id.durationTxt);
