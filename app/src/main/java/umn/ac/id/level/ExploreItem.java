@@ -1,7 +1,7 @@
 package umn.ac.id.level;
 
 public class ExploreItem {
-    String user, location;
+    String user, location, profileImg;
     int travelDays, totalCost;
 
     public ExploreItem() {}
@@ -12,6 +12,14 @@ public class ExploreItem {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getProfileImg() {
+        return profileImg;
+    }
+
+    public void setProfileImg(String profileImg) {
+        this.profileImg = profileImg;
     }
 
     public String getLocation() {

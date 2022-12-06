@@ -51,12 +51,13 @@ public class SignUp extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Users");
 
-        String id, username, email, password;
+        String id, username, email, password, profileImg;
 //        id = ref.push().getKey();
         id = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         username = etUsername.getText().toString();
         email = etEmail.getText().toString();
         password = etPassword.getText().toString();
+        profileImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 
         if (TextUtils.isEmpty(username)) {
             Toast.makeText(getApplicationContext(), "Please enter username", Toast.LENGTH_LONG).show();
@@ -78,11 +79,12 @@ public class SignUp extends AppCompatActivity {
                         Intent intent = new Intent(SignUp.this, Account.class);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(getApplicationContext(), "Registration failed." + " Please try again later", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Registration failed." +
+                                " Please try again later", Toast.LENGTH_LONG).show();
                     }
                 });
 
-        UserData user = new UserData(id, username, email);
+        UserData user = new UserData(id, username, email, profileImg);
 
         ref.child(id).setValue(user);
     }
