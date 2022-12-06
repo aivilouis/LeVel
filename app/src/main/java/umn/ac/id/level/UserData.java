@@ -1,23 +1,14 @@
 package umn.ac.id.level;
 
 public class UserData {
-    String id, username, email, profileImg;
+    String username, email, profileImg;
 
     public UserData() {}
 
-    public UserData(String id, String username, String email, String profileImg) {
-        this.id = id;
+    public UserData(String username, String email, String profileImg) {
         this.username = username;
         this.email = email;
         this.profileImg = profileImg;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getUsername() {

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,7 @@ public class Home extends AppCompatActivity {
     DatabaseReference ref;
 
     SharedPreferences sharedPreferences;
-    String email;
+    String email, username;
 
     RecyclerView erecyclerView;
     ExploreAdapter adapter;
@@ -63,6 +64,8 @@ public class Home extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
         email = sharedPreferences.getString("EMAIL_KEY", "");
+        username = sharedPreferences.getString("USERNAME", "");
+        Log.d("TEST", username);
 
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Posts");

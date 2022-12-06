@@ -2,7 +2,9 @@ package umn.ac.id.level;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -24,6 +26,9 @@ public class SignUp extends AppCompatActivity {
     FirebaseDatabase rootNode;
     DatabaseReference ref;
 
+    SharedPreferences sharedPreferences;
+    String email, password, username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -38,6 +43,12 @@ public class SignUp extends AppCompatActivity {
         Button btn = findViewById(R.id.signupBtn);
         TextView tvSignIn = findViewById(R.id.tvSignIn);
 
+        sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
+
+        email = sharedPreferences.getString("EMAIL_KEY", null);
+        password = sharedPreferences.getString("PASSWORD_KEY", null);
+        username = sharedPreferences.getString("USERNAME", null);
+
         btn.setOnClickListener(v -> registerNewUser());
 
         tvSignIn.setOnClickListener(v -> {
@@ -51,28 +62,34 @@ public class SignUp extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Users");
 
-        String id, username, email, password, profileImg;
+        String mUsername, mEmail, mPassword, profileImg;
 //        id = ref.push().getKey();
-        id = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-        username = etUsername.getText().toString();
-        email = etEmail.getText().toString();
-        password = etPassword.getText().toString();
+//        id = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        mUsername = etUsername.getText().toString();
+        mEmail = etEmail.getText().toString();
+        mPassword = etPassword.getText().toString();
         profileImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 
-        if (TextUtils.isEmpty(username)) {
+        if (TextUtils.isEmpty(mUsername)) {
             Toast.makeText(getApplicationContext(), "Please enter username", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(email)) {
+        if (TextUtils.isEmpty(mEmail)) {
             Toast.makeText(getApplicationContext(), "Please enter email", Toast.LENGTH_LONG).show();
             return;
         }
-        if (TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(mPassword)) {
             Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_LONG).show();
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email, password)
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("EMAIL_KEY", mEmail);
+        editor.putString("PASSWORD_KEY", mPassword);
+        editor.putString("USERNAME", mUsername);
+        editor.apply();
+
+        mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(getApplicationContext(), "Registration successful", Toast.LENGTH_LONG).show();
@@ -84,8 +101,8 @@ public class SignUp extends AppCompatActivity {
                     }
                 });
 
-        UserData user = new UserData(id, username, email, profileImg);
+        UserData user = new UserData(mUsername, mEmail, profileImg);
 
-        ref.child(id).setValue(user);
+        ref.child(mUsername).setValue(user);
     }
 }
