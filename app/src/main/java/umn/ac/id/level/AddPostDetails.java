@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,11 +20,9 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -37,9 +33,6 @@ public class AddPostDetails extends AppCompatActivity {
     LinearLayout container;
     View newView;
     ArrayList<Details> postDetails = new ArrayList<>();
-
-    SharedPreferences sharedPreferences;
-    String email, username;
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
@@ -55,10 +48,6 @@ public class AddPostDetails extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
-
-        sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
-        email = sharedPreferences.getString("EMAIL_KEY", "");
-        username = sharedPreferences.getString("USERNAME", "");
 
         Intent intent = getIntent();
         Bitmap bm = intent.getParcelableExtra("IMG");
@@ -179,21 +168,9 @@ public class AddPostDetails extends AppCompatActivity {
             postDetails.add(new Details(label, cost, destination, review, rating));
         }
 
-//        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-//        Log.d("TEST", uid);
-//        DatabaseReference ref2 = rootNode.getReference("Users/-NIQiqJjCcniLrRAVo32/username");
-//        ref2.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                String username = dataSnapshot.getValue(String.class);
-//                Log.d("TEST", username);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
+        String username = currentUser.getDisplayName();
 
         Post post = new Post(id, username, location, hotel, days, totalCost, ticketPrice, costPerNight, postDetails);
 

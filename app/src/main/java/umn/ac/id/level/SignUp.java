@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -13,21 +14,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Objects;
 
 public class SignUp extends AppCompatActivity {
 
-    private EditText etUsername, etEmail, etPassword;
-    private FirebaseAuth mAuth;
+    EditText etUsername, etEmail, etPassword;
+    FirebaseAuth mAuth;
+    FirebaseUser user;
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
 
     SharedPreferences sharedPreferences;
-    String email, password, username;
+    String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -47,7 +50,6 @@ public class SignUp extends AppCompatActivity {
 
         email = sharedPreferences.getString("EMAIL_KEY", null);
         password = sharedPreferences.getString("PASSWORD_KEY", null);
-        username = sharedPreferences.getString("USERNAME", null);
 
         btn.setOnClickListener(v -> registerNewUser());
 
@@ -63,8 +65,6 @@ public class SignUp extends AppCompatActivity {
         ref = rootNode.getReference("Users");
 
         String mUsername, mEmail, mPassword, profileImg;
-//        id = ref.push().getKey();
-//        id = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         mUsername = etUsername.getText().toString();
         mEmail = etEmail.getText().toString();
         mPassword = etPassword.getText().toString();
@@ -86,23 +86,31 @@ public class SignUp extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("EMAIL_KEY", mEmail);
         editor.putString("PASSWORD_KEY", mPassword);
-        editor.putString("USERNAME", mUsername);
         editor.apply();
 
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Registration successful", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(SignUp.this, Account.class);
-                        startActivity(intent);
+                        user = mAuth.getCurrentUser();
+
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(mUsername)
+                                .setPhotoUri(Uri.parse(profileImg))
+                                .build();
+
+                        user.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
+                            if (task1.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(),
+                                        "Registration successful", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(SignUp.this, Account.class);
+                                startActivity(intent);
+                            }
+                        });
+
                     } else {
                         Toast.makeText(getApplicationContext(), "Registration failed." +
                                 " Please try again later", Toast.LENGTH_LONG).show();
                     }
                 });
-
-        UserData user = new UserData(mUsername, mEmail, profileImg);
-
-        ref.child(mUsername).setValue(user);
     }
 }
