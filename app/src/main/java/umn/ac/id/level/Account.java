@@ -15,8 +15,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +36,15 @@ public class Account extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.account_actionbar);
         getSupportActionBar().setElevation(0);
+
+        TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
+        username.setText(user.getDisplayName());
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
         email = sharedPreferences.getString("EMAIL_KEY", "");
@@ -45,7 +54,6 @@ public class Account extends AppCompatActivity {
             Intent intent = new Intent(Account.this, EditAccount.class);
             this.startActivity(intent);
         });
-
 
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview2);
         List<Posts> items = new ArrayList<>();

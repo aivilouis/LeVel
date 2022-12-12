@@ -8,9 +8,9 @@
     tools:context=".Account">
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/accountUsername"
         android:gravity="center_horizontal"
         android:textStyle="bold"
-        android:text="@string/username"
         android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
