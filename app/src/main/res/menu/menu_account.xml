@@ -12,6 +12,12 @@
 
         <menu>
             <item
+                android:id="@+id/edit"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/edit_icon"
+                android:title="Edit Profile" />
+
+            <item
                 android:id="@+id/faq"
                 app:showAsAction="ifRoom"
                 android:icon="@drawable/faq_icon"

@@ -49,11 +49,11 @@ public class Account extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
         email = sharedPreferences.getString("EMAIL_KEY", "");
 
-        Button editBtn = findViewById(R.id.editprofileBtn);
-        editBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(Account.this, EditAccount.class);
-            this.startActivity(intent);
-        });
+//        Button editBtn = findViewById(R.id.editprofileBtn);
+//        editBtn.setOnClickListener(v -> {
+//            Intent intent = new Intent(Account.this, EditAccount.class);
+//            this.startActivity(intent);
+//        });
 
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview2);
         List<Posts> items = new ArrayList<>();
@@ -98,6 +98,10 @@ public class Account extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.edit:
+                Intent intentEdit = new Intent(Account.this, EditAccount.class);
+                startActivity(intentEdit);
+                return true;
             case R.id.faq:
                 Intent intentFAQ = new Intent(Account.this, FAQ.class);
                 startActivity(intentFAQ);
