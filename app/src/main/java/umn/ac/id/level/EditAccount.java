@@ -5,15 +5,36 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.hbb20.CountryCodePicker;
 
 import java.util.Objects;
 
 public class EditAccount extends AppCompatActivity {
+
+    EditText username, bio;
+    CountryCodePicker country;
+    Spinner category;
+
+    String currentUname;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference ref;
 
     @SuppressLint({"NonConstantResourceId", "SetTextI18n"})
     @Override
@@ -26,19 +47,37 @@ public class EditAccount extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        EditText username = findViewById(R.id.input_username);
-        EditText country = findViewById(R.id.input_country);
-        EditText category = findViewById(R.id.input_category);
-        EditText bio = findViewById(R.id.input_bio);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        assert user != null;
+        currentUname = user.getDisplayName();
 
-        username.setText("han.sohee");
-        username.setSelection(username.getText().length());
-        country.setText("South Korea");
-        country.setSelection(country.getText().length());
-        category.setText("Business Traveler");
-        category.setSelection(category.getText().length());
-        bio.setText("안녕하십니까");
-        bio.setSelection(bio.getText().length());
+        rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        ref = rootNode.getReference("UserData");
+
+        category = findViewById(R.id.input_category);
+        String[] items = new String[]{"Business Traveler", "Leisure Traveler"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        category.setAdapter(adapter);
+
+        username = findViewById(R.id.input_username);
+        country = findViewById(R.id.input_country);
+        bio = findViewById(R.id.input_bio);
+
+        ValueEventListener dataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserData userData = dataSnapshot.getValue(UserData.class);
+                assert userData != null;
+                username.setText(userData.getUsername());
+                category.setSelection(userData.getCategoryId());
+                bio.setText(userData.getBio());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        };
+
+        ref.child(currentUname).addValueEventListener(dataListener);
 
         Button editProfile = findViewById(R.id.editprofileBtn);
         editProfile.setOnClickListener(v -> {
@@ -60,8 +99,7 @@ public class EditAccount extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_done) {
-            Intent intent = new Intent(EditAccount.this, Account.class);
-            this.startActivity(intent);
+            updateData();
             return true;
         }
         if (id == android.R.id.home) {
@@ -70,5 +108,24 @@ public class EditAccount extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateData() {
+        String mUsername = username.getText().toString();
+        String mCountry = country.getSelectedCountryName();
+//        int flagId = country.getSelectedCountryFlagResourceId();
+        int categoryId = category.getSelectedItemPosition();
+        String mCategory = category.getSelectedItem().toString();
+        String mBio = bio.getText().toString();
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        assert currentUser != null;
+        String username = currentUser.getDisplayName();
+
+        assert username != null;
+        ref.child(username).setValue(new UserData(mUsername, mCountry, categoryId, mCategory, mBio));
+
+        Intent intent = new Intent(EditAccount.this, Account.class);
+        this.startActivity(intent);
     }
 }

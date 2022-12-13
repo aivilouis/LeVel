@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -28,7 +27,6 @@ import java.util.Objects;
 public class Account extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
-    String email;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -47,7 +45,6 @@ public class Account extends AppCompatActivity {
         username.setText(user.getDisplayName());
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
-        email = sharedPreferences.getString("EMAIL_KEY", "");
 
 //        Button editBtn = findViewById(R.id.editprofileBtn);
 //        editBtn.setOnClickListener(v -> {
