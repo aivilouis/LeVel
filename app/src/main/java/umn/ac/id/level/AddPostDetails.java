@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -34,6 +37,7 @@ public class AddPostDetails extends AppCompatActivity {
     EditText etLocation, etDays, etTotalCost, etTicketPrice, etHotel, etCostPerNight;
     LinearLayout container;
     Bitmap bitmap;
+    Uri uri;
     View newView;
     ArrayList<Details> postDetails = new ArrayList<>();
 
@@ -53,9 +57,14 @@ public class AddPostDetails extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
         Intent intent = getIntent();
-        bitmap = intent.getParcelableExtra("IMG");
+        uri = intent.getParcelableExtra("IMG");
+        try {
+            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ImageView img = findViewById(R.id.imgView);
-        img.setImageBitmap(bitmap);
+        img.setImageURI(uri);
 
         etLocation = findViewById(R.id.input_location);
         etDays = findViewById(R.id.input_days);
