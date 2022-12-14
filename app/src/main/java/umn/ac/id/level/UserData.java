@@ -1,17 +1,26 @@
 package umn.ac.id.level;
 
 public class UserData {
-    String username, country, category, bio;
+    String profPic, username, country, category, bio;
     int categoryId;
 
     public UserData() {}
 
-    public UserData(String username, String country, int categoryId, String category, String bio) {
+    public UserData(String profPic, String username, String country, int categoryId, String category, String bio) {
+        this.profPic = profPic;
         this.username = username;
         this.country = country;
         this.categoryId = categoryId;
         this.category = category;
         this.bio = bio;
+    }
+
+    public String getProfPic() {
+        return profPic;
+    }
+
+    public void setProfPic(String profPic) {
+        this.profPic = profPic;
     }
 
     public String getUsername() {
