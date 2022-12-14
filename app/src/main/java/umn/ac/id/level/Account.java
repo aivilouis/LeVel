@@ -13,7 +13,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -45,12 +44,6 @@ public class Account extends AppCompatActivity {
         username.setText(user.getDisplayName());
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
-
-//        Button editBtn = findViewById(R.id.editprofileBtn);
-//        editBtn.setOnClickListener(v -> {
-//            Intent intent = new Intent(Account.this, EditAccount.class);
-//            this.startActivity(intent);
-//        });
 
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview2);
         List<Posts> items = new ArrayList<>();

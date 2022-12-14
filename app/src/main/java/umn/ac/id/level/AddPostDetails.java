@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -31,6 +33,7 @@ public class AddPostDetails extends AppCompatActivity {
 
     EditText etLocation, etDays, etTotalCost, etTicketPrice, etHotel, etCostPerNight;
     LinearLayout container;
+    Bitmap bitmap;
     View newView;
     ArrayList<Details> postDetails = new ArrayList<>();
 
@@ -50,9 +53,9 @@ public class AddPostDetails extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
         Intent intent = getIntent();
-        Bitmap bm = intent.getParcelableExtra("IMG");
+        bitmap = intent.getParcelableExtra("IMG");
         ImageView img = findViewById(R.id.imgView);
-        img.setImageBitmap(bm);
+        img.setImageBitmap(bitmap);
 
         etLocation = findViewById(R.id.input_location);
         etDays = findViewById(R.id.input_days);
@@ -150,6 +153,11 @@ public class AddPostDetails extends AppCompatActivity {
         int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
         int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
 
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteFormat = stream.toByteArray();
+        String encodedImage = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
+
         for (int i = 0; i < count; i++) {
             v = container.getChildAt(i);
 
@@ -172,7 +180,7 @@ public class AddPostDetails extends AppCompatActivity {
         assert currentUser != null;
         String username = currentUser.getDisplayName();
 
-        Post post = new Post(id, username, location, hotel, days, totalCost, ticketPrice, costPerNight, postDetails);
+        Post post = new Post(id, username, encodedImage, location, hotel, days, totalCost, ticketPrice, costPerNight, postDetails);
 
         assert id != null;
         ref.child(id).setValue(post);

@@ -4,16 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Post implements Serializable {
-    private String id, user, location, hotel;
+    private String id, user, location, hotel, locationImg;
     private int travelDays, totalCost, ticketPrice, costPerNight;
     private ArrayList<Details> postDetails;
 
     public Post() {}
 
-    public Post(String id, String user, String location, String hotel, int travelDays, int totalCost,
+    public Post(String id, String user, String locationImg, String location, String hotel, int travelDays, int totalCost,
                 int ticketPrice, int costPerNight, ArrayList<Details> postDetails) {
         this.id = id;
         this.user = user;
+        this.locationImg = locationImg;
         this.location = location;
         this.hotel = hotel;
         this.travelDays = travelDays;
@@ -37,6 +38,14 @@ public class Post implements Serializable {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getLocationImg() {
+        return locationImg;
+    }
+
+    public void setLocationImg(String locationImg) {
+        this.locationImg = locationImg;
     }
 
     public String getLocation() {
