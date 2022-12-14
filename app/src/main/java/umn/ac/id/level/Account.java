@@ -50,7 +50,6 @@ public class Account extends AppCompatActivity {
         items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
         items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
         items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
-        items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(new AccountAdapter(getApplicationContext(),items));
