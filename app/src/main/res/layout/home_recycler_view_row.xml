@@ -43,14 +43,14 @@
         android:layout_marginTop="5dp"
         android:src="@drawable/icon_share"/>
 
-    <!--blm retrieve data-->
     <ImageView
         android:id="@+id/locationImg"
         android:layout_width="370dp"
         android:layout_height="370dp"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:src="@drawable/bali"/>
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/detailsBtn"
