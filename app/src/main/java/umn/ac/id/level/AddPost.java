@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -24,6 +25,7 @@ public class AddPost extends AppCompatActivity {
 
     private ImageView img;
     private Bitmap bm;
+    Uri uri;
 
     @SuppressLint({"QueryPermissionsNeeded", "NonConstantResourceId"})
     @Override
@@ -43,16 +45,21 @@ public class AddPost extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        Bundle extras = null;
-                        if (data != null) {
-                            extras = data.getExtras();
-                        }
-                        Bitmap imageBitmap = null;
-                        if (extras != null) {
-                            imageBitmap = (Bitmap) extras.get("data");
-                        }
-                        img.setImageBitmap(imageBitmap);
-                        bm = imageBitmap;
+                        assert data != null;
+                        uri = data.getData();
+                        img.setImageURI(uri);
+                    }
+                }
+        );
+
+        ActivityResultLauncher<Intent> activityResultLauncher2 = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+                        uri = data.getData();
+                        img.setImageURI(uri);
                     }
                 }
         );
@@ -66,10 +73,9 @@ public class AddPost extends AppCompatActivity {
 
         galleryBtn.setOnClickListener(v -> {
             Intent intent = new Intent();
-            intent.setAction(android.content.Intent.ACTION_VIEW);
             intent.setType("image/*");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            activityResultLauncher2.launch(intent);
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -107,7 +113,7 @@ public class AddPost extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_next) {
             Intent intent = new Intent(AddPost.this, AddPostDetails.class);
-            intent.putExtra("IMG", bm);
+            intent.putExtra("IMG", uri);
             this.startActivity(intent);
             return true;
         }
