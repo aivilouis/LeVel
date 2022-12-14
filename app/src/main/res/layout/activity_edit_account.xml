@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:layout_gravity="center">
         <ImageView
-            android:id="@+id/profilepic"
+            android:id="@+id/profilePic"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="130dp"
@@ -23,7 +23,7 @@
             tools:ignore="ContentDescription" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/editprofileBtn"
+            android:id="@+id/editProfileBtn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="30dp"
