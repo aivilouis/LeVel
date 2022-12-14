@@ -42,7 +42,7 @@
         app:labelVisibilityMode="unlabeled"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/homeRecycleView"
+        android:id="@+id/homeRecyclerView"
         android:layout_marginTop="72dp"
         android:layout_width="match_parent"
         android:layout_height="674dp"

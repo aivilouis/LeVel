@@ -22,6 +22,7 @@ public class Home extends AppCompatActivity {
     DatabaseReference ref;
 
     RecyclerView recyclerView;
+    LinearLayoutManager mLayoutManager;
     ExploreAdapter adapter;
 
     @SuppressLint("NonConstantResourceId")
@@ -59,9 +60,12 @@ public class Home extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Posts");
 
-        recyclerView = findViewById(R.id.homeRecycleView);
+        recyclerView = findViewById(R.id.homeRecyclerView);
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(mLayoutManager);
 
         FirebaseRecyclerOptions<ExploreItem> options =
                 new FirebaseRecyclerOptions.Builder<ExploreItem>()
