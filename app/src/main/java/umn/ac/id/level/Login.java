@@ -57,12 +57,7 @@ public class Login extends AppCompatActivity {
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        googleSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginGoogle();
-            }
-        });
+        googleSignin.setOnClickListener(v -> LoginGoogle());
     }
 
     private void loginUserAccount() {
