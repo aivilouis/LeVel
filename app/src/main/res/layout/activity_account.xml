@@ -48,18 +48,18 @@
                         android:gravity="center_horizontal"
                         android:layout_marginTop="10dp">
                         <ImageView
-                            android:id="@+id/flag"
+                            android:id="@+id/input_country"
                             android:layout_width="22dp"
                             android:layout_height="22dp"
-                            android:src="@drawable/korea_flag"/>
+                            tools:ignore="DuplicateIds" />
 
                         <TextView
-                            android:id="@+id/nation"
+                            android:id="@+id/input_country"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="South Korea"
                             android:textAlignment="center"
-                            android:textColor="@color/secondPrimary" />
+                            android:textColor="@color/secondPrimary"
+                            tools:ignore="DuplicateIds" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -76,11 +76,10 @@
                             android:src="@drawable/bussiness_traveler"/>
 
                         <TextView
-                            android:id="@+id/level"
+                            android:id="@+id/profilePic"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:text="Bussiness Traveler"
                             android:textAlignment="center"
                             android:textColor="@color/secondPrimary"/>
                     </LinearLayout>
@@ -92,10 +91,9 @@
                         android:gravity="center_horizontal"
                         android:layout_marginTop="10dp">
                         <TextView
-                            android:id="@+id/bio"
+                            android:id="@+id/input_bio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="안녕하십니까"
                             android:textAlignment="center"
                             android:textColor="@color/secondPrimary" />
                     </LinearLayout>
