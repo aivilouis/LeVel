@@ -58,6 +58,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:text="South Korea"
                             android:textColor="@color/secondPrimary"
                             tools:ignore="DuplicateIds" />
                     </LinearLayout>
@@ -81,6 +82,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:textAlignment="center"
+                            android:text="Business Traveler"
                             android:textColor="@color/secondPrimary"/>
                     </LinearLayout>
 
@@ -95,6 +97,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:text="Welcome to my page"
                             android:textColor="@color/secondPrimary" />
                     </LinearLayout>
 

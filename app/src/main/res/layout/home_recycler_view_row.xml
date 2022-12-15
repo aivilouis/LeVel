@@ -20,28 +20,29 @@
     <TextView
         android:id="@+id/user"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
         android:layout_marginTop="5dp"
         android:text="namaprofil"
         android:textColor="@color/black"
-        android:textFontWeight="10"/>
+        android:gravity="center_horizontal"
+        android:textFontWeight="12"/>
 
     <ImageView
         android:id="@+id/iconSaved"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="270dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="281dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/icon_saved"/>
 
     <ImageView
         android:id="@+id/iconShare"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="245dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/icon_share"/>
+        android:layout_marginStart="252dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/icon_share" />
 
     <ImageView
         android:id="@+id/locationImg"
@@ -55,10 +56,10 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/detailsBtn"
         android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_height="28dp"
         android:background="@drawable/details_button"
         android:textAllCaps="false"
-        android:layout_marginStart="210dp"
+        android:layout_marginStart="195dp"
         android:layout_marginTop="305dp"/>
 
     <LinearLayout
@@ -73,9 +74,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="305dp"
         android:textColor="@color/white"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
         android:textFontWeight="50"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:shadowColor="@color/secondPrimary"/>
 
     <ImageView
         android:id="@+id/iconDuration"
@@ -96,17 +100,17 @@
 
     <ImageView
         android:id="@+id/iconBudget"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="31dp"
+        android:layout_height="31dp"
         android:layout_marginStart="200dp"
-        android:layout_marginTop="342dp"
+        android:layout_marginTop="341dp"
         android:src="@drawable/icon_totalcost"/>
 
     <TextView
         android:id="@+id/totalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="230dp"
+        android:layout_marginStart="224dp"
         android:layout_marginTop="347dp"
         android:textSize="10dp"
         android:textColor="@color/black"/>
