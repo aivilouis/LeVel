@@ -7,9 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -20,12 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,12 +30,8 @@ import java.util.Objects;
 
 public class UserProfile extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-    FirebaseAuth firebaseAuth;
-    GoogleSignInClient googleSignInClient;
-
     FirebaseDatabase rootNode;
-    DatabaseReference ref, ref2;
+    DatabaseReference refPost, refUserData;
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
@@ -51,18 +40,20 @@ public class UserProfile extends AppCompatActivity {
     ImageView profileImg;
     TextView country, category, bio;
 
+    String key;
+
     @SuppressLint({"NonConstantResourceId", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.account_actionbar);
         getSupportActionBar().setElevation(0);
+
+        Intent intent = getIntent();
+        key = intent.getStringExtra("USER");
 
         TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
         profileImg = findViewById(R.id.accountPicture);
@@ -70,17 +61,11 @@ public class UserProfile extends AppCompatActivity {
         category = findViewById(R.id.category);
         bio = findViewById(R.id.bio);
 
-        assert user != null;
-        String currentUname = user.getDisplayName();
-        username.setText(currentUname);
-
-        googleSignInClient= GoogleSignIn.getClient(UserProfile.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
-
-        sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
+        username.setText(key);
 
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        ref = rootNode.getReference("Posts");
-        ref2 = rootNode.getReference("UserData");
+        refPost = rootNode.getReference("Posts");
+        refUserData = rootNode.getReference("UserData");
 
         ValueEventListener dataListener = new ValueEventListener() {
             @Override
@@ -91,17 +76,20 @@ public class UserProfile extends AppCompatActivity {
                 byte[] decodedString = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 profileImg.setImageBitmap(decodedByte);
+
+                country.setText(userData.getCountry());
+                category.setText(userData.getCategory());
+                bio.setText(userData.getBio());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         };
 
-        assert currentUname != null;
-        ref2.child(currentUname).addValueEventListener(dataListener);
+        refUserData.child(key).addValueEventListener(dataListener);
 
 
-        Query query = ref.orderByChild("user").equalTo(user.getDisplayName());
+        Query query = refPost.orderByChild("user").equalTo(key);
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override

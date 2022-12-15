@@ -54,20 +54,18 @@ public class ExploreAdapter extends
         new ImageLoadTask("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                 holder.profileImg).execute();
 
-        holder.profileImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.profileImg.getContext(), UserProfile.class);
-                holder.profileImg.getContext().startActivity(intent);
-            }
+        String username = holder.user.getText().toString();
+
+        holder.profileImg.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), UserProfile.class);
+            intent.putExtra("USER", username);
+            v.getContext().startActivity(intent);
         });
 
-        holder.user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.user.getContext(), UserProfile.class);
-                holder.user.getContext().startActivity(intent);
-            }
+        holder.user.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), UserProfile.class);
+            intent.putExtra("USER", username);
+            v.getContext().startActivity(intent);
         });
     }
 
