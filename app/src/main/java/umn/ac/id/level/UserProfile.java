@@ -46,7 +46,7 @@ public class UserProfile extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
-    AccountAdapter adapter;
+    UserAdapter adapter;
 
     ImageView profileImg;
     TextView country, category, bio;
@@ -115,7 +115,7 @@ public class UserProfile extends AppCompatActivity {
 
         query.addListenerForSingleValueEvent(valueEventListener);
 
-        mRecyclerView = findViewById(R.id.recyclerview3);
+        mRecyclerView = findViewById(R.id.recyclerview2);
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
@@ -128,7 +128,7 @@ public class UserProfile extends AppCompatActivity {
                         .setQuery(query, ExploreItem.class)
                         .build();
 
-        adapter = new AccountAdapter(options);
+        adapter = new UserAdapter(options);
         mRecyclerView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
