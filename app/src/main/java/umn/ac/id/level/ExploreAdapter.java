@@ -53,6 +53,22 @@ public class ExploreAdapter extends
 
         new ImageLoadTask("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                 holder.profileImg).execute();
+
+        holder.profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.profileImg.getContext(), UserProfile.class);
+                holder.profileImg.getContext().startActivity(intent);
+            }
+        });
+
+        holder.user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(holder.user.getContext(), UserProfile.class);
+                holder.user.getContext().startActivity(intent);
+            }
+        });
     }
 
     static class ExploreViewHolder extends RecyclerView.ViewHolder {

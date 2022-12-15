@@ -34,15 +34,16 @@
         android:layout_height="20dp"
         android:layout_marginStart="281dp"
         android:layout_marginTop="8dp"
-        android:src="@drawable/icon_saved"/>
+        android:src="@drawable/icon_saved"
+        app:showAsAction="ifRoom"/>
 
-    <ImageView
-        android:id="@+id/iconShare"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="252dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/icon_share" />
+<!--    <ImageView-->
+<!--        android:id="@+id/iconShare"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="20dp"-->
+<!--        android:layout_marginStart="252dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:src="@drawable/icon_share" />-->
 
     <ImageView
         android:id="@+id/locationImg"
