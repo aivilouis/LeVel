@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -86,7 +88,7 @@ public class SignUp extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-//                        verifyEmailIdSentEmail();
+                        sendEmailVerification();
                         Intent intent = new Intent(SignUp.this, CompleteProfile.class);
                         startActivity(intent);
                     } else {
@@ -96,26 +98,23 @@ public class SignUp extends AppCompatActivity {
                 });
     }
 
-    public static final FirebaseUser AUTH_USER = FirebaseAuth.getInstance().getCurrentUser()!=null ? FirebaseAuth.getInstance().getCurrentUser(): null ;
+    private void sendEmailVerification() {
 
-    protected final void verifyEmailIdSentEmail(FirebaseUser FirebaseUser){
-        FirebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
-                }
-            }
-        }).addOnCanceledListener(new OnCanceledListener() {
-            @Override
-            public void onCanceled() {
-                Toast.makeText(getApplicationContext(),"Cancelled",Toast.LENGTH_LONG).show();
-            }
-        });
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
+        firebaseUser.sendEmailVerification()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(SignUp.this, "Instructions Sent...", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SignUp.this, "Failed to send due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
