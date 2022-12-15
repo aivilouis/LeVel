@@ -15,9 +15,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +33,14 @@ import java.util.Objects;
 public class Account extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference ref;
+
+    RecyclerView mRecyclerView;
+    LinearLayoutManager mLayoutManager;
+    AccountAdapter adapter;
+    List<String> postImg = new ArrayList<>();
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -45,14 +60,37 @@ public class Account extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
 
-        RecyclerView mRecyclerView = findViewById(R.id.recyclerview2);
-        List<Posts> items = new ArrayList<>();
-        items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
-        items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
-        items.add(new Posts(R.drawable.bali, R.drawable.bali, R.drawable.bali));
+        rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        ref = rootNode.getReference("Posts");
+        Query query = ref.orderByChild("user").equalTo(user.getDisplayName());
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(new AccountAdapter(getApplicationContext(),items));
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Post post = snapshot.getValue(Post.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        };
+
+        query.addListenerForSingleValueEvent(valueEventListener);
+
+        mRecyclerView = findViewById(R.id.recyclerview2);
+        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
+
+        FirebaseRecyclerOptions<ExploreItem> options =
+                new FirebaseRecyclerOptions.Builder<ExploreItem>()
+                        .setQuery(query, ExploreItem.class)
+                        .build();
+
+        adapter = new AccountAdapter(options);
+        mRecyclerView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_account);
@@ -77,6 +115,18 @@ public class Account extends AppCompatActivity {
             return false;
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 
     @Override

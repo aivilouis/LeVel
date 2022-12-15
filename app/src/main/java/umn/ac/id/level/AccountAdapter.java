@@ -1,38 +1,50 @@
 package umn.ac.id.level;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-public class AccountAdapter extends RecyclerView.Adapter<AccountViewHolder> {
-    Context context;
-    List<Posts> items;
+import java.util.Objects;
 
-    public AccountAdapter(Context context, List<Posts> items) {
-        this.context = context;
-        this.items = items;
+public class AccountAdapter extends
+        FirebaseRecyclerAdapter<ExploreItem, AccountAdapter.AccountViewHolder> {
+
+    public AccountAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options) {
+        super(Objects.requireNonNull(options));
     }
 
     @NonNull
     @Override
-    public AccountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AccountViewHolder(LayoutInflater.from(context).inflate(R.layout.account_recycler,parent,false));
+    public AccountAdapter.AccountViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.account_recycler, parent, false);
+        return new AccountAdapter.AccountViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull AccountViewHolder holder, int position) {
-        holder.post1.setImageResource(items.get(position).getPost1());
-        holder.post2.setImageResource(items.get(position).getPost2());
-        holder.post3.setImageResource(items.get(position).getPost3());
+    protected void onBindViewHolder(@NonNull AccountAdapter.AccountViewHolder holder, int position, @NonNull ExploreItem model) {
+        byte[] decodedString = Base64.decode(model.getLocationImg(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.post.setImageBitmap(decodedByte);
     }
 
-    @Override
-    public int getItemCount() {
-        return items.size();
+    static class AccountViewHolder extends RecyclerView.ViewHolder {
+        ImageView post;
+
+        public AccountViewHolder(@NonNull View itemView) {
+            super(itemView);
+            post = itemView.findViewById(R.id.post);
+        }
     }
 }
