@@ -18,12 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,7 +36,6 @@ public class Account extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     FirebaseAuth firebaseAuth;
-    GoogleSignInClient googleSignInClient;
 
     FirebaseDatabase rootNode;
     DatabaseReference ref, ref2;
@@ -74,8 +69,6 @@ public class Account extends AppCompatActivity {
         assert user != null;
         String currentUname = user.getDisplayName();
         username.setText(currentUname);
-
-        googleSignInClient= GoogleSignIn.getClient(Account.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
 
@@ -199,13 +192,6 @@ public class Account extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.apply();
-
-                googleSignInClient.signOut().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        firebaseAuth.signOut();
-                        Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
                 Intent i = new Intent(Account.this, Login.class);
                 startActivity(i);
