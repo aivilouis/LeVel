@@ -1,11 +1,15 @@
 package umn.ac.id.level;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -37,12 +41,15 @@ public class AddPostDetails extends AppCompatActivity {
     EditText etLocation, etDays, etTotalCost, etTicketPrice, etHotel, etCostPerNight;
     LinearLayout container;
     Bitmap bitmap;
-    Uri uri;
+    Uri uri, locationUri;
     View newView;
     ArrayList<Details> postDetails = new ArrayList<>();
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
+
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    ImageView locationImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +88,19 @@ public class AddPostDetails extends AppCompatActivity {
         container = findViewById(R.id.newView);
         Button addDestination = findViewById(R.id.addDestinationBtn);
         addDestination.setOnClickListener(v -> addNewView());
+
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        assert data != null;
+                        locationUri = data.getData();
+                        locationImg.setVisibility(View.VISIBLE);
+                        locationImg.setImageURI(locationUri);
+                    }
+                }
+        );
     }
 
     private void addNewView() {
@@ -112,14 +132,13 @@ public class AddPostDetails extends AppCompatActivity {
         int totalDays = Integer.parseInt(etDays.getText().toString());
 
         newView = LayoutInflater.from(this).inflate(R.layout.items, container, false);
+        locationImg = newView.findViewById(R.id.locationImg);
 
         newView.findViewById(R.id.addPhotoBtn).setOnClickListener(v -> {
-            Context context = v.getContext();
             Intent intent = new Intent();
-            intent.setAction(android.content.Intent.ACTION_VIEW);
             intent.setType("image/*");
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            activityResultLauncher.launch(intent);
         });
 
         Spinner dropdown = newView.findViewById(R.id.label);
@@ -181,6 +200,7 @@ public class AddPostDetails extends AppCompatActivity {
             EditText etCost = v.findViewById(R.id.input_cost);
             EditText etReview = v.findViewById(R.id.input_review);
             RatingBar ratingBar = v.findViewById(R.id.rating);
+            ImageView loc = v.findViewById(R.id.locationImg);
 
             String label = spinner.getSelectedItem().toString();
             String destination = etDestination.getText().toString();
@@ -188,7 +208,13 @@ public class AddPostDetails extends AppCompatActivity {
             String review = etReview.getText().toString();
             float rating = ratingBar.getRating();
 
-            postDetails.add(new Details(label, cost, destination, review, rating));
+            BitmapDrawable drawable = (BitmapDrawable) loc.getDrawable();
+            Bitmap decodedByte = drawable.getBitmap();
+            decodedByte.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteFormat2 = stream.toByteArray();
+            String encodedImage2 = Base64.encodeToString(byteFormat2, Base64.NO_WRAP);
+
+            postDetails.add(new Details(label, cost, destination, review, rating, encodedImage2));
         }
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();

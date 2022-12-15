@@ -1,18 +1,19 @@
 package umn.ac.id.level;
 
 public class Details {
-    private String day, destination, review;
+    private String day, destination, review, image;
     private int cost;
     private float rating;
 
     public Details() {}
 
-    public Details(String day, int cost, String destination, String review, float rating) {
+    public Details(String day, int cost, String destination, String review, float rating, String image) {
         this.day = day;
         this.cost = cost;
         this.destination = destination;
         this.review = review;
         this.rating = rating;
+        this.image = image;
     }
 
     public String getDay() {
@@ -53,5 +54,13 @@ public class Details {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
