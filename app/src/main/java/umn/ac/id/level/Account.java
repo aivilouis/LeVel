@@ -192,6 +192,7 @@ public class Account extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.apply();
+                FirebaseAuth.getInstance().signOut();
 
                 Intent i = new Intent(Account.this, Login.class);
                 startActivity(i);
