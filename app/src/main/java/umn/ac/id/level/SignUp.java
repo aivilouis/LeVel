@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -14,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,7 +21,6 @@ public class SignUp extends AppCompatActivity {
 
     EditText etEmail, etPassword;
     FirebaseAuth mAuth;
-    FirebaseUser user;
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
@@ -63,10 +59,9 @@ public class SignUp extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Users");
 
-        String mEmail, mPassword, profileImg;
+        String mEmail, mPassword;
         mEmail = etEmail.getText().toString();
         mPassword = etPassword.getText().toString();
-        profileImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 
         if (TextUtils.isEmpty(mEmail)) {
             Toast.makeText(getApplicationContext(), "Please enter email", Toast.LENGTH_LONG).show();
@@ -85,19 +80,8 @@ public class SignUp extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        user = mAuth.getCurrentUser();
-
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setPhotoUri(Uri.parse(profileImg))
-                                .build();
-
-                        user.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
-                            if (task1.isSuccessful()) {
-                                Intent intent = new Intent(SignUp.this, CompleteProfile.class);
-                                startActivity(intent);
-                            }
-                        });
-
+                        Intent intent = new Intent(SignUp.this, CompleteProfile.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "Registration failed." +
                                 " Please try again later", Toast.LENGTH_LONG).show();

@@ -10,14 +10,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -41,7 +43,7 @@ public class Account extends AppCompatActivity {
     GoogleSignInClient googleSignInClient;
 
     FirebaseDatabase rootNode;
-    DatabaseReference ref;
+    DatabaseReference ref, ref2;
 
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
@@ -65,12 +67,9 @@ public class Account extends AppCompatActivity {
         TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
         profileImg = findViewById(R.id.accountPicture);
 
-        if (user != null) {
-            Glide.with(Account.this)
-                    .load(user.getPhotoUrl())
-                    .into(profileImg);
-            username.setText(user.getDisplayName());
-        }
+        assert user != null;
+        String currentUname = user.getDisplayName();
+        username.setText(currentUname);
 
         googleSignInClient= GoogleSignIn.getClient(Account.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
@@ -78,7 +77,27 @@ public class Account extends AppCompatActivity {
 
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Posts");
-        assert user != null;
+        ref2 = rootNode.getReference("UserData");
+
+        ValueEventListener dataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserData userData = dataSnapshot.getValue(UserData.class);
+
+                assert userData != null;
+                byte[] decodedString = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
+                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                profileImg.setImageBitmap(decodedByte);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        };
+
+        assert currentUname != null;
+        ref2.child(currentUname).addValueEventListener(dataListener);
+
+
         Query query = ref.orderByChild("user").equalTo(user.getDisplayName());
 
         ValueEventListener valueEventListener = new ValueEventListener() {
