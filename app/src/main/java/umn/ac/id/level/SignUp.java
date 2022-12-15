@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUp extends AppCompatActivity {
 
-    EditText etUsername, etEmail, etPassword;
+    EditText etEmail, etPassword;
     FirebaseAuth mAuth;
     FirebaseUser user;
 
@@ -40,7 +40,6 @@ public class SignUp extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        etUsername = findViewById(R.id.username);
         etEmail = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
         Button btn = findViewById(R.id.signupBtn);
@@ -64,16 +63,11 @@ public class SignUp extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Users");
 
-        String mUsername, mEmail, mPassword, profileImg;
-        mUsername = etUsername.getText().toString();
+        String mEmail, mPassword, profileImg;
         mEmail = etEmail.getText().toString();
         mPassword = etPassword.getText().toString();
         profileImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 
-        if (TextUtils.isEmpty(mUsername)) {
-            Toast.makeText(getApplicationContext(), "Please enter username", Toast.LENGTH_LONG).show();
-            return;
-        }
         if (TextUtils.isEmpty(mEmail)) {
             Toast.makeText(getApplicationContext(), "Please enter email", Toast.LENGTH_LONG).show();
             return;
@@ -94,15 +88,12 @@ public class SignUp extends AppCompatActivity {
                         user = mAuth.getCurrentUser();
 
                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(mUsername)
                                 .setPhotoUri(Uri.parse(profileImg))
                                 .build();
 
                         user.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
                             if (task1.isSuccessful()) {
-                                Toast.makeText(getApplicationContext(),
-                                        "Registration successful", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(SignUp.this, Account.class);
+                                Intent intent = new Intent(SignUp.this, CompleteProfile.class);
                                 startActivity(intent);
                             }
                         });
