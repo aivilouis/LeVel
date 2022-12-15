@@ -50,6 +50,7 @@ public class Account extends AppCompatActivity {
     AccountAdapter adapter;
 
     ImageView profileImg;
+    TextView country, category, bio;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -66,6 +67,9 @@ public class Account extends AppCompatActivity {
 
         TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
         profileImg = findViewById(R.id.accountPicture);
+        country = findViewById(R.id.country);
+        category = findViewById(R.id.category);
+        bio = findViewById(R.id.bio);
 
         assert user != null;
         String currentUname = user.getDisplayName();
@@ -88,6 +92,10 @@ public class Account extends AppCompatActivity {
                 byte[] decodedString = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 profileImg.setImageBitmap(decodedByte);
+
+                country.setText(userData.getCountry());
+                category.setText(userData.getCategory());
+                bio.setText(userData.getBio());
             }
 
             @Override

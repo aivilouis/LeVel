@@ -50,17 +50,16 @@
                         android:gravity="center_horizontal"
                         android:layout_marginTop="10dp">
                         <ImageView
-                            android:id="@+id/input_country"
+                            android:id="@+id/flag"
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             tools:ignore="DuplicateIds" />
 
                         <TextView
-                            android:id="@+id/input_country"
+                            android:id="@+id/country"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:text="South Korea"
                             android:textColor="@color/secondPrimary"
                             tools:ignore="DuplicateIds" />
                     </LinearLayout>
@@ -79,12 +78,11 @@
                             android:src="@drawable/bussiness_traveler"/>
 
                         <TextView
-                            android:id="@+id/profilePic"
+                            android:id="@+id/category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
                             android:textAlignment="center"
-                            android:text="Business Traveler"
                             android:textColor="@color/secondPrimary"/>
                     </LinearLayout>
 
@@ -95,11 +93,10 @@
                         android:gravity="center_horizontal"
                         android:layout_marginTop="10dp">
                         <TextView
-                            android:id="@+id/input_bio"
+                            android:id="@+id/bio"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
-                            android:text="Welcome to my page"
                             android:textColor="@color/secondPrimary" />
                     </LinearLayout>
 
