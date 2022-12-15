@@ -57,14 +57,20 @@ public class AddPostDetails extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
         Intent intent = getIntent();
-        uri = intent.getParcelableExtra("IMG");
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         ImageView img = findViewById(R.id.imgView);
-        img.setImageURI(uri);
+
+        if (intent.getStringExtra("SOURCE").contentEquals("camera")){
+            bitmap = intent.getParcelableExtra("IMG");
+            img.setImageBitmap(bitmap);
+        } else if (intent.getStringExtra("SOURCE").contentEquals("gallery")){
+            uri = intent.getParcelableExtra("IMG");
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            img.setImageURI(uri);
+        }
 
         etLocation = findViewById(R.id.input_location);
         etDays = findViewById(R.id.input_days);

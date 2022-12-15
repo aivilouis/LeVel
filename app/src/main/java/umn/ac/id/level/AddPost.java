@@ -26,6 +26,7 @@ public class AddPost extends AppCompatActivity {
     private ImageView img;
     private Bitmap bm;
     Uri uri;
+    String source;
 
     @SuppressLint({"QueryPermissionsNeeded", "NonConstantResourceId"})
     @Override
@@ -46,8 +47,14 @@ public class AddPost extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         assert data != null;
-                        uri = data.getData();
-                        img.setImageURI(uri);
+                        Bundle extras = data.getExtras();
+                        Bitmap imageBitmap = null;
+                        if (extras != null) {
+                            imageBitmap = (Bitmap) extras.get("data");
+                        }
+                        img.setImageBitmap(imageBitmap);
+                        bm = imageBitmap;
+                        source = "camera";
                     }
                 }
         );
@@ -60,6 +67,7 @@ public class AddPost extends AppCompatActivity {
                         assert data != null;
                         uri = data.getData();
                         img.setImageURI(uri);
+                        source = "gallery";
                     }
                 }
         );
@@ -113,7 +121,13 @@ public class AddPost extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_next) {
             Intent intent = new Intent(AddPost.this, AddPostDetails.class);
-            intent.putExtra("IMG", uri);
+            if (source.contentEquals("camera")) {
+                intent.putExtra("IMG", bm);
+            } else if (source.contentEquals("gallery")) {
+                intent.putExtra("IMG", uri);
+            }
+
+            intent.putExtra("SOURCE", source);
             this.startActivity(intent);
             return true;
         }
