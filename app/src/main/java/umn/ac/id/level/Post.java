@@ -6,12 +6,13 @@ import java.util.ArrayList;
 public class Post implements Serializable {
     private String id, user, location, hotel, locationImg;
     private int travelDays, totalCost, ticketPrice, costPerNight;
+    private boolean roundTrip;
     private ArrayList<Details> postDetails;
 
     public Post() {}
 
     public Post(String id, String user, String locationImg, String location, String hotel, int travelDays, int totalCost,
-                int ticketPrice, int costPerNight, ArrayList<Details> postDetails) {
+                int ticketPrice, int costPerNight, boolean roundTrip, ArrayList<Details> postDetails) {
         this.id = id;
         this.user = user;
         this.locationImg = locationImg;
@@ -21,6 +22,7 @@ public class Post implements Serializable {
         this.totalCost = totalCost;
         this.ticketPrice = ticketPrice;
         this.costPerNight = costPerNight;
+        this.roundTrip = roundTrip;
         this.postDetails = postDetails;
     }
 
@@ -94,6 +96,14 @@ public class Post implements Serializable {
 
     public void setCostPerNight(int costPerNight) {
         this.costPerNight = costPerNight;
+    }
+
+    public boolean isRoundTrip() {
+        return roundTrip;
+    }
+
+    public void setRoundTrip(boolean roundTrip) {
+        this.roundTrip = roundTrip;
     }
 
     public ArrayList<Details> getPostDetails() {

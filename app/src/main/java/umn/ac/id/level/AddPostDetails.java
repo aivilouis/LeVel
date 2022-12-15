@@ -5,8 +5,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +40,8 @@ import java.util.Objects;
 public class AddPostDetails extends AppCompatActivity {
 
     EditText etLocation, etDays, etTotalCost, etTicketPrice, etHotel, etCostPerNight;
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    Switch roundTrip;
     LinearLayout container;
     Bitmap bitmap;
     Uri uri, locationUri;
@@ -85,6 +88,9 @@ public class AddPostDetails extends AppCompatActivity {
         etTicketPrice = findViewById(R.id.input_ticketprice);
         etHotel = findViewById(R.id.input_hotel);
         etCostPerNight = findViewById(R.id.input_costpernight);
+        roundTrip = findViewById(R.id.roundTrip);
+
+
         container = findViewById(R.id.newView);
         Button addDestination = findViewById(R.id.addDestinationBtn);
         addDestination.setOnClickListener(v -> addNewView());
@@ -186,6 +192,7 @@ public class AddPostDetails extends AppCompatActivity {
         int totalCost = Integer.parseInt(etTotalCost.getText().toString());
         int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
         int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
+        boolean roundtrip = roundTrip.isChecked();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -221,7 +228,7 @@ public class AddPostDetails extends AppCompatActivity {
         assert currentUser != null;
         String username = currentUser.getDisplayName();
 
-        Post post = new Post(id, username, encodedImage, location, hotel, days, totalCost, ticketPrice, costPerNight, postDetails);
+        Post post = new Post(id, username, encodedImage, location, hotel, days, totalCost, ticketPrice, costPerNight, roundtrip, postDetails);
 
         assert id != null;
         ref.child(id).setValue(post);
