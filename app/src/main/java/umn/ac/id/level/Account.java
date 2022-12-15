@@ -13,9 +13,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,13 +32,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Account extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
+    FirebaseAuth firebaseAuth;
+    GoogleSignInClient googleSignInClient;
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
@@ -40,7 +46,8 @@ public class Account extends AppCompatActivity {
     RecyclerView mRecyclerView;
     LinearLayoutManager mLayoutManager;
     AccountAdapter adapter;
-    List<String> postImg = new ArrayList<>();
+
+    ImageView profileImg;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -48,20 +55,30 @@ public class Account extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.account_actionbar);
         getSupportActionBar().setElevation(0);
 
         TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
-        username.setText(user.getDisplayName());
+        profileImg = findViewById(R.id.accountPicture);
+
+        if (user != null) {
+            Glide.with(Account.this)
+                    .load(user.getPhotoUrl())
+                    .into(profileImg);
+            username.setText(user.getDisplayName());
+        }
+
+        googleSignInClient= GoogleSignIn.getClient(Account.this, GoogleSignInOptions.DEFAULT_SIGN_IN);
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
 
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Posts");
+        assert user != null;
         Query query = ref.orderByChild("user").equalTo(user.getDisplayName());
 
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -155,6 +172,13 @@ public class Account extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.apply();
+
+                googleSignInClient.signOut().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        firebaseAuth.signOut();
+                        Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 Intent i = new Intent(Account.this, Login.class);
                 startActivity(i);

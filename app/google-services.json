@@ -1,7 +1,7 @@
 {
   "project_info": {
     "project_number": "813200406763",
-    "firebase_url": "https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    "firebase_url": "https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "level-fecbd",
     "storage_bucket": "level-fecbd.appspot.com"
   },
@@ -15,8 +15,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "813200406763-dtq7mcjegk7o30gl26pj5cavrg71tke5.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "813200406763-jfopdp0psu7okn9dtv5tpkidtmedrcje.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "umn.ac.id.level",
+            "certificate_hash": "4fc8613cda677a68f4eca32b34078c59d5a238b1"
+          }
         }
       ],
       "api_key": [
