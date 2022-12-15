@@ -1,5 +1,8 @@
 package umn.ac.id.level;
 
+import static android.app.ProgressDialog.show;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -12,7 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -47,7 +54,6 @@ public class SignUp extends AppCompatActivity {
         password = sharedPreferences.getString("PASSWORD_KEY", null);
 
         btn.setOnClickListener(v -> registerNewUser());
-
         tvSignIn.setOnClickListener(v -> {
             Intent intent = new Intent(SignUp.this, Login.class);
             startActivity(intent);
@@ -80,6 +86,7 @@ public class SignUp extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+//                        verifyEmailIdSentEmail();
                         Intent intent = new Intent(SignUp.this, CompleteProfile.class);
                         startActivity(intent);
                     } else {
@@ -87,5 +94,28 @@ public class SignUp extends AppCompatActivity {
                                 " Please try again later", Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    public static final FirebaseUser AUTH_USER = FirebaseAuth.getInstance().getCurrentUser()!=null ? FirebaseAuth.getInstance().getCurrentUser(): null ;
+
+    protected final void verifyEmailIdSentEmail(FirebaseUser FirebaseUser){
+        FirebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+                }
+            }
+        }).addOnCanceledListener(new OnCanceledListener() {
+            @Override
+            public void onCanceled() {
+                Toast.makeText(getApplicationContext(),"Cancelled",Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }
