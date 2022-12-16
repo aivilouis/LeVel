@@ -49,7 +49,85 @@
             android:layout_marginTop="40dp"
             android:gravity="center"
             android:scaleType="centerCrop"
+            android:src="@drawable/sample_tumbnail"
             android:adjustViewBounds="true"/>
+
+       <ImageView
+           android:id="@+id/iconLocation"
+           android:layout_width="wrap_content"
+           android:layout_height="20dp"
+           android:layout_marginStart="281dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/icon_location"
+           app:showAsAction="ifRoom"/>
+
+       <TextView
+           android:id="@+id/location"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="45dp"
+           android:layout_marginTop="5dp"
+           android:textColor="@color/black"
+           android:gravity="center_horizontal"
+           android:textFontWeight="12"/>
+
+       <ImageView
+           android:id="@+id/iconDuration"
+           android:layout_width="wrap_content"
+           android:layout_height="20dp"
+           android:layout_marginStart="281dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/icon_days"
+           app:showAsAction="ifRoom"/>
+
+       <TextView
+           android:id="@+id/duration"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="45dp"
+           android:layout_marginTop="5dp"
+           android:textColor="@color/black"
+           android:gravity="center_horizontal"
+           android:textFontWeight="12"/>
+
+       <ImageView
+           android:id="@+id/iconBudget"
+           android:layout_width="wrap_content"
+           android:layout_height="20dp"
+           android:layout_marginStart="281dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/icon_totalcost"
+           app:showAsAction="ifRoom"/>
+
+       <TextView
+           android:id="@+id/budget"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="45dp"
+           android:layout_marginTop="5dp"
+           android:textColor="@color/black"
+           android:gravity="center_horizontal"
+           android:textFontWeight="12"/>
+
+       <ImageView
+           android:id="@+id/iconInfo"
+           android:layout_width="wrap_content"
+           android:layout_height="20dp"
+           android:layout_marginStart="281dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/icon_info"
+           app:showAsAction="ifRoom"/>
+
+       <TextView
+           android:id="@+id/info"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="45dp"
+           android:layout_marginTop="5dp"
+           android:textColor="@color/black"
+           android:text="Itenary Information"
+           android:gravity="center_horizontal"
+           android:textFontWeight="12"/>
 
     </LinearLayout>
 </ScrollView>
