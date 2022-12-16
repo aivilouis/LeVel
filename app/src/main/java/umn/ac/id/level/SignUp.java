@@ -1,7 +1,6 @@
 package umn.ac.id.level;
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -14,8 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -100,17 +97,9 @@ public class SignUp extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
         firebaseUser.sendEmailVerification()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(SignUp.this, "Instructions Sent...", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(SignUp.this, "Failed to send due to "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                .addOnSuccessListener(unused ->
+                        Toast.makeText(SignUp.this, "Instructions Sent...", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e ->
+                        Toast.makeText(SignUp.this, "Failed to send due to " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

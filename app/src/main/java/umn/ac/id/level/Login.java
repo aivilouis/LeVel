@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -61,10 +62,7 @@ public class Login extends AppCompatActivity {
 
             mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Login.this, Account.class);
-                    startActivity(intent);
-                    finish();
+                    checkIfEmailVerified();
                 } else {
                     Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
                 }
@@ -78,6 +76,27 @@ public class Login extends AppCompatActivity {
         if (email != null && password != null) {
             Intent intent = new Intent(Login.this, Home.class);
             startActivity(intent);
+        }
+    }
+
+    private void checkIfEmailVerified() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        assert user != null;
+        if (user.isEmailVerified()) {
+            Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Login.this, Account.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(Login.this, "Login failed. Please verify your email.", Toast.LENGTH_LONG).show();
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.apply();
+            FirebaseAuth.getInstance().signOut();
+
+            Login.this.recreate();
         }
     }
 }

@@ -7,7 +7,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -50,6 +52,8 @@ public class CompleteProfile extends AppCompatActivity {
     DatabaseReference ref;
     FirebaseUser user;
 
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,8 @@ public class CompleteProfile extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.editaccount_actionbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         assert user != null;
@@ -183,9 +189,18 @@ public class CompleteProfile extends AppCompatActivity {
 
         user.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
-                Toast.makeText(getApplicationContext(), "Sign Up successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CompleteProfile.this, Account.class);
+                Toast.makeText(getApplicationContext(),
+                        "Sign Up successful. Please verify your email",
+                        Toast.LENGTH_LONG).show();
+
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(CompleteProfile.this, Login.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
