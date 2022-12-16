@@ -1,56 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".PostDetails"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".PostDetails"
+    android:scrollbars="vertical"
+    tools:ignore="HardcodedText, ContentDescription">
 
    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/profileImg"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-            app:strokeWidth="0dp"/>
+        android:layout_height="wrap_content">
+
+       <com.google.android.material.imageview.ShapeableImageView
+           android:id="@+id/profileImg"
+           android:layout_width="35dp"
+           android:layout_height="35dp"
+           app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+           app:strokeWidth="0dp"
+           android:adjustViewBounds="true"
+           android:scaleType="centerCrop"/>
 
         <TextView
-            android:id="@+id/user"
+            android:id="@+id/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="45dp"
             android:layout_marginTop="5dp"
-            android:text="namaprofil"
             android:textColor="@color/black"
-            android:gravity="center_horizontal"
-            android:textFontWeight="12"/>
+            android:gravity="center_horizontal"/>
 
         <ImageView
-            android:id="@+id/iconSaved"
+            android:id="@+id/locationBtn"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginStart="281dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/icon_saved"
+            android:src="@drawable/icon_location"
             app:showAsAction="ifRoom"/>
 
-        <ImageView
-            android:id="@+id/tumbnailImg"
-            android:layout_width="300dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sample_tumbnail"
-            android:adjustViewBounds="true"/>
+       <ImageView
+           android:id="@+id/tumbnailImg"
+           android:layout_width="300dp"
+           android:layout_height="300dp"
+           android:layout_marginTop="40dp"
+           android:adjustViewBounds="true"
+           android:gravity="center"
+           android:scaleType="centerCrop"
+           android:src="@drawable/sample_tumbnail" />
 
        <ImageView
            android:id="@+id/iconLocation"
@@ -68,8 +66,7 @@
            android:layout_marginStart="45dp"
            android:layout_marginTop="5dp"
            android:textColor="@color/black"
-           android:gravity="center_horizontal"
-           android:textFontWeight="12"/>
+           android:gravity="center_horizontal"/>
 
        <ImageView
            android:id="@+id/iconDuration"
@@ -87,8 +84,7 @@
            android:layout_marginStart="45dp"
            android:layout_marginTop="5dp"
            android:textColor="@color/black"
-           android:gravity="center_horizontal"
-           android:textFontWeight="12"/>
+           android:gravity="center_horizontal"/>
 
        <ImageView
            android:id="@+id/iconBudget"
@@ -106,8 +102,7 @@
            android:layout_marginStart="45dp"
            android:layout_marginTop="5dp"
            android:textColor="@color/black"
-           android:gravity="center_horizontal"
-           android:textFontWeight="12"/>
+           android:gravity="center_horizontal"/>
 
        <ImageView
            android:id="@+id/iconInfo"
@@ -126,8 +121,7 @@
            android:layout_marginTop="5dp"
            android:textColor="@color/black"
            android:text="Itenary Information"
-           android:gravity="center_horizontal"
-           android:textFontWeight="12"/>
+           android:gravity="center_horizontal"/>
 
     </LinearLayout>
 </ScrollView>

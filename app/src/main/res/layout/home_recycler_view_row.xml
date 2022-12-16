@@ -9,7 +9,6 @@
     android:layout_marginBottom="20dp"
     tools:ignore="HardcodedText, ContentDescription, Autofill, UnusedAttribute, SpUsage">
 
-    <!--blm retrieve data-->
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImg"
         android:layout_width="35dp"
