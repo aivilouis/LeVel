@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".Account"
-    tools:ignore="HardcodedText, ContentDescription">
+    tools:ignore="HardcodedText, ContentDescription, UseCompoundDrawables">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -54,7 +54,6 @@
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             tools:ignore="DuplicateIds" />
-
                         <TextView
                             android:id="@+id/country"
                             android:layout_width="wrap_content"
@@ -75,7 +74,7 @@
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             android:layout_gravity="center_horizontal"
-                            android:src="@drawable/bussiness_traveler"/>
+                            android:src="@drawable/business_traveler"/>
 
                         <TextView
                             android:id="@+id/category"
