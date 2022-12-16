@@ -160,6 +160,8 @@ public class AddPostDetails extends AppCompatActivity {
             EditText dest = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_destination);
             EditText cost = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_cost);
             EditText review = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_review);
+            ImageView imgView = container.getChildAt(container.getChildCount()-1).findViewById(R.id.locationImg);
+            BitmapDrawable bm = (BitmapDrawable) imgView.getDrawable();
 
             if (dest.length() == 0) {
                 dest.setError("This field is required");
@@ -171,6 +173,10 @@ public class AddPostDetails extends AppCompatActivity {
             }
             if (review.length() == 0) {
                 review.setError("This field is required");
+                return;
+            }
+            if (bm == null) {
+                Toast.makeText(AddPostDetails.this, "Please add image", Toast.LENGTH_LONG).show();
                 return;
             }
         }
