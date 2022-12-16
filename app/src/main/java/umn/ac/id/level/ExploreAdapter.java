@@ -26,20 +26,19 @@ import java.util.Objects;
 
 public class ExploreAdapter extends
         FirebaseRecyclerAdapter<ExploreItem, ExploreAdapter.ExploreViewHolder> {
-    private final ExploreRecyclerInterface exploreRecyclerInterface;
+
     FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference ref = rootNode.getReference("UserData");
 
-    public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options,ExploreRecyclerInterface exploreRecyclerInterface) {
+    public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options) {
         super(Objects.requireNonNull(options));
-        this.exploreRecyclerInterface = exploreRecyclerInterface;
     }
 
     @NonNull
     @Override
     public ExploreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view_row, parent, false);
-        return new ExploreViewHolder(view,exploreRecyclerInterface);
+        return new ExploreViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
@@ -101,7 +100,7 @@ public class ExploreAdapter extends
         TextView user, location, travelDays, totalCost;
         ImageView profileImg, locationImg, iconLocation;
 
-        public ExploreViewHolder(@NonNull View itemView,ExploreRecyclerInterface exploreRecyclerInterface) {
+        public ExploreViewHolder(@NonNull View itemView) {
             super(itemView);
             user = itemView.findViewById(R.id.user);
             location = itemView.findViewById(R.id.location);
@@ -110,17 +109,6 @@ public class ExploreAdapter extends
             profileImg = itemView.findViewById(R.id.profileImg);
             locationImg = itemView.findViewById(R.id.locationImg);
             iconLocation = itemView.findViewById(R.id.iconLocation);
-            itemView.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    if(exploreRecyclerInterface != null){
-                        int pos = getAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION){
-                            exploreRecyclerInterface.onItemClick(pos);
-                        }
-                    }
-                }
-            });
         }
     }
 }

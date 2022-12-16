@@ -15,11 +15,12 @@
         android:background="@color/primary"/>
 
        <EditText
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:hint="Search"
             android:textColorHint="#BFBDE8"
-           android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="20dp"
             android:inputType="text"
             android:textColor="@color/white"
             android:radius="20dp"
@@ -28,7 +29,9 @@
             android:background="@drawable/search_bg"
             android:drawableEnd="@drawable/search_eye"
             android:paddingStart="15dp"
-           android:paddingEnd="8dp"/>
+            android:paddingEnd="8dp"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

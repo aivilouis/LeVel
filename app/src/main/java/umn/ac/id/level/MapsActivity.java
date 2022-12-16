@@ -13,7 +13,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -78,7 +77,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             searchView.setIconified(true);
             searchView.requestFocus();
             searchView.setQuery(intent.getStringExtra("LOCATION"), false);
-
         }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);

@@ -8,11 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.Query;
 
 import java.util.Objects;
 
@@ -72,7 +77,39 @@ public class Home extends AppCompatActivity implements ExploreRecyclerInterface 
                 .setQuery(ref, ExploreItem.class)
                 .build();
 
-        adapter = new ExploreAdapter(options,this);
+        adapter = new ExploreAdapter(options);
+        recyclerView.setAdapter(adapter);
+
+        EditText searchBar = findViewById(R.id.search_bar);
+        searchBar.setOnEditorActionListener(
+                (v, actionId, event) -> {
+                    if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+                            actionId == EditorInfo.IME_ACTION_DONE ||
+                            event != null &&
+                                    event.getAction() == KeyEvent.ACTION_DOWN &&
+                                    event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                        if (event == null || !event.isShiftPressed()) {
+                            Log.d("TEST", searchBar.getText().toString());
+                            filter(searchBar.getText().toString());
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+        );
+    }
+
+    private void filter(String text){
+        Query query = ref.orderByChild("location").equalTo(text);
+
+        FirebaseRecyclerOptions<ExploreItem> temp =
+                new FirebaseRecyclerOptions.Builder<ExploreItem>()
+                        .setQuery(query, ExploreItem.class)
+                        .build();
+
+        recyclerView.getRecycledViewPool().clear();
+        adapter = new ExploreAdapter(temp);
+        adapter.startListening();
         recyclerView.setAdapter(adapter);
     }
 
