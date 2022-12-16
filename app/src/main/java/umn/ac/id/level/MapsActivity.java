@@ -24,6 +24,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
@@ -46,6 +47,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         umn.ac.id.level.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.action_location);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch(item.getItemId()) {
+                case R.id.action_home:
+                    startActivity(new Intent(getApplicationContext(), Home.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.action_addpost:
+                    startActivity(new Intent(getApplicationContext(), AddPost.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.action_location:
+                    return true;
+                case R.id.action_account:
+                    startActivity(new Intent(getApplicationContext(), Account.class));
+                    overridePendingTransition(0,0);
+                    return true;
+            }
+            return false;
+        });
 
         searchView = findViewById(R.id.idSearchView);
 
