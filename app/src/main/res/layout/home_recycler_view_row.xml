@@ -7,6 +7,7 @@
     android:layout_marginTop="20dp"
     android:gravity="center"
     android:layout_marginBottom="20dp"
+    tools:context=".HomeRecyclerView"
     tools:ignore="HardcodedText, ContentDescription, Autofill, UnusedAttribute, SpUsage">
 
     <!--blm retrieve data-->

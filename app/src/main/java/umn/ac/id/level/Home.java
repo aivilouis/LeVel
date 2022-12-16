@@ -16,7 +16,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 import java.util.Objects;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity implements ExploreRecyclerInterface {
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
@@ -72,7 +72,7 @@ public class Home extends AppCompatActivity {
                 .setQuery(ref, ExploreItem.class)
                 .build();
 
-        adapter = new ExploreAdapter(options);
+        adapter = new ExploreAdapter(options,this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -91,5 +91,11 @@ public class Home extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent dtlintent = new Intent(Home.this,PostDetails.class);
+        startActivity(dtlintent);
     }
 }
