@@ -88,11 +88,17 @@ public class ExploreAdapter extends
             intent.putExtra("USER", username);
             v.getContext().startActivity(intent);
         });
+
+        holder.iconSaved.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), MapsActivity.class);
+            intent.putExtra("LOCATION", model.getLocation());
+            v.getContext().startActivity(intent);
+        });
     }
 
     static class ExploreViewHolder extends RecyclerView.ViewHolder {
         TextView user, location, travelDays, totalCost;
-        ImageView profileImg, locationImg;
+        ImageView profileImg, locationImg, iconSaved;
 
         public ExploreViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -102,6 +108,7 @@ public class ExploreAdapter extends
             totalCost = itemView.findViewById(R.id.totalCost);
             profileImg = itemView.findViewById(R.id.profileImg);
             locationImg = itemView.findViewById(R.id.locationImg);
+            iconSaved = itemView.findViewById(R.id.iconSaved);
         }
     }
 }

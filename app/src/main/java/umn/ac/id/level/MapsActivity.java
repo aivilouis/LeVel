@@ -7,11 +7,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -47,6 +49,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         searchView = findViewById(R.id.idSearchView);
 
+        Intent intent = getIntent();
+        if (intent.getStringExtra("LOCATION") != null) {
+            searchView.setIconified(true);
+            searchView.requestFocus();
+            searchView.setQuery(intent.getStringExtra("LOCATION"), false);
+
+        }
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
 
@@ -55,19 +65,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public boolean onQueryTextSubmit(String s) {
                 String location = searchView.getQuery().toString();
 
-                if (location != null || location.equals("")) {
-                    Geocoder geocoder = new Geocoder(MapsActivity.this);
-                    try {
-                        List<Address> addressList = geocoder.getFromLocationName(location, 1);
-                        if (addressList.size() > 0) {
-                            Address address = addressList.get(0);
-                            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                Geocoder geocoder = new Geocoder(MapsActivity.this);
+
+                try {
+                    List<Address> addressList = geocoder.getFromLocationName(location, 1);
+                    if (addressList.size() > 0) {
+                        Address address = addressList.get(0);
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
                 return false;
@@ -78,7 +87,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 return false;
             }
         });
-
     }
 
     private void fetchLocation() {
