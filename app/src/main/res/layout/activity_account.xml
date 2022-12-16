@@ -85,7 +85,6 @@
                             android:layout_marginStart="10dp"
                             android:textAlignment="center"
                             android:gravity="center_horizontal"
-                            android:text="Business Traveler"
                             android:textColor="@color/secondPrimary"/>
                     </LinearLayout>
 
