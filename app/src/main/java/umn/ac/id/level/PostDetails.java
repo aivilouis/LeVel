@@ -8,7 +8,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,13 +22,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class PostDetails extends AppCompatActivity {
 
     FirebaseDatabase rootNode;
     DatabaseReference refPost, refUser;
 
-    TextView username, location, duration, budget;
+    TextView username, location, duration, budget, ticketPrice, hotel;
     ImageView profileImg, locationBtn, thumbnailImg;
+    View newView;
+    LinearLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +52,9 @@ public class PostDetails extends AppCompatActivity {
         profileImg = findViewById(R.id.profileImg);
         locationBtn = findViewById(R.id.locationBtn);
         thumbnailImg = findViewById(R.id.tumbnailImg);
+        ticketPrice = findViewById(R.id.costPlane);
+        hotel = findViewById(R.id.hotel);
+        container = findViewById(R.id.newView);
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -54,10 +66,17 @@ public class PostDetails extends AppCompatActivity {
                 location.setText(post.getLocation());
                 duration.setText(post.getTravelDays() + " days");
                 budget.setText("Rp " + post.getTotalCost() + ",-");
+                hotel.setText(post.getHotel());
+                ticketPrice.setText("Rp " + post.getTicketPrice() + ",-");
 
                 byte[] decodedString = Base64.decode(post.getLocationImg(), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
                 thumbnailImg.setImageBitmap(decodedByte);
+
+                ArrayList<Details> postDetails = post.getPostDetails();
+                for (int i = 0; i < postDetails.size(); i++) {
+                    addView(postDetails.get(i));
+                }
 
                 refUser.child(post.getUser()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -82,5 +101,30 @@ public class PostDetails extends AppCompatActivity {
         };
         
         refPost.child(postId).addListenerForSingleValueEvent(valueEventListener);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void addView(Details details) {
+        newView = LayoutInflater.from(this).inflate(R.layout.item_post_details, container, false);
+
+        Log.d("TEST", details.getDestination());
+        TextView day = newView.findViewById(R.id.day);
+        day.setText(details.getDay());
+
+        TextView hotel = newView.findViewById(R.id.hotelName);
+        hotel.setText(details.getDestination());
+
+        ImageView img = newView.findViewById(R.id.destImg);
+        byte[] decodedString = Base64.decode(details.getImage(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        img.setImageBitmap(decodedByte);
+
+        RatingBar rating = newView.findViewById(R.id.rating);
+        rating.setRating(details.getRating());
+
+        TextView review = newView.findViewById(R.id.review);
+        review.setText(details.getReview());
+
+        container.addView(newView, container.getChildCount());
     }
 }

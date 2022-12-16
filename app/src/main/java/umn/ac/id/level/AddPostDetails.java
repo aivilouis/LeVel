@@ -216,8 +216,8 @@ public class AddPostDetails extends AppCompatActivity {
             float rating = ratingBar.getRating();
 
             BitmapDrawable drawable = (BitmapDrawable) loc.getDrawable();
-            Bitmap decodedByte = drawable.getBitmap();
-            decodedByte.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            Bitmap decodedByte2 = drawable.getBitmap();
+            decodedByte2.compress(Bitmap.CompressFormat.JPEG, 100, stream);
             byte[] byteFormat2 = stream.toByteArray();
             String encodedImage2 = Base64.encodeToString(byteFormat2, Base64.NO_WRAP);
 
