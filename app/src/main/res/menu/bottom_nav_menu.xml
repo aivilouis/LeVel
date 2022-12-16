@@ -15,9 +15,9 @@
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
     <item
-        android:id="@+id/action_save"
+        android:id="@+id/action_location"
         android:enabled="true"
-        android:icon="@drawable/saved_selector"
+        android:icon="@drawable/location_selector"
         app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
     <item

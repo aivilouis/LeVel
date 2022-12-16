@@ -45,7 +45,7 @@ public class Home extends AppCompatActivity {
                     startActivity(new Intent(getApplicationContext(), AddPost.class));
                     overridePendingTransition(0,0);
                     return true;
-                case R.id.action_save:
+                case R.id.action_location:
                     startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                     overridePendingTransition(0,0);
                     return true;
