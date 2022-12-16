@@ -1,6 +1,7 @@
 package umn.ac.id.level;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -39,6 +40,11 @@ public class UserAdapter extends
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.post.setImageBitmap(decodedByte);
         holder.location.setText(model.getLocation());
+        holder.post.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), PostDetails.class);
+            intent.putExtra("POST", model.getId());
+            v.getContext().startActivity(intent);
+        });
     }
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
