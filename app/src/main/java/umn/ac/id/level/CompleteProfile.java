@@ -2,6 +2,7 @@ package umn.ac.id.level;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,8 +26,11 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 
 import java.io.ByteArrayOutputStream;
@@ -124,9 +128,37 @@ public class CompleteProfile extends AppCompatActivity {
     }
 
     private void saveData() {
+
+        if (username.length() == 0) {
+            username.setError("This field is required");
+            return;
+        }
+        if (bio.length() == 0) {
+            bio.setError("This field is required");
+            return;
+        }
+
+        String mUsername = username.getText().toString();
+
+        ref.child(mUsername).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    username.setError("Username already exists");
+                } else {
+                    continueSignup(username.getText().toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });
+    }
+
+    private void continueSignup(String mUsername) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
 
-        if (bitmap != null){
+        if (bitmap != null) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         } else {
             BitmapDrawable drawable = (BitmapDrawable) profPic.getDrawable();
@@ -137,9 +169,8 @@ public class CompleteProfile extends AppCompatActivity {
         String encodedImage = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
 
 
-        String mUsername = username.getText().toString();
         String mCountry = country.getSelectedCountryName();
-//        int flagId = country.getSelectedCountryFlagResourceId();
+        //        int flagId = country.getSelectedCountryFlagResourceId();
         int categoryId = category.getSelectedItemPosition();
         String mCategory = category.getSelectedItem().toString();
         String mBio = bio.getText().toString();
@@ -157,6 +188,5 @@ public class CompleteProfile extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
