@@ -74,11 +74,12 @@
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="230dp"
+            android:layout_marginTop="229.5dp"
+            android:gravity="center_horizontal"
             android:textColor="@color/secondPrimary"
             android:layout_marginStart="20dp"
             android:textFontWeight="12"
-            android:shadowColor="@color/secondPrimary"/>
+            android:shadowColor="@color/secondPrimary" />
 
         <ImageView
             android:id="@+id/iconDuration"
