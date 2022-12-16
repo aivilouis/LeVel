@@ -32,48 +32,50 @@
         android:id="@+id/iconSaved"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_marginStart="281dp"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
         android:src="@drawable/icon_saved"
         app:showAsAction="ifRoom"/>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/iconShare"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="20dp"-->
-<!--        android:layout_marginStart="252dp"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:src="@drawable/icon_share" />-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="45dp">
 
-    <ImageView
-        android:id="@+id/locationImg"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"/>
+        <ImageView
+            android:id="@+id/locationImg"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/detailsBtn"
         android:layout_width="100dp"
         android:layout_height="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="315dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/details_button"
-        android:textAllCaps="false"
-        android:layout_marginStart="195dp"
-        android:layout_marginTop="305dp"/>
+        android:textAllCaps="false" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="350dp"
         android:background="@color/bottomBar" />
 
     <TextView
         android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="305dp"
+        android:layout_marginTop="315dp"
         android:textColor="@color/white"
         android:layout_marginStart="5dp"
         android:textFontWeight="50"
@@ -84,7 +86,7 @@
 
     <ImageView
         android:id="@+id/iconDuration"
-        android:layout_marginTop="341dp"
+        android:layout_marginTop="350dp"
         android:layout_marginStart="5dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -95,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="347dp"
+        android:layout_marginTop="357dp"
         android:textSize="10dp"
         android:textColor="@color/black"/>
 
@@ -103,17 +105,18 @@
         android:id="@+id/iconBudget"
         android:layout_width="31dp"
         android:layout_height="31dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="341dp"
-        android:src="@drawable/icon_totalcost"/>
+        android:layout_marginTop="350dp"
+        android:layout_toStartOf="@+id/totalCost"
+        android:src="@drawable/icon_totalcost" />
 
     <TextView
         android:id="@+id/totalCost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
-        android:layout_marginTop="347dp"
-        android:textSize="10dp"
-        android:textColor="@color/black"/>
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="357dp"
+        android:layout_marginEnd="15dp"
+        android:textColor="@color/black"
+        android:textSize="10dp" />
 
 </RelativeLayout>
