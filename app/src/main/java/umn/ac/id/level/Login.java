@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -76,10 +75,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            startActivity(new Intent(Login.this, Account.class));
-        } else if (email != null && password != null) {
+        if (email != null && password != null) {
             Intent intent = new Intent(Login.this, Home.class);
             startActivity(intent);
         }

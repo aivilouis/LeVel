@@ -76,10 +76,15 @@ public class Home extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onStart() {
         super.onStart();
+        recyclerView.getRecycledViewPool().clear();
         adapter.startListening();
+
+        recyclerView.getRecycledViewPool().clear();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

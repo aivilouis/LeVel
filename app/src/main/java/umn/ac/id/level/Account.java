@@ -154,10 +154,15 @@ public class Account extends AppCompatActivity {
 
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onStart() {
         super.onStart();
+        mRecyclerView.getRecycledViewPool().clear();
         adapter.startListening();
+
+        mRecyclerView.getRecycledViewPool().clear();
+        adapter.notifyDataSetChanged();
     }
 
     @Override
