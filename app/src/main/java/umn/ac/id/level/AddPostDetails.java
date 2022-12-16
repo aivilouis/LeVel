@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -155,6 +156,25 @@ public class AddPostDetails extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
+        if (container.getChildCount() > 0) {
+            EditText dest = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_destination);
+            EditText cost = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_cost);
+            EditText review = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_review);
+
+            if (dest.length() == 0) {
+                dest.setError("This field is required");
+                return;
+            }
+            if (cost.length() == 0) {
+                cost.setError("This field is required");
+                return;
+            }
+            if (review.length() == 0) {
+                review.setError("This field is required");
+                return;
+            }
+        }
+
         container.addView(newView, container.getChildCount());
     }
 
@@ -185,6 +205,31 @@ public class AddPostDetails extends AppCompatActivity {
         int count = container.getChildCount();
         View v;
 
+        if (etLocation.length() == 0) {
+            etLocation.setError("This field is required");
+            return;
+        }
+        if (etDays.length() == 0) {
+            etDays.setError("This field is required");
+            return;
+        }
+        if (etTotalCost.length() == 0) {
+            etTotalCost.setError("This field is required");
+            return;
+        }
+        if (etTicketPrice.length() == 0) {
+            etTicketPrice.setError("This field is required");
+            return;
+        }
+        if (etHotel.length() == 0) {
+            etHotel.setError("This field is required");
+            return;
+        }
+        if (etCostPerNight.length() == 0) {
+            etCostPerNight.setError("This field is required");
+            return;
+        }
+
         String id = ref.push().getKey();
         String location = etLocation.getText().toString().toLowerCase();
         String hotel = etHotel.getText().toString();
@@ -209,6 +254,19 @@ public class AddPostDetails extends AppCompatActivity {
             RatingBar ratingBar = v.findViewById(R.id.rating);
             ImageView loc = v.findViewById(R.id.locationImg);
 
+            if (etDestination.length() == 0) {
+                etDestination.setError("This field is required");
+                return;
+            }
+            if (etCost.length() == 0) {
+                etCost.setError("This field is required");
+                return;
+            }
+            if (etReview.length() == 0) {
+                etReview.setError("This field is required");
+                return;
+            }
+
             String label = spinner.getSelectedItem().toString();
             String destination = etDestination.getText().toString();
             int cost = Integer.parseInt(etCost.getText().toString());
@@ -216,13 +274,19 @@ public class AddPostDetails extends AppCompatActivity {
             float rating = ratingBar.getRating();
 
             BitmapDrawable drawable = (BitmapDrawable) loc.getDrawable();
-            Bitmap decodedByte2 = drawable.getBitmap();
-            ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
-            decodedByte2.compress(Bitmap.CompressFormat.JPEG, 100, stream2);
-            byte[] byteFormat2 = stream2.toByteArray();
-            String encodedImage2 = Base64.encodeToString(byteFormat2, Base64.NO_WRAP);
 
-            postDetails.add(new Details(label, cost, destination, review, rating, encodedImage2));
+            if (drawable == null) {
+                Toast.makeText(AddPostDetails.this, "Please add image", Toast.LENGTH_LONG).show();
+                return;
+            } else {
+                Bitmap decodedByte2 = drawable.getBitmap();
+                ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+                decodedByte2.compress(Bitmap.CompressFormat.JPEG, 100, stream2);
+                byte[] byteFormat2 = stream2.toByteArray();
+                String encodedImage2 = Base64.encodeToString(byteFormat2, Base64.NO_WRAP);
+
+                postDetails.add(new Details(label, cost, destination, review, rating, encodedImage2));
+            }
         }
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
