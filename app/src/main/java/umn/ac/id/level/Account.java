@@ -45,7 +45,7 @@ public class Account extends AppCompatActivity {
     LinearLayoutManager mLayoutManager;
     AccountAdapter adapter;
 
-    ImageView profileImg, flag;
+    ImageView profileImg, flag, iconCategory;
     TextView country, category, bio;
 
 
@@ -67,6 +67,7 @@ public class Account extends AppCompatActivity {
         country = findViewById(R.id.country);
         flag = findViewById(R.id.flag);
         category = findViewById(R.id.category);
+        iconCategory = findViewById(R.id.iconCategory);
         bio = findViewById(R.id.bio);
 
         assert user != null;
@@ -97,6 +98,11 @@ public class Account extends AppCompatActivity {
                 negara = negara.replaceAll("\\s","_");
                 int id = getResources().getIdentifier("umn.ac.id.level:drawable/flag_" + negara, null, null);
                 flag.setImageResource(id);
+
+                String kategori = userData.getCategory().toLowerCase();
+                kategori = kategori.replaceAll("\\s","_");
+                int c = getResources().getIdentifier("umn.ac.id.level:drawable/" + kategori, null, null);
+                iconCategory.setImageResource(c);
             }
 
             @Override
