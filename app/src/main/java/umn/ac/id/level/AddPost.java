@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -26,7 +27,7 @@ public class AddPost extends AppCompatActivity {
     private ImageView img;
     private Bitmap bm;
     Uri uri;
-    String source;
+    String source = "";
 
     @SuppressLint({"QueryPermissionsNeeded", "NonConstantResourceId"})
     @Override
@@ -122,9 +123,20 @@ public class AddPost extends AppCompatActivity {
         if (id == R.id.action_next) {
             Intent intent = new Intent(AddPost.this, AddPostDetails.class);
             if (source.contentEquals("camera")) {
+                if (bm == null) {
+                    Toast.makeText(AddPost.this, "Please select image", Toast.LENGTH_LONG).show();
+                    return false;
+                }
                 intent.putExtra("IMG", bm);
             } else if (source.contentEquals("gallery")) {
+                if (uri == null) {
+                    Toast.makeText(AddPost.this, "Please select image", Toast.LENGTH_LONG).show();
+                    return false;
+                }
                 intent.putExtra("IMG", uri);
+            } else {
+                Toast.makeText(AddPost.this, "Please select image", Toast.LENGTH_LONG).show();
+                return false;
             }
 
             intent.putExtra("SOURCE", source);

@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -72,7 +71,8 @@ public class PostDetails extends AppCompatActivity {
                 Post post = snapshot.getValue(Post.class);
                 assert post != null;
                 username.setText(post.getUser());
-                location.setText(post.getLocation());
+                location.setText(post.getLocation().substring(0,1).toUpperCase() +
+                        post.getLocation().substring(1).toLowerCase());
                 if (post.getTravelDays() == 1) {
                     duration.setText(post.getTravelDays() + " day");
                 } else {
@@ -121,7 +121,6 @@ public class PostDetails extends AppCompatActivity {
     private void addView(Details details) {
         newView = LayoutInflater.from(this).inflate(R.layout.item_post_details, container, false);
 
-        Log.d("TEST", details.getDestination());
         TextView day = newView.findViewById(R.id.day);
         day.setText(details.getDay());
 
