@@ -217,8 +217,9 @@ public class AddPostDetails extends AppCompatActivity {
 
             BitmapDrawable drawable = (BitmapDrawable) loc.getDrawable();
             Bitmap decodedByte2 = drawable.getBitmap();
-            decodedByte2.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte[] byteFormat2 = stream.toByteArray();
+            ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+            decodedByte2.compress(Bitmap.CompressFormat.JPEG, 100, stream2);
+            byte[] byteFormat2 = stream2.toByteArray();
             String encodedImage2 = Base64.encodeToString(byteFormat2, Base64.NO_WRAP);
 
             postDetails.add(new Details(label, cost, destination, review, rating, encodedImage2));
