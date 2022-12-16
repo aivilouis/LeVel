@@ -70,7 +70,7 @@ public class EditAccount extends AppCompatActivity {
         ref = rootNode.getReference("UserData");
 
         category = findViewById(R.id.input_category);
-        String[] items = new String[]{"Business Traveler", "Leisure Traveler"};
+        String[] items = new String[]{"Business Traveler", "Leisure Traveler", "Special Interest Traveler"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         category.setAdapter(adapter);
 

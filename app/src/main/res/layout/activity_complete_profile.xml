@@ -70,6 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:layout_marginRight="3.5dp"
                 app:ccp_showPhoneCode="false"
                 app:ccp_showFullName="true"
                 app:ccp_showNameCode="false"
@@ -92,7 +93,7 @@
                 android:textColor="@color/teal_700"/>
             <Spinner
                 android:id="@+id/input_category"
-                android:layout_width="wrap_content"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:spinnerMode="dropdown"/>

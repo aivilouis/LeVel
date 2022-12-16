@@ -93,7 +93,9 @@ public class Account extends AppCompatActivity {
                 category.setText(userData.getCategory());
                 bio.setText(userData.getBio());
 
-                int id = getResources().getIdentifier("umn.ac.id.level:drawable/flag_" + userData.getCountry().toLowerCase(), null, null);
+                String negara = userData.getCountry().toLowerCase();
+                negara = negara.replaceAll("\\s","_");
+                int id = getResources().getIdentifier("umn.ac.id.level:drawable/flag_" + negara, null, null);
                 flag.setImageResource(id);
             }
 

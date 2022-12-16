@@ -64,7 +64,12 @@ public class PostDetails extends AppCompatActivity {
                 assert post != null;
                 username.setText(post.getUser());
                 location.setText(post.getLocation());
-                duration.setText(post.getTravelDays() + " days");
+                if (post.getTravelDays() == 1) {
+                    duration.setText(post.getTravelDays() + " day");
+                } else {
+                    duration.setText(post.getTravelDays() + " days");
+                }
+
                 budget.setText("Rp " + post.getTotalCost() + ",-");
                 hotel.setText(post.getHotel());
                 ticketPrice.setText("Rp " + post.getTicketPrice() + ",-");
