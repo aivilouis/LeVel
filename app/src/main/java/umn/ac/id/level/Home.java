@@ -21,7 +21,7 @@ import com.google.firebase.database.Query;
 
 import java.util.Objects;
 
-public class Home extends AppCompatActivity implements ExploreRecyclerInterface {
+public class Home extends AppCompatActivity {
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
@@ -89,7 +89,6 @@ public class Home extends AppCompatActivity implements ExploreRecyclerInterface 
                                     event.getAction() == KeyEvent.ACTION_DOWN &&
                                     event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                         if (event == null || !event.isShiftPressed()) {
-                            Log.d("TEST", searchBar.getText().toString());
                             filter(searchBar.getText().toString());
                             return true;
                         }
@@ -128,11 +127,5 @@ public class Home extends AppCompatActivity implements ExploreRecyclerInterface 
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
-    }
-
-    @Override
-    public void onItemClick(int position) {
-        Intent dtlintent = new Intent(Home.this,PostDetails.class);
-        startActivity(dtlintent);
     }
 }

@@ -8,6 +8,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -94,11 +95,18 @@ public class ExploreAdapter extends
             intent.putExtra("LOCATION", model.getLocation());
             v.getContext().startActivity(intent);
         });
+
+        holder.detailsBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), PostDetails.class);
+            intent.putExtra("POST", model.getId());
+            v.getContext().startActivity(intent);
+        });
     }
 
     static class ExploreViewHolder extends RecyclerView.ViewHolder {
         TextView user, location, travelDays, totalCost;
         ImageView profileImg, locationImg, iconLocation;
+        Button detailsBtn;
 
         public ExploreViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,6 +117,7 @@ public class ExploreAdapter extends
             profileImg = itemView.findViewById(R.id.profileImg);
             locationImg = itemView.findViewById(R.id.locationImg);
             iconLocation = itemView.findViewById(R.id.iconLocation);
+            detailsBtn = itemView.findViewById(R.id.detailsBtn);
         }
     }
 }
