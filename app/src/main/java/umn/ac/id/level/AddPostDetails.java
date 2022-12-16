@@ -186,7 +186,7 @@ public class AddPostDetails extends AppCompatActivity {
         View v;
 
         String id = ref.push().getKey();
-        String location = etLocation.getText().toString();
+        String location = etLocation.getText().toString().toLowerCase();
         String hotel = etHotel.getText().toString();
         int days = Integer.parseInt(etDays.getText().toString());
         int totalCost = Integer.parseInt(etTotalCost.getText().toString());
