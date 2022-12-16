@@ -108,6 +108,7 @@ public class Account extends AppCompatActivity {
                 Post post = snapshot.getValue(Post.class);
 
                 if(post == null){
+                    findViewById(R.id.koper).setVisibility(View.INVISIBLE);
                     findViewById(R.id.nopost).setVisibility(View.VISIBLE);
                 }
             }

@@ -13,4 +13,5 @@
     <color name="secondPrimary">#222227</color>
     <color name="disabled">#C8C4C4</color>
     <color name="grey">#6C6860</color>
+    <color name="teal200">#800D797D</color>
 </resources>

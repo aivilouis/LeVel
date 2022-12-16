@@ -10,9 +10,22 @@
     <ImageView
         android:id="@+id/post"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:layout_marginBottom="10dp"/>
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_marginTop="-100dp"
+        android:layout_gravity="center_horizontal"
+        android:textFontWeight="50"
+        android:textSize="24dp"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:shadowColor="@color/secondPrimary"
+        android:background="@color/teal200"/>
 </LinearLayout>

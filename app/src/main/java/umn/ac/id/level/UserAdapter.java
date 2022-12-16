@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,14 +38,17 @@ public class UserAdapter extends
         byte[] decodedString = Base64.decode(model.getLocationImg(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.post.setImageBitmap(decodedByte);
+        holder.location.setText(model.getLocation());
     }
 
     static class UserViewHolder extends RecyclerView.ViewHolder {
+        TextView location;
         ImageView post;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             post = itemView.findViewById(R.id.post);
+            location = itemView.findViewById(R.id.location);
         }
     }
 }

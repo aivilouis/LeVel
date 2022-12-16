@@ -19,7 +19,7 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
+                android:layout_height="350dp"
                 android:background="@drawable/background"
                 android:fitsSystemWindows="true">
 
@@ -103,16 +103,20 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/koper"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_horizontal"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="30dp"
+                        android:layout_marginRight="23dp"
+                        android:layout_marginLeft="23dp"
+                        android:visibility="visible">
                         <ImageView
                             android:id="@+id/rectangle"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
-                            android:background="@drawable/rectangle_feeds" />
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/pic" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -121,15 +125,17 @@
                 android:id="@+id/recyclerview2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="55dp"/>
+                android:layout_marginBottom="55dp"
+                android:layout_marginRight="23dp"
+                android:layout_marginLeft="23dp"/>
 
             <ImageView
                 android:id="@+id/nopost"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginTop="-10dp"
+                android:layout_marginTop="-130dp"
                 android:src="@drawable/noposts"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="center"
                 android:visibility="gone"/>
 
         </LinearLayout>
