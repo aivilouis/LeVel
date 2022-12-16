@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -95,6 +96,10 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Post post = snapshot.getValue(Post.class);
+
+                if(post == null){
+                    findViewById(R.id.nopost).setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
