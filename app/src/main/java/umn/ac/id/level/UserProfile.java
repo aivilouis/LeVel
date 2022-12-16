@@ -133,7 +133,7 @@ public class UserProfile extends AppCompatActivity {
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.action_save:
-                    startActivity(new Intent(getApplicationContext(), Saved.class));
+                    startActivity(new Intent(getApplicationContext(), Location.class));
                     overridePendingTransition(0,0);
                     return true;
                 case R.id.action_account:

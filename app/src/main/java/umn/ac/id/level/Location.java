@@ -15,16 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Saved extends AppCompatActivity {
+public class Location extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved);
+        setContentView(R.layout.activity_location);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.saved_actionbar);
+        getSupportActionBar().setCustomView(R.layout.location_actionbar);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_save);
