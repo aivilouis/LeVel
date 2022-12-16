@@ -17,11 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
 public class ExploreAdapter extends
         FirebaseRecyclerAdapter<ExploreItem, ExploreAdapter.ExploreViewHolder> {
+
+    FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference ref = rootNode.getReference("UserData");
 
     public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options) {
         super(Objects.requireNonNull(options));
@@ -39,20 +47,34 @@ public class ExploreAdapter extends
     protected void onBindViewHolder(@NonNull ExploreAdapter.ExploreViewHolder holder, int position, @NonNull ExploreItem model) {
         holder.user.setText(model.getUser());
         holder.location.setText(model.getLocation());
-        if(model.getTravelDays() == 1){
+
+        if (model.getTravelDays() == 1) {
             holder.travelDays.setText(model.getTravelDays() + " day");
-        }
-        else{
+        } else {
             holder.travelDays.setText(model.getTravelDays() + " days");
         }
+
         holder.totalCost.setText("Rp " + model.getTotalCost() + ",-");
 
         byte[] decodedString = Base64.decode(model.getLocationImg(), Base64.DEFAULT);
         Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         holder.locationImg.setImageBitmap(decodedByte);
 
-        new ImageLoadTask("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                holder.profileImg).execute();
+        ValueEventListener dataListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserData userData = dataSnapshot.getValue(UserData.class);
+                assert userData != null;
+                byte[] decodedString2 = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
+                Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
+                holder.profileImg.setImageBitmap(decodedByte2);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        };
+
+        ref.child(model.getUser()).addValueEventListener(dataListener);
 
         String username = holder.user.getText().toString();
 
