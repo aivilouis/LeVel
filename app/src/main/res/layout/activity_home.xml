@@ -43,11 +43,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeRecyclerView"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
-        android:layout_height="674dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="35dp"/>
+        android:layout_height="match_parent"
+        android:layout_marginRight="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginBottom="55dp"/>
 
 </RelativeLayout>
