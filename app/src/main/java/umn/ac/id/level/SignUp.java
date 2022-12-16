@@ -57,8 +57,7 @@ public class SignUp extends AppCompatActivity {
         });
     }
 
-    private void registerNewUser()
-    {
+    private void registerNewUser() {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Users");
 
@@ -74,6 +73,10 @@ public class SignUp extends AppCompatActivity {
             etPassword.setError("Please enter your password");
             return;
         }
+        if (etPassword.length() > 0 && etPassword.length() < 8) {
+            etPassword.setError("Password must be at least 8 characters");
+            return;
+        }
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("EMAIL_KEY", mEmail);
@@ -83,7 +86,6 @@ public class SignUp extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-//                        sendEmailVerification();
                         Intent intent = new Intent(SignUp.this, CompleteProfile.class);
                         startActivity(intent);
                     } else {
@@ -93,17 +95,4 @@ public class SignUp extends AppCompatActivity {
                 });
     }
 
-//    private void sendEmailVerification() {
-//
-//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-//
-//        assert firebaseUser != null;
-//        firebaseUser.sendEmailVerification()
-//                .addOnSuccessListener(unused -> Log.d(TAG, "Verification email sent"))
-//                .addOnFailureListener(e ->
-//                        Toast.makeText(SignUp.this,
-//                                "Failed to send verification email due to " + e.getMessage(),
-//                                Toast.LENGTH_SHORT).show());
-//    }
 }

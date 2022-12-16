@@ -88,7 +88,7 @@ public class Home extends AppCompatActivity {
                                     event.getAction() == KeyEvent.ACTION_DOWN &&
                                     event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
                         if (event == null || !event.isShiftPressed()) {
-                            filter(searchBar.getText().toString());
+                            filter(searchBar.getText().toString().toLowerCase());
                             return true;
                         }
                     }
