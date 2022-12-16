@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     tools:context=".PostDetails"
     android:scrollbars="vertical"
+    android:scrollbarSize="0dp"
     tools:ignore="HardcodedText, ContentDescription"
     android:layout_marginRight="23dp"
     android:layout_marginLeft="23dp">
