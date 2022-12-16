@@ -37,10 +37,12 @@
                             android:id="@+id/accountPicture"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:src="@drawable/image"
                             android:layout_marginTop="10dp"
                             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                             app:strokeWidth="0dp"
-                            android:layout_gravity="center"/>
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerCrop"/>
                     </LinearLayout>
 
                     <LinearLayout
