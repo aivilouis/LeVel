@@ -38,7 +38,7 @@ public class UserProfile extends AppCompatActivity {
     LinearLayoutManager mLayoutManager;
     UserAdapter adapter;
 
-    ImageView profileImg;
+    ImageView profileImg, flag;
     TextView country, category, bio;
 
     String key;
@@ -59,6 +59,7 @@ public class UserProfile extends AppCompatActivity {
         TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
         profileImg = findViewById(R.id.accountPicture);
         country = findViewById(R.id.country);
+        flag = findViewById(R.id.flag);
         category = findViewById(R.id.category);
         bio = findViewById(R.id.bio);
 
@@ -81,6 +82,9 @@ public class UserProfile extends AppCompatActivity {
                 country.setText(userData.getCountry());
                 category.setText(userData.getCategory());
                 bio.setText(userData.getBio());
+
+                int id = getResources().getIdentifier("umn.ac.id.level:drawable/flag_" + userData.getCountry().toLowerCase(), null, null);
+                flag.setImageResource(id);
             }
 
             @Override

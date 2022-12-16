@@ -45,8 +45,9 @@ public class Account extends AppCompatActivity {
     LinearLayoutManager mLayoutManager;
     AccountAdapter adapter;
 
-    ImageView profileImg;
+    ImageView profileImg, flag;
     TextView country, category, bio;
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -64,6 +65,7 @@ public class Account extends AppCompatActivity {
         TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
         profileImg = findViewById(R.id.accountPicture);
         country = findViewById(R.id.country);
+        flag = findViewById(R.id.flag);
         category = findViewById(R.id.category);
         bio = findViewById(R.id.bio);
 
@@ -90,6 +92,9 @@ public class Account extends AppCompatActivity {
                 country.setText(userData.getCountry());
                 category.setText(userData.getCategory());
                 bio.setText(userData.getBio());
+
+                int id = getResources().getIdentifier("umn.ac.id.level:drawable/flag_" + userData.getCountry().toLowerCase(), null, null);
+                flag.setImageResource(id);
             }
 
             @Override

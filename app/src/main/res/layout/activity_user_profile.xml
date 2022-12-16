@@ -54,16 +54,16 @@
                         <ImageView
                             android:id="@+id/flag"
                             android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            tools:ignore="DuplicateIds" />
+                            android:layout_height="22dp"/>
 
                         <TextView
                             android:id="@+id/country"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAlignment="center"
+                            android:gravity="center_horizontal"
                             android:textColor="@color/secondPrimary"
-                            tools:ignore="DuplicateIds" />
+                            android:layout_marginStart="10dp"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -83,8 +83,10 @@
                             android:id="@+id/category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
+                            android:layout_marginStart="10dp"
                             android:textAlignment="center"
+                            android:gravity="center_horizontal"
+                            android:text="Business Traveler"
                             android:textColor="@color/secondPrimary"/>
                     </LinearLayout>
 
