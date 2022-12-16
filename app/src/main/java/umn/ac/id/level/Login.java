@@ -13,11 +13,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -62,22 +59,28 @@ public class Login extends AppCompatActivity {
         mEmail = etEmail.getText().toString();
         mPassword = etPassword.getText().toString();
 
-        if (TextUtils.isEmpty(mEmail) || TextUtils.isEmpty(mPassword)) {
-            Toast.makeText(getApplicationContext(), "This field is required", Toast.LENGTH_LONG).show();
-        } else {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("EMAIL_KEY", mEmail);
-            editor.putString("PASSWORD_KEY", mPassword);
-            editor.apply();
-
-            mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    checkIfEmailVerified();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
-                }
-            });
+        if (etEmail.length() == 0) {
+            etEmail.setError("Please enter your email");
+            return;
         }
+        if (etPassword.length() == 0) {
+            etPassword.setError("Please enter your password");
+            return;
+        }
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("EMAIL_KEY", mEmail);
+        editor.putString("PASSWORD_KEY", mPassword);
+        editor.apply();
+
+        mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                checkIfEmailVerified();
+            } else {
+                Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override
@@ -112,6 +115,7 @@ public class Login extends AppCompatActivity {
 
     private void sendResetPassEmail() {
         mAuth = FirebaseAuth.getInstance();
+
         if (etEmail.length() == 0) {
             etEmail.setError("Please enter your email");
         } else {
@@ -120,7 +124,7 @@ public class Login extends AppCompatActivity {
             mAuth.sendPasswordResetEmail(emailAddress)
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Email sent.");
+                            Log.d(TAG, "Reset password email sent");
                         }
                     });
         }

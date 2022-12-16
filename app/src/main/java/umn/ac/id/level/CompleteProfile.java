@@ -1,5 +1,7 @@
 package umn.ac.id.level;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -60,9 +63,8 @@ public class CompleteProfile extends AppCompatActivity {
         setContentView(R.layout.activity_complete_profile);
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.editaccount_actionbar);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.complete_profile_actionbar);
+        getSupportActionBar().setElevation(0);
 
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
 
@@ -125,23 +127,31 @@ public class CompleteProfile extends AppCompatActivity {
             saveData();
             return true;
         }
-        if (id == android.R.id.home) {
-            Intent intent = new Intent(CompleteProfile.this, SignUp.class);
-            this.startActivity(intent);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void sendEmailVerification() {
+
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        assert firebaseUser != null;
+        firebaseUser.sendEmailVerification()
+                .addOnSuccessListener(unused -> Log.d(TAG, "Verification email sent"))
+                .addOnFailureListener(e ->
+                        Toast.makeText(CompleteProfile.this,
+                                "Failed to send verification email due to " + e.getMessage(),
+                                Toast.LENGTH_SHORT).show());
     }
 
     private void saveData() {
 
         if (username.length() == 0) {
-            username.setError("This field is required");
+            username.setError("Please enter your username");
             return;
         }
         if (bio.length() == 0) {
-            bio.setError("This field is required");
-            return;
+            bio.setText(" ");
         }
 
         String mUsername = username.getText().toString();
@@ -189,6 +199,7 @@ public class CompleteProfile extends AppCompatActivity {
 
         user.updateProfile(profileUpdates).addOnCompleteListener(task1 -> {
             if (task1.isSuccessful()) {
+                sendEmailVerification();
                 Toast.makeText(getApplicationContext(),
                         "Sign Up successful. Please verify your email",
                         Toast.LENGTH_LONG).show();

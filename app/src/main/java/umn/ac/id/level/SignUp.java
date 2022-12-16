@@ -1,13 +1,15 @@
 package umn.ac.id.level;
 
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -64,12 +66,12 @@ public class SignUp extends AppCompatActivity {
         mEmail = etEmail.getText().toString();
         mPassword = etPassword.getText().toString();
 
-        if (TextUtils.isEmpty(mEmail)) {
-            Toast.makeText(getApplicationContext(), "Please enter email", Toast.LENGTH_LONG).show();
+        if (etEmail.length() == 0) {
+            etEmail.setError("Please enter your email");
             return;
         }
-        if (TextUtils.isEmpty(mPassword)) {
-            Toast.makeText(getApplicationContext(), "Please enter password", Toast.LENGTH_LONG).show();
+        if (etPassword.length() == 0) {
+            etPassword.setError("Please enter your password");
             return;
         }
 
@@ -81,7 +83,7 @@ public class SignUp extends AppCompatActivity {
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        sendEmailVerification();
+//                        sendEmailVerification();
                         Intent intent = new Intent(SignUp.this, CompleteProfile.class);
                         startActivity(intent);
                     } else {
@@ -91,15 +93,17 @@ public class SignUp extends AppCompatActivity {
                 });
     }
 
-    private void sendEmailVerification() {
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-
-        firebaseUser.sendEmailVerification()
-                .addOnSuccessListener(unused ->
-                        Toast.makeText(SignUp.this, "Instructions Sent...", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e ->
-                        Toast.makeText(SignUp.this, "Failed to send due to " + e.getMessage(), Toast.LENGTH_SHORT).show());
-    }
+//    private void sendEmailVerification() {
+//
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//
+//        assert firebaseUser != null;
+//        firebaseUser.sendEmailVerification()
+//                .addOnSuccessListener(unused -> Log.d(TAG, "Verification email sent"))
+//                .addOnFailureListener(e ->
+//                        Toast.makeText(SignUp.this,
+//                                "Failed to send verification email due to " + e.getMessage(),
+//                                Toast.LENGTH_SHORT).show());
+//    }
 }
