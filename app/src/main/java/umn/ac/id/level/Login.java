@@ -1,24 +1,31 @@
 package umn.ac.id.level;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
-    private EditText etEmail, etPassword;
-    private FirebaseAuth mAuth;
+    EditText etEmail, etPassword;
+    TextView tvForgotPass;
+    FirebaseAuth mAuth;
     SharedPreferences sharedPreferences;
     String email, password;
 
@@ -29,6 +36,7 @@ public class Login extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        tvForgotPass = findViewById(R.id.forgotPassword);
         etEmail = findViewById(R.id.email);
         etPassword = findViewById(R.id.password);
         Button btn = findViewById(R.id.loginBtn);
@@ -45,6 +53,8 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this, SignUp.class);
             startActivity(intent);
         });
+
+        tvForgotPass.setOnClickListener(v -> sendResetPassEmail());
     }
 
     private void loginUserAccount() {
@@ -97,6 +107,22 @@ public class Login extends AppCompatActivity {
             FirebaseAuth.getInstance().signOut();
 
             Login.this.recreate();
+        }
+    }
+
+    private void sendResetPassEmail() {
+        mAuth = FirebaseAuth.getInstance();
+        if (etEmail.length() == 0) {
+            etEmail.setError("Please enter your email");
+        } else {
+            String emailAddress = etEmail.getText().toString();
+
+            mAuth.sendPasswordResetEmail(emailAddress)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "Email sent.");
+                        }
+                    });
         }
     }
 }
