@@ -5,20 +5,25 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +41,7 @@ public class PostDetails extends AppCompatActivity {
 
     TextView username, location, duration, budget, ticketPrice, hotel;
     ImageView profileImg, locationBtn, thumbnailImg;
+    Button deleteBtn;
     View newView;
     LinearLayout container;
 
@@ -58,6 +64,8 @@ public class PostDetails extends AppCompatActivity {
         refPost = rootNode.getReference("Posts");
         refUser = rootNode.getReference("UserData");
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         username = findViewById(R.id.username);
         location = findViewById(R.id.location);
         duration = findViewById(R.id.duration);
@@ -67,7 +75,10 @@ public class PostDetails extends AppCompatActivity {
         thumbnailImg = findViewById(R.id.tumbnailImg);
         ticketPrice = findViewById(R.id.costPlane);
         hotel = findViewById(R.id.hotel);
+
         container = findViewById(R.id.newView);
+
+        deleteBtn = findViewById(R.id.deleteBtn);
 
         ValueEventListener valueEventListener = new ValueEventListener() {
             @SuppressLint("SetTextI18n")
@@ -75,6 +86,23 @@ public class PostDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Post post = snapshot.getValue(Post.class);
                 assert post != null;
+                deleteBtn.setOnClickListener(v -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PostDetails.this);
+
+                    builder.setMessage("Are you sure you want to delete this post?");
+
+                    builder.setPositiveButton("Yes", (dialog, id) -> {
+                        snapshot.getRef().removeValue();
+                        Toast.makeText(PostDetails.this, "Post deleted", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(PostDetails.this, Home.class));
+                    });
+
+                    builder.setNegativeButton("No", (dialog, id) -> {});
+
+                    builder.create();
+                    builder.show();
+                });
+
                 username.setText(post.getUser());
                 username.setOnClickListener(v -> {
                     Intent intent = new Intent(PostDetails.this, UserProfile.class);
@@ -135,6 +163,11 @@ public class PostDetails extends AppCompatActivity {
                             intent.putExtra("USER", userData.getUsername());
                             startActivity(intent);
                         });
+
+                        assert user != null;
+                        if (userData.getUsername().contentEquals(Objects.requireNonNull(user.getDisplayName()))) {
+                            deleteBtn.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override
