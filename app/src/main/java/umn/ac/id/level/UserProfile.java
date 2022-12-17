@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.MenuItem;
@@ -17,6 +15,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -77,8 +78,14 @@ public class UserProfile extends AppCompatActivity {
 
                 assert userData != null;
                 byte[] decodedString = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                profileImg.setImageBitmap(decodedByte);
+                Glide.with(getApplicationContext())
+                        .asBitmap()
+                        .load(decodedString)
+                        .apply(new RequestOptions()
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .dontTransform())
+                        .into(profileImg);
 
                 country.setText(userData.getCountry());
                 category.setText(userData.getCategory());
@@ -125,6 +132,7 @@ public class UserProfile extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
+        mRecyclerView.setItemAnimator(null);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setNestedScrollingEnabled(false);
@@ -134,7 +142,7 @@ public class UserProfile extends AppCompatActivity {
                         .setQuery(query, ExploreItem.class)
                         .build();
 
-        adapter = new UserAdapter(options);
+        adapter = new UserAdapter(options, getApplicationContext());
         mRecyclerView.setAdapter(adapter);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

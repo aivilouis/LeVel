@@ -1,9 +1,8 @@
 package umn.ac.id.level;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -30,9 +32,11 @@ public class ExploreAdapter extends
 
     FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference ref = rootNode.getReference("UserData");
+    Context context;
 
-    public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options) {
+    public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options, Context context) {
         super(Objects.requireNonNull(options));
+        this.context = context;
     }
 
     @NonNull
@@ -57,8 +61,14 @@ public class ExploreAdapter extends
         holder.totalCost.setText("Rp " + model.getTotalCost() + ",-");
 
         byte[] decodedString = Base64.decode(model.getLocationImg(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        holder.locationImg.setImageBitmap(decodedByte);
+        Glide.with(this.context)
+                .asBitmap()
+                .load(decodedString)
+                .apply(new RequestOptions()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .dontTransform())
+                .into(holder.locationImg);
 
         ValueEventListener dataListener = new ValueEventListener() {
             @Override
@@ -66,8 +76,14 @@ public class ExploreAdapter extends
                 UserData userData = dataSnapshot.getValue(UserData.class);
                 assert userData != null;
                 byte[] decodedString2 = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
-                Bitmap decodedByte2 = BitmapFactory.decodeByteArray(decodedString2, 0, decodedString2.length);
-                holder.profileImg.setImageBitmap(decodedByte2);
+                Glide.with(context)
+                        .asBitmap()
+                        .load(decodedString2)
+                        .apply(new RequestOptions()
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .dontTransform())
+                        .into(holder.profileImg);
             }
 
             @Override

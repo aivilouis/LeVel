@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -18,6 +16,9 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -99,8 +100,14 @@ public class PostDetails extends AppCompatActivity {
                 }
 
                 byte[] decodedString = Base64.decode(post.getLocationImg(), Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                thumbnailImg.setImageBitmap(decodedByte);
+                Glide.with(getApplicationContext())
+                        .asBitmap()
+                        .load(decodedString)
+                        .apply(new RequestOptions()
+                                .skipMemoryCache(true)
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .dontTransform())
+                        .into(thumbnailImg);
 
                 ArrayList<Details> postDetails = post.getPostDetails();
                 for (int i = 0; i < postDetails.size(); i++) {
@@ -114,8 +121,14 @@ public class PostDetails extends AppCompatActivity {
                         assert userData != null;
 
                         byte[] decodedString = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        profileImg.setImageBitmap(decodedByte);
+                        Glide.with(getApplicationContext())
+                                .asBitmap()
+                                .load(decodedString)
+                                .apply(new RequestOptions()
+                                        .skipMemoryCache(true)
+                                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                        .dontTransform())
+                                .into(profileImg);
 
                         profileImg.setOnClickListener(v -> {
                             Intent intent = new Intent(PostDetails.this, UserProfile.class);
@@ -150,8 +163,14 @@ public class PostDetails extends AppCompatActivity {
 
         ImageView img = newView.findViewById(R.id.destImg);
         byte[] decodedString = Base64.decode(details.getImage(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        img.setImageBitmap(decodedByte);
+        Glide.with(getApplicationContext())
+                .asBitmap()
+                .load(decodedString)
+                .apply(new RequestOptions()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .dontTransform())
+                .into(img);
 
         RatingBar rating = newView.findViewById(R.id.rating);
         rating.setRating(details.getRating());

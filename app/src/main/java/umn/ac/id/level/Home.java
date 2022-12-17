@@ -76,7 +76,7 @@ public class Home extends AppCompatActivity {
                 .setQuery(ref, ExploreItem.class)
                 .build();
 
-        adapter = new ExploreAdapter(options);
+        adapter = new ExploreAdapter(options, getApplicationContext());
         recyclerView.setAdapter(adapter);
 
         EditText searchBar = findViewById(R.id.search_bar);
@@ -106,7 +106,7 @@ public class Home extends AppCompatActivity {
                         .build();
 
         recyclerView.getRecycledViewPool().clear();
-        adapter = new ExploreAdapter(temp);
+        adapter = new ExploreAdapter(temp, getApplicationContext());
         adapter.startListening();
         recyclerView.setAdapter(adapter);
     }
