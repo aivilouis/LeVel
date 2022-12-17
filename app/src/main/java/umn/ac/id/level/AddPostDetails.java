@@ -156,12 +156,14 @@ public class AddPostDetails extends AppCompatActivity {
 
         newView = LayoutInflater.from(this).inflate(R.layout.items, container, false);
         locationImg = newView.findViewById(R.id.locationImg);
+        Button addPhotoBtn = newView.findViewById(R.id.addPhotoBtn);
 
-        newView.findViewById(R.id.addPhotoBtn).setOnClickListener(v -> {
+        addPhotoBtn.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             activityResultLauncher.launch(intent);
+            addPhotoBtn.setVisibility(View.GONE);
         });
 
         Spinner dropdown = newView.findViewById(R.id.label);
