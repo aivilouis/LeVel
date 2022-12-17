@@ -1,5 +1,7 @@
 package umn.ac.id.level;
 
+import static java.lang.Integer.parseInt;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
@@ -54,6 +56,7 @@ public class AddPostDetails extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> activityResultLauncher;
     ImageView locationImg;
+    ArrayList<Integer> sum = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +93,6 @@ public class AddPostDetails extends AppCompatActivity {
         etHotel = findViewById(R.id.input_hotel);
         etCostPerNight = findViewById(R.id.input_costpernight);
         roundTrip = findViewById(R.id.roundTrip);
-
 
         container = findViewById(R.id.newView);
         Button addDestination = findViewById(R.id.addDestinationBtn);
@@ -136,7 +138,21 @@ public class AddPostDetails extends AppCompatActivity {
             return;
         }
 
-        int totalDays = Integer.parseInt(etDays.getText().toString());
+        int totalDays = parseInt(etDays.getText().toString());
+        int curTotalCost = Integer.parseInt(etTotalCost.getText().toString());
+        int curTicketPrice = Integer.parseInt(etTicketPrice.getText().toString());
+        int curCostPerNight = Integer.parseInt(etCostPerNight.getText().toString());
+
+        if (curTicketPrice > curTotalCost) {
+            etTicketPrice.setError("Total cost must not exceeds " +
+                    "Rp " + etTotalCost.getText().toString() + ",-");
+            return;
+        }
+        if (curCostPerNight > curTotalCost || curCostPerNight + curTicketPrice > curTotalCost) {
+            etCostPerNight.setError("Total cost must not exceeds " +
+                    "Rp " + etTotalCost.getText().toString() + ",-");
+            return;
+        }
 
         newView = LayoutInflater.from(this).inflate(R.layout.items, container, false);
         locationImg = newView.findViewById(R.id.locationImg);
@@ -179,6 +195,17 @@ public class AddPostDetails extends AppCompatActivity {
                 Toast.makeText(AddPostDetails.this, "Please add image", Toast.LENGTH_LONG).show();
                 return;
             }
+
+            int currentCost = Integer.parseInt(cost.getText().toString());
+            sum.add(currentCost);
+            int total = curTicketPrice + curCostPerNight;
+            for (int c : sum) {
+                total += c;
+                if (total > curTotalCost) {
+                    cost.setError("Total cost must not exceeds " +
+                            "Rp " + etTotalCost.getText().toString() + ",-");
+                }
+            }
         }
 
         container.addView(newView, container.getChildCount());
@@ -211,6 +238,13 @@ public class AddPostDetails extends AppCompatActivity {
         int count = container.getChildCount();
         View v;
 
+        if (count < 1 || count < Integer.parseInt(etDays.getText().toString())) {
+            Toast.makeText(AddPostDetails.this,
+                    "Please add more details",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (etLocation.length() == 0) {
             etLocation.setError("This field is required");
             return;
@@ -239,10 +273,10 @@ public class AddPostDetails extends AppCompatActivity {
         String id = ref.push().getKey();
         String location = etLocation.getText().toString().toLowerCase();
         String hotel = etHotel.getText().toString();
-        int days = Integer.parseInt(etDays.getText().toString());
-        int totalCost = Integer.parseInt(etTotalCost.getText().toString());
-        int ticketPrice = Integer.parseInt(etTicketPrice.getText().toString());
-        int costPerNight = Integer.parseInt(etCostPerNight.getText().toString());
+        int days = parseInt(etDays.getText().toString());
+        int totalCost = parseInt(etTotalCost.getText().toString());
+        int ticketPrice = parseInt(etTicketPrice.getText().toString());
+        int costPerNight = parseInt(etCostPerNight.getText().toString());
         boolean roundtrip = roundTrip.isChecked();
 
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -275,7 +309,7 @@ public class AddPostDetails extends AppCompatActivity {
 
             String label = spinner.getSelectedItem().toString();
             String destination = etDestination.getText().toString();
-            int cost = Integer.parseInt(etCost.getText().toString());
+            int cost = parseInt(etCost.getText().toString());
             String review = etReview.getText().toString();
             float rating = ratingBar.getRating();
 
