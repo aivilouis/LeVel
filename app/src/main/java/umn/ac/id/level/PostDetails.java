@@ -91,7 +91,12 @@ public class PostDetails extends AppCompatActivity {
 
                 budget.setText("Rp " + post.getTotalCost() + ",-");
                 hotel.setText(post.getHotel());
-                ticketPrice.setText("Rp " + post.getTicketPrice() + ",-");
+
+                if (post.isRoundTrip()) {
+                    ticketPrice.setText("Rp " + post.getTicketPrice() + ",- (Round Trip)");
+                } else {
+                    ticketPrice.setText("Rp " + post.getTicketPrice() + ",-");
+                }
 
                 byte[] decodedString = Base64.decode(post.getLocationImg(), Base64.DEFAULT);
                 Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
