@@ -121,6 +121,10 @@ public class AddPostDetails extends AppCompatActivity {
             etDays.setError("This field is required");
             return;
         }
+        if (Integer.parseInt(etDays.getText().toString()) == 0) {
+            etDays.setError("Travel Days must be more than 0");
+            return;
+        }
         if (etTotalCost.length() == 0) {
             etTotalCost.setError("This field is required");
             return;
@@ -253,6 +257,10 @@ public class AddPostDetails extends AppCompatActivity {
         }
         if (etDays.length() == 0) {
             etDays.setError("This field is required");
+            return;
+        }
+        if (Integer.parseInt(etDays.getText().toString()) == 0) {
+            etDays.setError("Travel Days must be more than 0");
             return;
         }
         if (etTotalCost.length() == 0) {
