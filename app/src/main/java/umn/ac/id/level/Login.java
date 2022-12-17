@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -129,6 +133,21 @@ public class Login extends AppCompatActivity {
                             Log.d(TAG, "Reset password email sent");
                         }
                     });
+        }
+    }
+
+    public void ShowHidePass(View view) {
+        if(view.getId()==R.id.show_pass_btn) {
+            if(etPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                ((ImageView)(view)).setImageResource(R.drawable.icon_closeye);
+                // Show Password
+                etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            }
+            else {
+                ((ImageView)(view)).setImageResource(R.drawable.icon_eye);
+                // Hide Password
+                etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            }
         }
     }
 }

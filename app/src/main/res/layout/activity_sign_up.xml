@@ -49,6 +49,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
+            <ImageView
+                android:id="@+id/show_pass_btn"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:alpha=".5"
+                android:onClick="ShowHidePass"
+                android:layout_marginTop="-40dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/icon_eye"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
