@@ -186,12 +186,12 @@ public class CompleteProfile extends AppCompatActivity {
 
 
         String mCountry = country.getSelectedCountryName();
-        //        int flagId = country.getSelectedCountryFlagResourceId();
+        String countryCode = country.getDefaultCountryNameCode();
         int categoryId = category.getSelectedItemPosition();
         String mCategory = category.getSelectedItem().toString();
         String mBio = bio.getText().toString();
 
-        ref.child(mUsername).setValue(new UserData(encodedImage, mUsername, mCountry, categoryId, mCategory, mBio));
+        ref.child(mUsername).setValue(new UserData(encodedImage, mUsername, countryCode, mCountry, categoryId, mCategory, mBio));
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(mUsername)

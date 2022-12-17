@@ -85,6 +85,8 @@ public class EditAccount extends AppCompatActivity {
                 UserData userData = dataSnapshot.getValue(UserData.class);
                 assert userData != null;
                 username.setText(userData.getUsername());
+                country.setDefaultCountryUsingNameCode(userData.getCountryCode());
+                country.resetToDefaultCountry();
                 category.setSelection(userData.getCategoryId());
                 bio.setText(userData.getBio());
 
@@ -165,7 +167,7 @@ public class EditAccount extends AppCompatActivity {
 
         String mUsername = username.getText().toString();
         String mCountry = country.getSelectedCountryName();
-//        int flagId = country.getSelectedCountryFlagResourceId();
+        String countryCode = country.getSelectedCountryNameCode();
         int categoryId = category.getSelectedItemPosition();
         String mCategory = category.getSelectedItem().toString();
         String mBio = bio.getText().toString();
@@ -175,7 +177,7 @@ public class EditAccount extends AppCompatActivity {
         String username = currentUser.getDisplayName();
 
         assert username != null;
-        ref.child(username).setValue(new UserData(encodedImage, mUsername, mCountry, categoryId, mCategory, mBio));
+        ref.child(username).setValue(new UserData(encodedImage, mUsername, countryCode, mCountry, categoryId, mCategory, mBio));
 
         Intent intent = new Intent(EditAccount.this, Account.class);
         this.startActivity(intent);

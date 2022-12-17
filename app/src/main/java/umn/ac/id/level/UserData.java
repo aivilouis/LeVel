@@ -1,14 +1,16 @@
 package umn.ac.id.level;
 
 public class UserData {
-    String profPic, username, country, category, bio;
+    String profPic, username, countryCode, country, category, bio;
     int categoryId;
 
     public UserData() {}
 
-    public UserData(String profPic, String username, String country, int categoryId, String category, String bio) {
+    public UserData(String profPic, String username, String countryCode,
+                    String country, int categoryId, String category, String bio) {
         this.profPic = profPic;
         this.username = username;
+        this.countryCode = countryCode;
         this.country = country;
         this.categoryId = categoryId;
         this.category = category;
@@ -29,6 +31,14 @@ public class UserData {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public String getCountry() {
