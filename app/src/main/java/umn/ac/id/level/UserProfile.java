@@ -29,7 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class UserProfile extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity
+{
 
     FirebaseDatabase rootNode;
     DatabaseReference refPost, refUserData;
@@ -45,7 +46,8 @@ public class UserProfile extends AppCompatActivity {
 
     @SuppressLint({"NonConstantResourceId", "MissingInflatedId"})
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
@@ -71,9 +73,11 @@ public class UserProfile extends AppCompatActivity {
         refPost = rootNode.getReference("Posts");
         refUserData = rootNode.getReference("UserData");
 
-        ValueEventListener dataListener = new ValueEventListener() {
+        ValueEventListener dataListener = new ValueEventListener()
+        {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 UserData userData = dataSnapshot.getValue(UserData.class);
 
                 assert userData != null;
@@ -111,12 +115,15 @@ public class UserProfile extends AppCompatActivity {
 
         Query query = refPost.orderByChild("user").equalTo(key);
 
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        ValueEventListener valueEventListener = new ValueEventListener()
+        {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
                 Post post = snapshot.getValue(Post.class);
 
-                if(post == null){
+                if(post == null)
+                {
                     findViewById(R.id.koper).setVisibility(View.INVISIBLE);
                     findViewById(R.id.nopost).setVisibility(View.VISIBLE);
                 }
@@ -148,20 +155,25 @@ public class UserProfile extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_home);
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch(item.getItemId()) {
+        bottomNavigationView.setOnItemSelectedListener(item ->
+        {
+            switch(item.getItemId())
+            {
                 case R.id.action_home:
                     startActivity(new Intent(getApplicationContext(), Home.class));
                     overridePendingTransition(0,0);
                     return true;
+
                 case R.id.action_addpost:
                     startActivity(new Intent(getApplicationContext(), AddPost.class));
                     overridePendingTransition(0,0);
                     return true;
+
                 case R.id.action_location:
                     startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                     overridePendingTransition(0,0);
                     return true;
+
                 case R.id.action_account:
                     startActivity(new Intent(getApplicationContext(), Account.class));
                     overridePendingTransition(0,0);
@@ -173,21 +185,25 @@ public class UserProfile extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
         adapter.startListening();
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
         adapter.stopListening();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
-        if (id == android.R.id.home) {
+        if (id == android.R.id.home)
+        {
             onBackPressed();
             finish();
             return true;

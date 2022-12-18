@@ -20,7 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class SignUp extends AppCompatActivity {
+public class SignUp extends AppCompatActivity
+{
 
     EditText etEmail, etPassword;
     FirebaseAuth mAuth;
@@ -51,13 +52,15 @@ public class SignUp extends AppCompatActivity {
         password = sharedPreferences.getString("PASSWORD_KEY", null);
 
         btn.setOnClickListener(v -> registerNewUser());
-        tvSignIn.setOnClickListener(v -> {
+        tvSignIn.setOnClickListener(v ->
+        {
             Intent intent = new Intent(SignUp.this, Login.class);
             startActivity(intent);
         });
     }
 
-    private void registerNewUser() {
+    private void registerNewUser()
+    {
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Users");
 
@@ -65,15 +68,18 @@ public class SignUp extends AppCompatActivity {
         mEmail = etEmail.getText().toString();
         mPassword = etPassword.getText().toString();
 
-        if (etEmail.length() == 0) {
+        if (etEmail.length() == 0)
+        {
             etEmail.setError("Please enter your email");
             return;
         }
-        if (etPassword.length() == 0) {
+        if (etPassword.length() == 0)
+        {
             etPassword.setError("Please enter your password");
             return;
         }
-        if (etPassword.length() > 0 && etPassword.length() < 8) {
+        if (etPassword.length() > 0 && etPassword.length() < 8)
+        {
             etPassword.setError("Password must be at least 8 characters");
             return;
         }
@@ -84,25 +90,33 @@ public class SignUp extends AppCompatActivity {
         editor.apply();
 
         mAuth.createUserWithEmailAndPassword(mEmail, mPassword)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                .addOnCompleteListener(task ->
+                {
+                    if (task.isSuccessful())
+                    {
                         Intent intent = new Intent(SignUp.this, CompleteProfile.class);
                         startActivity(intent);
-                    } else {
+                    }
+                    else
+                    {
                         Toast.makeText(getApplicationContext(), "Registration failed." +
                                 " Please try again later", Toast.LENGTH_LONG).show();
                     }
                 });
     }
 
-    public void ShowHidePass(View view) {
-        if(view.getId()==R.id.show_pass_btn) {
-            if(etPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+    public void ShowHidePass(View view)
+    {
+        if(view.getId()==R.id.show_pass_btn)
+        {
+            if(etPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance()))
+            {
                 ((ImageView)(view)).setImageResource(R.drawable.icon_closeye);
                 // Show Password
                 etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             }
-            else {
+            else
+            {
                 ((ImageView)(view)).setImageResource(R.drawable.icon_eye);
                 // Hide Password
                 etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());

@@ -1,22 +1,27 @@
 package umn.ac.id.level;
 
-public class ExpandListChild {
+public class ExpandListChild
+{
     private String Name;
     private String Tag;
 
-    public String getName() {
+    public String getName()
+    {
         return Name;
     }
 
-    public void setName(String Name) {
+    public void setName(String Name)
+    {
         this.Name = Name;
     }
 
-    public String getTag() {
+    public String getTag()
+    {
         return Tag;
     }
 
-    public void setTag(String Tag) {
+    public void setTag(String Tag)
+    {
         this.Tag = Tag;
     }
 }

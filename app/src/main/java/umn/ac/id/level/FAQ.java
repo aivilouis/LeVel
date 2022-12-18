@@ -13,14 +13,17 @@ import android.widget.ExpandableListView;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class FAQ extends AppCompatActivity {
+public class FAQ extends AppCompatActivity
+{
+
     private Bitmap bm;
     private ExpandListAdapter ExpAdapter;
     private ArrayList<ExpandListGroup> ExpListItems;
     private ExpandableListView ExpandList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
         ExpandList = (ExpandableListView) findViewById(R.id.ExpList);
@@ -33,7 +36,8 @@ public class FAQ extends AppCompatActivity {
 
     }
 
-    public ArrayList<ExpandListGroup> SetStandardGroups() {
+    public ArrayList<ExpandListGroup> SetStandardGroups()
+    {
         ArrayList<ExpandListGroup> list = new ArrayList<ExpandListGroup>();
         ArrayList<ExpandListChild> list2 = new ArrayList<ExpandListChild>();
         ExpandListGroup gru1 = new ExpandListGroup();
@@ -89,15 +93,18 @@ public class FAQ extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_setting, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         int id = item.getItemId();
-        if (id == R.id.close) {
+        if (id == R.id.close)
+        {
             Intent intent = new Intent(FAQ.this, Account.class);
             intent.putExtra("IMG", bm);
             this.startActivity(intent);

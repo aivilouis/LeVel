@@ -21,7 +21,8 @@ import com.google.firebase.database.Query;
 
 import java.util.Objects;
 
-public class Home extends AppCompatActivity {
+public class Home extends AppCompatActivity
+{
 
     FirebaseDatabase rootNode;
     DatabaseReference ref;
@@ -32,7 +33,8 @@ public class Home extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
@@ -42,18 +44,23 @@ public class Home extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_home);
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch(item.getItemId()) {
+        bottomNavigationView.setOnItemSelectedListener(item ->
+        {
+            switch(item.getItemId())
+            {
                 case R.id.action_home:
                     return true;
+
                 case R.id.action_addpost:
                     startActivity(new Intent(getApplicationContext(), AddPost.class));
                     overridePendingTransition(0,0);
                     return true;
+
                 case R.id.action_location:
                     startActivity(new Intent(getApplicationContext(), MapsActivity.class));
                     overridePendingTransition(0,0);
                     return true;
+
                 case R.id.action_account:
                     startActivity(new Intent(getApplicationContext(), Account.class));
                     overridePendingTransition(0,0);
@@ -82,13 +89,16 @@ public class Home extends AppCompatActivity {
 
         EditText searchBar = findViewById(R.id.search_bar);
         searchBar.setOnEditorActionListener(
-                (v, actionId, event) -> {
+                (v, actionId, event) ->
+                {
                     if (actionId == EditorInfo.IME_ACTION_SEARCH ||
                             actionId == EditorInfo.IME_ACTION_DONE ||
                             event != null &&
                                     event.getAction() == KeyEvent.ACTION_DOWN &&
-                                    event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                        if (event == null || !event.isShiftPressed()) {
+                                    event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                    {
+                        if (event == null || !event.isShiftPressed())
+                        {
                             filter(searchBar.getText().toString().toLowerCase());
                             return true;
                         }
@@ -98,7 +108,8 @@ public class Home extends AppCompatActivity {
         );
 
         Button cancelSearch = findViewById(R.id.cancelSearch);
-        cancelSearch.setOnClickListener(v -> {
+        cancelSearch.setOnClickListener(v ->
+        {
             searchBar.setText("");
             recyclerView.getRecycledViewPool().clear();
             adapter = new ExploreAdapter(options, getApplicationContext());
@@ -107,7 +118,8 @@ public class Home extends AppCompatActivity {
         });
     }
 
-    private void filter(String text){
+    private void filter(String text)
+    {
         Query query = ref.orderByChild("location").equalTo(text);
 
         FirebaseRecyclerOptions<ExploreItem> temp =
@@ -123,7 +135,8 @@ public class Home extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
         recyclerView.getRecycledViewPool().clear();
         adapter.startListening();
@@ -133,7 +146,8 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
+    protected void onStop()
+    {
         super.onStop();
         adapter.stopListening();
     }

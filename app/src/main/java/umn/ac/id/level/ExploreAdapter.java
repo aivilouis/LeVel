@@ -28,33 +28,40 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 public class ExploreAdapter extends
-        FirebaseRecyclerAdapter<ExploreItem, ExploreAdapter.ExploreViewHolder> {
+        FirebaseRecyclerAdapter<ExploreItem, ExploreAdapter.ExploreViewHolder>
+{
 
     FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
     DatabaseReference ref = rootNode.getReference("UserData");
     Context context;
 
-    public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options, Context context) {
+    public ExploreAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options, Context context)
+    {
         super(Objects.requireNonNull(options));
         this.context = context;
     }
 
     @NonNull
     @Override
-    public ExploreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExploreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view_row, parent, false);
         return new ExploreViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindViewHolder(@NonNull ExploreAdapter.ExploreViewHolder holder, int position, @NonNull ExploreItem model) {
+    protected void onBindViewHolder(@NonNull ExploreAdapter.ExploreViewHolder holder, int position, @NonNull ExploreItem model)
+    {
         holder.user.setText(model.getUser());
         holder.location.setText(model.getLocation());
 
-        if (model.getTravelDays() == 1) {
+        if (model.getTravelDays() == 1)
+        {
             holder.travelDays.setText(model.getTravelDays() + " day");
-        } else {
+        }
+        else
+        {
             holder.travelDays.setText(model.getTravelDays() + " days");
         }
 
@@ -70,9 +77,11 @@ public class ExploreAdapter extends
                     .dontTransform())
                 .into(holder.locationImg);
 
-        ValueEventListener dataListener = new ValueEventListener() {
+        ValueEventListener dataListener = new ValueEventListener()
+        {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 UserData userData = dataSnapshot.getValue(UserData.class);
                 assert userData != null;
                 byte[] decodedString2 = Base64.decode(userData.getProfPic(), Base64.DEFAULT);
@@ -94,38 +103,45 @@ public class ExploreAdapter extends
 
         String username = holder.user.getText().toString();
 
-        holder.profileImg.setOnClickListener(v -> {
+        holder.profileImg.setOnClickListener(v ->
+        {
             Intent intent = new Intent(v.getContext(), UserProfile.class);
             intent.putExtra("USER", username);
             v.getContext().startActivity(intent);
         });
 
-        holder.user.setOnClickListener(v -> {
+        holder.user.setOnClickListener(v ->
+        {
             Intent intent = new Intent(v.getContext(), UserProfile.class);
             intent.putExtra("USER", username);
             v.getContext().startActivity(intent);
         });
 
-        holder.iconLocation.setOnClickListener(v -> {
+        holder.iconLocation.setOnClickListener(v ->
+        {
             Intent intent = new Intent(v.getContext(), MapsActivity.class);
             intent.putExtra("LOCATION", model.getLocation());
             v.getContext().startActivity(intent);
         });
 
-        holder.detailsBtn.setOnClickListener(v -> {
+        holder.detailsBtn.setOnClickListener(v ->
+        {
             Intent intent = new Intent(v.getContext(), PostDetails.class);
             intent.putExtra("POST", model.getId());
             v.getContext().startActivity(intent);
         });
     }
 
-    static class ExploreViewHolder extends RecyclerView.ViewHolder {
+    static class ExploreViewHolder extends RecyclerView.ViewHolder
+    {
         TextView user, location, travelDays, totalCost;
         ImageView profileImg, locationImg, iconLocation;
         Button detailsBtn;
 
-        public ExploreViewHolder(@NonNull View itemView) {
+        public ExploreViewHolder(@NonNull View itemView)
+        {
             super(itemView);
+
             user = itemView.findViewById(R.id.user);
             location = itemView.findViewById(R.id.location);
             travelDays = itemView.findViewById(R.id.travelDays);

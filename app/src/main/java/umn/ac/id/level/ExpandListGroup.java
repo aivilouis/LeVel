@@ -2,24 +2,29 @@ package umn.ac.id.level;
 
 import java.util.ArrayList;
 
-public class ExpandListGroup {
+public class ExpandListGroup
+{
 
    private String Name;
    private ArrayList<ExpandListChild> Items;
 
-   public String getName() {
+   public String getName()
+   {
       return Name;
    }
 
-   public void setName(String name) {
+   public void setName(String name)
+   {
       this.Name = name;
    }
 
-   public ArrayList<ExpandListChild> getItems() {
+   public ArrayList<ExpandListChild> getItems()
+   {
       return Items;
    }
 
-   public void setItems(ArrayList<ExpandListChild> Items) {
+   public void setItems(ArrayList<ExpandListChild> Items)
+   {
       this.Items = Items;
    }
 

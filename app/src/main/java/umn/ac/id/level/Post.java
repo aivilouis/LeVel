@@ -3,7 +3,9 @@ package umn.ac.id.level;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Post implements Serializable {
+public class Post implements Serializable
+{
+
     private String id, user, location, hotel, locationImg;
     private int travelDays, totalCost, ticketPrice, costPerNight;
     private boolean roundTrip;
@@ -12,7 +14,8 @@ public class Post implements Serializable {
     public Post() {}
 
     public Post(String id, String user, String locationImg, String location, String hotel, int travelDays, int totalCost,
-                int ticketPrice, int costPerNight, boolean roundTrip, ArrayList<Details> postDetails) {
+                int ticketPrice, int costPerNight, boolean roundTrip, ArrayList<Details> postDetails)
+    {
         this.id = id;
         this.user = user;
         this.locationImg = locationImg;
@@ -26,91 +29,113 @@ public class Post implements Serializable {
         this.postDetails = postDetails;
     }
 
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(String id)
+    {
         this.id = id;
     }
 
-    public String getUser() {
+    public String getUser()
+    {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(String user)
+    {
         this.user = user;
     }
 
-    public String getLocationImg() {
+    public String getLocationImg()
+    {
         return locationImg;
     }
 
-    public void setLocationImg(String locationImg) {
+    public void setLocationImg(String locationImg)
+    {
         this.locationImg = locationImg;
     }
 
-    public String getLocation() {
+    public String getLocation()
+    {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(String location)
+    {
         this.location = location;
     }
 
-    public String getHotel() {
+    public String getHotel()
+    {
         return hotel;
     }
 
-    public void setHotel(String hotel) {
+    public void setHotel(String hotel)
+    {
         this.hotel = hotel;
     }
 
-    public int getTravelDays() {
+    public int getTravelDays()
+    {
         return travelDays;
     }
 
-    public void setTravelDays(int travelDays) {
+    public void setTravelDays(int travelDays)
+    {
         this.travelDays = travelDays;
     }
 
-    public int getTotalCost() {
+    public int getTotalCost()
+    {
         return totalCost;
     }
 
-    public void setTotalCost(int totalCost) {
+    public void setTotalCost(int totalCost)
+    {
         this.totalCost = totalCost;
     }
 
-    public int getTicketPrice() {
+    public int getTicketPrice()
+    {
         return ticketPrice;
     }
 
-    public void setTicketPrice(int ticketPrice) {
+    public void setTicketPrice(int ticketPrice)
+    {
         this.ticketPrice = ticketPrice;
     }
 
-    public int getCostPerNight() {
+    public int getCostPerNight()
+    {
         return costPerNight;
     }
 
-    public void setCostPerNight(int costPerNight) {
+    public void setCostPerNight(int costPerNight)
+    {
         this.costPerNight = costPerNight;
     }
 
-    public boolean isRoundTrip() {
+    public boolean isRoundTrip()
+    {
         return roundTrip;
     }
 
-    public void setRoundTrip(boolean roundTrip) {
+    public void setRoundTrip(boolean roundTrip)
+    {
         this.roundTrip = roundTrip;
     }
 
-    public ArrayList<Details> getPostDetails() {
+    public ArrayList<Details> getPostDetails()
+    {
         return postDetails;
     }
 
-    public void setPostDetails(ArrayList<Details> postDetails) {
+    public void setPostDetails(ArrayList<Details> postDetails)
+    {
         this.postDetails = postDetails;
     }
 }

@@ -32,7 +32,8 @@ public class Login extends AppCompatActivity {
     String email, password;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
@@ -52,7 +53,8 @@ public class Login extends AppCompatActivity {
 
         btn.setOnClickListener(v -> loginUserAccount());
 
-        tvSignup.setOnClickListener(v -> {
+        tvSignup.setOnClickListener(v ->
+        {
             Intent intent = new Intent(Login.this, SignUp.class);
             startActivity(intent);
         });
@@ -60,16 +62,19 @@ public class Login extends AppCompatActivity {
         tvForgotPass.setOnClickListener(v -> sendResetPassEmail());
     }
 
-    private void loginUserAccount() {
+    private void loginUserAccount()
+    {
         String mEmail, mPassword;
         mEmail = etEmail.getText().toString();
         mPassword = etPassword.getText().toString();
 
-        if (etEmail.length() == 0) {
+        if (etEmail.length() == 0)
+        {
             etEmail.setError("Please enter your email");
             return;
         }
-        if (etPassword.length() == 0) {
+        if (etPassword.length() == 0)
+        {
             etPassword.setError("Please enter your password");
             return;
         }
@@ -79,10 +84,14 @@ public class Login extends AppCompatActivity {
         editor.putString("PASSWORD_KEY", mPassword);
         editor.apply();
 
-        mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+        mAuth.signInWithEmailAndPassword(mEmail, mPassword).addOnCompleteListener(task ->
+        {
+            if (task.isSuccessful())
+            {
                 checkIfEmailVerified();
-            } else {
+            }
+            else
+            {
                 Toast.makeText(getApplicationContext(), "Login failed", Toast.LENGTH_LONG).show();
             }
         });
@@ -90,24 +99,30 @@ public class Login extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
-        if (email != null && password != null) {
+
+        if (email != null && password != null)
+        {
             Intent intent = new Intent(Login.this, Home.class);
             startActivity(intent);
         }
     }
 
-    private void checkIfEmailVerified() {
+    private void checkIfEmailVerified()
+    {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         assert user != null;
-        if (user.isEmailVerified()) {
+        if (user.isEmailVerified())
+        {
             Toast.makeText(Login.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(Login.this, Account.class);
             startActivity(intent);
             finish();
-        } else {
+        } else
+        {
             Toast.makeText(Login.this, "Login failed. Please verify your email.", Toast.LENGTH_LONG).show();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -119,31 +134,40 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    private void sendResetPassEmail() {
+    private void sendResetPassEmail()
+    {
         mAuth = FirebaseAuth.getInstance();
 
-        if (etEmail.length() == 0) {
+        if (etEmail.length() == 0)
+        {
             etEmail.setError("Please enter your email");
-        } else {
+        } else
+        {
             String emailAddress = etEmail.getText().toString();
 
             mAuth.sendPasswordResetEmail(emailAddress)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
+                    .addOnCompleteListener(task ->
+                    {
+                        if (task.isSuccessful())
+                        {
                             Log.d(TAG, "Reset password email sent");
                         }
                     });
         }
     }
 
-    public void ShowHidePass(View view) {
-        if(view.getId()==R.id.show_pass_btn) {
-            if(etPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+    public void ShowHidePass(View view)
+    {
+        if(view.getId()==R.id.show_pass_btn)
+        {
+            if(etPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance()))
+            {
                 ((ImageView)(view)).setImageResource(R.drawable.icon_closeye);
                 // Show Password
                 etPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
             }
-            else {
+            else
+            {
                 ((ImageView)(view)).setImageResource(R.drawable.icon_eye);
                 // Hide Password
                 etPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());

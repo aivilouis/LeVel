@@ -10,20 +10,24 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
+public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap>
+{
 
     private final String url;
     @SuppressLint("StaticFieldLeak")
     private final ImageView imageView;
 
-    public ImageLoadTask(String url, ImageView imageView) {
+    public ImageLoadTask(String url, ImageView imageView)
+    {
         this.url = url;
         this.imageView = imageView;
     }
 
     @Override
-    protected Bitmap doInBackground(Void... params) {
-        try {
+    protected Bitmap doInBackground(Void... params)
+    {
+        try
+        {
             URL urlConnection = new URL(url);
             HttpURLConnection connection = (HttpURLConnection) urlConnection
                     .openConnection();
@@ -31,14 +35,17 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
             connection.connect();
             InputStream input = connection.getInputStream();
             return BitmapFactory.decodeStream(input);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    protected void onPostExecute(Bitmap result) {
+    protected void onPostExecute(Bitmap result)
+    {
         super.onPostExecute(result);
         imageView.setImageBitmap(result);
     }

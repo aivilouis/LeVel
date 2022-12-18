@@ -30,11 +30,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class PostDetails extends AppCompatActivity {
+public class PostDetails extends AppCompatActivity
+{
 
     FirebaseDatabase rootNode;
     DatabaseReference refPost, refUser;
@@ -47,7 +47,8 @@ public class PostDetails extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
 
@@ -75,23 +76,25 @@ public class PostDetails extends AppCompatActivity {
         thumbnailImg = findViewById(R.id.tumbnailImg);
         ticketPrice = findViewById(R.id.costPlane);
         hotel = findViewById(R.id.hotel);
-
         container = findViewById(R.id.newView);
-
         deleteBtn = findViewById(R.id.deleteBtn);
 
-        ValueEventListener valueEventListener = new ValueEventListener() {
+        ValueEventListener valueEventListener = new ValueEventListener()
+        {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
                 Post post = snapshot.getValue(Post.class);
                 assert post != null;
-                deleteBtn.setOnClickListener(v -> {
+                deleteBtn.setOnClickListener(v ->
+                {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PostDetails.this);
 
                     builder.setMessage("Are you sure you want to delete this post?");
 
-                    builder.setPositiveButton("Yes", (dialog, id) -> {
+                    builder.setPositiveButton("Yes", (dialog, id) ->
+                    {
                         snapshot.getRef().removeValue();
                         Toast.makeText(PostDetails.this, "Post deleted", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(PostDetails.this, Home.class));
@@ -104,7 +107,8 @@ public class PostDetails extends AppCompatActivity {
                 });
 
                 username.setText(post.getUser());
-                username.setOnClickListener(v -> {
+                username.setOnClickListener(v ->
+                {
                     Intent intent = new Intent(PostDetails.this, UserProfile.class);
                     intent.putExtra("USER", post.getUser());
                     startActivity(intent);
@@ -112,18 +116,24 @@ public class PostDetails extends AppCompatActivity {
 
                 location.setText(post.getLocation().substring(0,1).toUpperCase() +
                         post.getLocation().substring(1).toLowerCase());
-                if (post.getTravelDays() == 1) {
+                if (post.getTravelDays() == 1)
+                {
                     duration.setText(post.getTravelDays() + " day");
-                } else {
+                }
+                else
+                {
                     duration.setText(post.getTravelDays() + " days");
                 }
 
                 budget.setText("Rp " + post.getTotalCost() + ",-");
                 hotel.setText(post.getHotel());
 
-                if (post.isRoundTrip()) {
+                if (post.isRoundTrip())
+                {
                     ticketPrice.setText("Rp " + post.getTicketPrice() + ",- (Round Trip)");
-                } else {
+                }
+                else
+                {
                     ticketPrice.setText("Rp " + post.getTicketPrice() + ",-");
                 }
 
@@ -138,13 +148,16 @@ public class PostDetails extends AppCompatActivity {
                         .into(thumbnailImg);
 
                 ArrayList<Details> postDetails = post.getPostDetails();
-                for (int i = 0; i < postDetails.size(); i++) {
+                for (int i = 0; i < postDetails.size(); i++)
+                {
                     addView(postDetails.get(i));
                 }
 
-                refUser.child(post.getUser()).addListenerForSingleValueEvent(new ValueEventListener() {
+                refUser.child(post.getUser()).addListenerForSingleValueEvent(new ValueEventListener()
+                {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    public void onDataChange(@NonNull DataSnapshot snapshot)
+                    {
                         UserData userData = snapshot.getValue(UserData.class);
                         assert userData != null;
 
@@ -158,14 +171,16 @@ public class PostDetails extends AppCompatActivity {
                                         .dontTransform())
                                 .into(profileImg);
 
-                        profileImg.setOnClickListener(v -> {
+                        profileImg.setOnClickListener(v ->
+                        {
                             Intent intent = new Intent(PostDetails.this, UserProfile.class);
                             intent.putExtra("USER", userData.getUsername());
                             startActivity(intent);
                         });
 
                         assert user != null;
-                        if (userData.getUsername().contentEquals(Objects.requireNonNull(user.getDisplayName()))) {
+                        if (userData.getUsername().contentEquals(Objects.requireNonNull(user.getDisplayName())))
+                        {
                             deleteBtn.setVisibility(View.VISIBLE);
                         }
                     }
@@ -185,7 +200,8 @@ public class PostDetails extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    private void addView(Details details) {
+    private void addView(Details details)
+    {
         newView = LayoutInflater.from(this).inflate(R.layout.item_post_details, container, false);
 
         TextView day = newView.findViewById(R.id.day);
@@ -215,13 +231,17 @@ public class PostDetails extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
-        if (id == android.R.id.home) {
+
+        if (id == android.R.id.home)
+        {
             onBackPressed();
             finish();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

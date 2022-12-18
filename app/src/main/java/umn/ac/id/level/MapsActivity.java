@@ -1,6 +1,5 @@
 package umn.ac.id.level;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
@@ -30,7 +29,8 @@ import java.util.List;
 
 import umn.ac.id.level.databinding.ActivityMapsBinding;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
+{
 
     private GoogleMap mMap;
 
@@ -43,7 +43,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @SuppressLint("NonConstantResourceId")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         umn.ac.id.level.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
@@ -52,18 +53,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_location);
 
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch(item.getItemId()) {
+        bottomNavigationView.setOnItemSelectedListener(item ->
+        {
+            switch(item.getItemId())
+            {
                 case R.id.action_home:
                     startActivity(new Intent(getApplicationContext(), Home.class));
                     overridePendingTransition(0,0);
                     return true;
+
                 case R.id.action_addpost:
                     startActivity(new Intent(getApplicationContext(), AddPost.class));
                     overridePendingTransition(0,0);
                     return true;
+
                 case R.id.action_location:
                     return true;
+
                 case R.id.action_account:
                     startActivity(new Intent(getApplicationContext(), Account.class));
                     overridePendingTransition(0,0);
@@ -75,7 +81,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         searchView = findViewById(R.id.idSearchView);
 
         Intent intent = getIntent();
-        if (intent.getStringExtra("LOCATION") != null) {
+        if (intent.getStringExtra("LOCATION") != null)
+        {
             searchView.setIconified(true);
             searchView.requestFocus();
             searchView.setQuery(intent.getStringExtra("LOCATION"), false);
@@ -84,22 +91,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener()
+        {
             @Override
-            public boolean onQueryTextSubmit(String s) {
+            public boolean onQueryTextSubmit(String s)
+            {
                 String location = searchView.getQuery().toString();
 
                 Geocoder geocoder = new Geocoder(MapsActivity.this);
 
                 try {
                     List<Address> addressList = geocoder.getFromLocationName(location, 1);
-                    if (addressList.size() > 0) {
+                    if (addressList.size() > 0)
+                    {
                         Address address = addressList.get(0);
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                         mMap.addMarker(new MarkerOptions().position(latLng).title(location));
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
                     }
-                } catch (Exception e) {
+                }
+                catch (Exception e)
+                {
                     e.printStackTrace();
                 }
 
@@ -107,23 +119,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
+            public boolean onQueryTextChange(String s)
+            {
                 return false;
             }
         });
     }
 
-    private void fetchLocation() {
+    private void fetchLocation()
+    {
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE);
             return;
         }
 
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(l -> {
-            if (l != null) {
+        task.addOnSuccessListener(l ->
+        {
+            if (l != null)
+            {
                 currentLocation = l;
                 mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                 assert mapFragment != null;
@@ -142,10 +159,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap)
+    {
         mMap = googleMap;
 
-        if (currentLocation != null) {
+        if (currentLocation != null)
+        {
             LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("");
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
@@ -155,10 +174,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == REQUEST_CODE)
+        {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
                 fetchLocation();
             }
         }
