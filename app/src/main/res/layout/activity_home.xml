@@ -18,7 +18,7 @@
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:hint="Search"
+            android:hint=" Search"
             android:textColorHint="#BFBDE8"
             android:layout_marginHorizontal="20dp"
             android:inputType="text"
@@ -27,12 +27,21 @@
             android:textSize="15sp"
             android:textAlignment="gravity"
             android:background="@drawable/search_bg"
-            android:drawableEnd="@drawable/search_eye"
+            android:drawableStart="@drawable/search_eye"
             android:paddingStart="15dp"
             android:paddingEnd="8dp"
             android:singleLine="true"
             android:imeOptions="actionDone"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancelSearch"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignEnd="@+id/search_bar"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/cancel_icon"
+        android:alpha="0.5" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
