@@ -215,6 +215,10 @@ public class Account extends AppCompatActivity {
                 Intent intentFAQ = new Intent(Account.this, FAQ.class);
                 startActivity(intentFAQ);
                 return true;
+            case R.id.about:
+                Intent intentAbout = new Intent(Account.this, About.class);
+                startActivity(intentAbout);
+                return true;
             case R.id.signout:
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();

@@ -85,6 +85,14 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".About"
+            android:exported="false"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".FAQ"
             android:exported="false"
             android:screenOrientation="portrait">

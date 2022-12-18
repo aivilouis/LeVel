@@ -25,6 +25,12 @@
                 android:title="FAQ" />
 
             <item
+                android:id="@+id/about"
+                app:showAsAction="ifRoom"
+                android:icon="@drawable/info_icon"
+                android:title="About"/>
+
+            <item
                 android:id="@+id/signout"
                 app:showAsAction="ifRoom"
                 android:icon="@drawable/signout_icon"
