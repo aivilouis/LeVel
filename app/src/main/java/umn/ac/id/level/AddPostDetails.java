@@ -64,16 +64,22 @@ public class AddPostDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post_details);
 
+        // Set custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.addpost_actionbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.cancel_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Database
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
+        // Get intent
         Intent intent = getIntent();
+
+        // Get image view
         ImageView img = findViewById(R.id.imgView);
 
+        // Set image view
         if (intent.getStringExtra("SOURCE").contentEquals("camera")){
             bitmap = intent.getParcelableExtra("IMG");
             img.setImageBitmap(bitmap);
@@ -87,6 +93,7 @@ public class AddPostDetails extends AppCompatActivity {
             img.setImageURI(uri);
         }
 
+        // Get view
         etLocation = findViewById(R.id.input_location);
         etDays = findViewById(R.id.input_days);
         etTotalCost = findViewById(R.id.input_totalcost);
@@ -96,18 +103,22 @@ public class AddPostDetails extends AppCompatActivity {
         roundTrip = findViewById(R.id.roundTrip);
 
         container = findViewById(R.id.newView);
+
         Button addDestination = findViewById(R.id.addDestinationBtn);
         addDestination.setOnClickListener(v -> addNewView());
 
+        // Activity result launcher for gallery intent
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
+
                         assert data != null;
                         locationUri = data.getData();
                         locationImg.setVisibility(View.VISIBLE);
                         locationImg.setImageURI(locationUri);
+
                         if (locationUri != null) {
                             addPhotoBtn.setVisibility(View.GONE);
                         }
@@ -117,10 +128,12 @@ public class AddPostDetails extends AppCompatActivity {
     }
 
     private void addNewView() {
+        // Check for empty field
         if (etLocation.length() == 0) {
             etLocation.setError("This field is required");
             return;
         }
+
         if (etDays.length() == 0) {
             etDays.setError("This field is required");
             return;
@@ -129,43 +142,52 @@ public class AddPostDetails extends AppCompatActivity {
             etDays.setError("Travel Days must be more than 0");
             return;
         }
+
         if (etTotalCost.length() == 0) {
             etTotalCost.setError("This field is required");
             return;
         }
+
         if (etTicketPrice.length() == 0) {
             etTicketPrice.setError("This field is required");
             return;
         }
+
         if (etHotel.length() == 0) {
             etHotel.setError("This field is required");
             return;
         }
+
         if (etCostPerNight.length() == 0) {
             etCostPerNight.setError("This field is required");
             return;
         }
 
+        // Get user input
         int totalDays = parseInt(etDays.getText().toString());
         int curTotalCost = Integer.parseInt(etTotalCost.getText().toString());
         int curTicketPrice = Integer.parseInt(etTicketPrice.getText().toString());
         int curCostPerNight = Integer.parseInt(etCostPerNight.getText().toString());
 
+        // Check cost value
         if (curTicketPrice > curTotalCost) {
             etTicketPrice.setError("Total cost must not exceeds " +
                     "Rp " + etTotalCost.getText().toString() + ",-");
             return;
         }
+
         if (curCostPerNight > curTotalCost || curCostPerNight + curTicketPrice > curTotalCost) {
             etCostPerNight.setError("Total cost must not exceeds " +
                     "Rp " + etTotalCost.getText().toString() + ",-");
             return;
         }
 
+        // Set new view
         newView = LayoutInflater.from(this).inflate(R.layout.items, container, false);
         locationImg = newView.findViewById(R.id.locationImg);
         addPhotoBtn = newView.findViewById(R.id.addPhotoBtn);
 
+        // Add photo button OnClick
         addPhotoBtn.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setType("image/*");
@@ -173,14 +195,18 @@ public class AddPostDetails extends AppCompatActivity {
             activityResultLauncher.launch(intent);
         });
 
+        // Set spinner items
         Spinner dropdown = newView.findViewById(R.id.label);
+
         String[] items = new String[totalDays];
         for (int i = 0; i < totalDays; i++) {
             items[i] = "Day " + (i + 1);
         }
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
+        // Input validation for new view
         if (container.getChildCount() > 0) {
             EditText dest = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_destination);
             EditText cost = container.getChildAt(container.getChildCount()-1).findViewById(R.id.input_cost);
@@ -188,26 +214,32 @@ public class AddPostDetails extends AppCompatActivity {
             ImageView imgView = container.getChildAt(container.getChildCount()-1).findViewById(R.id.locationImg);
             BitmapDrawable bm = (BitmapDrawable) imgView.getDrawable();
 
+            // Check for empty field
             if (dest.length() == 0) {
                 dest.setError("This field is required");
                 return;
             }
+
             if (cost.length() == 0) {
                 cost.setError("This field is required");
                 return;
             }
+
             if (review.length() == 0) {
                 review.setError("This field is required");
                 return;
             }
+
             if (bm == null) {
                 Toast.makeText(AddPostDetails.this, "Please add image", Toast.LENGTH_LONG).show();
                 return;
             }
 
+            // Check cost value
             int currentCost = Integer.parseInt(cost.getText().toString());
             sum.add(currentCost);
             int total = curTicketPrice + curCostPerNight;
+
             for (int c : sum) {
                 total += c;
                 if (total > curTotalCost) {
@@ -217,6 +249,7 @@ public class AddPostDetails extends AppCompatActivity {
             }
         }
 
+        // Add new view
         container.addView(newView, container.getChildCount());
     }
 
@@ -229,24 +262,32 @@ public class AddPostDetails extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.action_done) {
             saveData();
             return true;
         }
+
         if (id == android.R.id.home) {
             Intent intent = new Intent(AddPostDetails.this, AddPost.class);
             this.startActivity(intent);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
+    // Save data
     private void saveData() {
+
+        // Get database reference
         ref = rootNode.getReference("Posts");
         postDetails.clear();
+
         int count = container.getChildCount();
         View v;
 
+        // Check post details input
         if (count < 1 || count < Integer.parseInt(etDays.getText().toString())) {
             Toast.makeText(AddPostDetails.this,
                     "Please add more details",
@@ -254,36 +295,46 @@ public class AddPostDetails extends AppCompatActivity {
             return;
         }
 
+        // Check for empty field
         if (etLocation.length() == 0) {
             etLocation.setError("This field is required");
             return;
         }
+
         if (etDays.length() == 0) {
             etDays.setError("This field is required");
             return;
         }
+
         if (Integer.parseInt(etDays.getText().toString()) == 0) {
             etDays.setError("Travel Days must be more than 0");
             return;
         }
+
         if (etTotalCost.length() == 0) {
             etTotalCost.setError("This field is required");
             return;
         }
+
         if (etTicketPrice.length() == 0) {
             etTicketPrice.setError("This field is required");
             return;
         }
+
         if (etHotel.length() == 0) {
             etHotel.setError("This field is required");
             return;
         }
+
         if (etCostPerNight.length() == 0) {
             etCostPerNight.setError("This field is required");
             return;
         }
 
+        // Generate ID
         String id = ref.push().getKey();
+
+        // Get user input
         String location = etLocation.getText().toString().toLowerCase();
         String hotel = etHotel.getText().toString();
         int days = parseInt(etDays.getText().toString());
@@ -292,11 +343,13 @@ public class AddPostDetails extends AppCompatActivity {
         int costPerNight = parseInt(etCostPerNight.getText().toString());
         boolean roundtrip = roundTrip.isChecked();
 
+        // Encode image to Base64 string
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] byteFormat = stream.toByteArray();
         String encodedImage = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
 
+        // Get user input from new view
         for (int i = 0; i < count; i++) {
             v = container.getChildAt(i);
 
@@ -307,14 +360,17 @@ public class AddPostDetails extends AppCompatActivity {
             RatingBar ratingBar = v.findViewById(R.id.rating);
             ImageView loc = v.findViewById(R.id.locationImg);
 
+            // Check for empty field
             if (etDestination.length() == 0) {
                 etDestination.setError("This field is required");
                 return;
             }
+
             if (etCost.length() == 0) {
                 etCost.setError("This field is required");
                 return;
             }
+
             if (etReview.length() == 0) {
                 etReview.setError("This field is required");
                 return;
@@ -342,15 +398,18 @@ public class AddPostDetails extends AppCompatActivity {
             }
         }
 
+        // Get current user's username
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         assert currentUser != null;
         String username = currentUser.getDisplayName();
 
         Post post = new Post(id, username, encodedImage, location, hotel, days, totalCost, ticketPrice, costPerNight, roundtrip, postDetails);
 
+        // Add to database
         assert id != null;
         ref.child(id).setValue(post);
 
+        // Move to Home activity
         Intent intent = new Intent(AddPostDetails.this, Home.class);
         this.startActivity(intent);
     }

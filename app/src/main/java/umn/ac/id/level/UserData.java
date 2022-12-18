@@ -1,5 +1,6 @@
 package umn.ac.id.level;
 
+@SuppressWarnings("ALL")
 public class UserData
 {
 

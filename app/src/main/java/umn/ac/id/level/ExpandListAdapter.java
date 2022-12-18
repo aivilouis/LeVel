@@ -1,5 +1,6 @@
 package umn.ac.id.level;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,14 +11,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ExpandListAdapter extends BaseExpandableListAdapter {
-    private Context context;
-    private ArrayList<ExpandListGroup> groups;
+    private final Context context;
+    private final ArrayList<ExpandListGroup> groups;
 
     public ExpandListAdapter(Context context, ArrayList<ExpandListGroup> groups) {
         this.context = context;
         this.groups = groups;
     }
 
+    @SuppressWarnings("unused")
     public void addItem(ExpandListChild item, ExpandListGroup group) {
         if (!groups.contains(group)) {
             groups.add(group);
@@ -37,15 +39,16 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         return childPosition;
     }
 
+    @SuppressLint("InflateParams")
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View view, ViewGroup parent) {
         ExpandListChild child = (ExpandListChild) getChild(groupPosition,
                 childPosition);
         if (view == null) {
-            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = infalInflater.inflate(R.layout.accordion_list_child_item, null);
         }
-        TextView tv = (TextView) view.findViewById(R.id.tvChild);
-        tv.setText(child.getName().toString());
+        TextView tv = view.findViewById(R.id.tvChild);
+        tv.setText(child.getName());
         tv.setTag(child.getTag());
         return view;
     }
@@ -69,13 +72,14 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         return groupPosition;
     }
 
+    @SuppressLint("InflateParams")
     public View getGroupView(int groupPosition, boolean isLastChild, View view, ViewGroup parent) {
         ExpandListGroup group = (ExpandListGroup) getGroup(groupPosition);
         if (view == null) {
-            LayoutInflater inf = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inf = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inf.inflate(R.layout.accordion_list_child_group, null);
         }
-        TextView tv = (TextView) view.findViewById(R.id.tvGroup);
+        TextView tv = view.findViewById(R.id.tvGroup);
         tv.setText(group.getName());
         return view;
     }

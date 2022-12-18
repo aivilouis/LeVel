@@ -35,24 +35,30 @@ public class AddPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post);
 
+        // Set custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.addpost_actionbar);
 
+        // Get view
         img = findViewById(R.id.imageView);
         Button galleryBtn = findViewById(R.id.galleryBtn);
         Button cameraBtn = findViewById(R.id.cameraBtn);
 
+        // Activity result launcher for camera intent
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
+
                         assert data != null;
                         Bundle extras = data.getExtras();
                         Bitmap imageBitmap = null;
+
                         if (extras != null) {
                             imageBitmap = (Bitmap) extras.get("data");
                         }
+
                         img.setImageBitmap(imageBitmap);
                         bm = imageBitmap;
                         source = "camera";
@@ -60,6 +66,7 @@ public class AddPost extends AppCompatActivity {
                 }
         );
 
+        // Activity result launcher for gallery intent
         ActivityResultLauncher<Intent> activityResultLauncher2 = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -73,6 +80,7 @@ public class AddPost extends AppCompatActivity {
                 }
         );
 
+        // Camera button OnClick
         cameraBtn.setOnClickListener(v -> {
             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -80,6 +88,7 @@ public class AddPost extends AppCompatActivity {
             }
         });
 
+        // Gallery button OnClick
         galleryBtn.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setType("image/*");
@@ -87,6 +96,7 @@ public class AddPost extends AppCompatActivity {
             activityResultLauncher2.launch(intent);
         });
 
+        // Bottom navbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_addpost);
 
@@ -120,6 +130,7 @@ public class AddPost extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.action_next) {
             Intent intent = new Intent(AddPost.this, AddPostDetails.class);
             if (source.contentEquals("camera")) {
@@ -143,6 +154,7 @@ public class AddPost extends AppCompatActivity {
             this.startActivity(intent);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

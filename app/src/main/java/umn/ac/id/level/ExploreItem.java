@@ -1,5 +1,6 @@
 package umn.ac.id.level;
 
+@SuppressWarnings("ALL")
 public class ExploreItem
 {
     String user, location, profileImg, locationImg, id;

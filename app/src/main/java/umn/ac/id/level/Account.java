@@ -56,13 +56,16 @@ public class Account extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        // Get user
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
+        // Set custom actionbar
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.account_actionbar);
         getSupportActionBar().setElevation(0);
 
+        // Get view
         TextView username = getSupportActionBar().getCustomView().findViewById(R.id.accountUsername);
         profileImg = findViewById(R.id.accountPicture);
         country = findViewById(R.id.country);
@@ -71,16 +74,20 @@ public class Account extends AppCompatActivity {
         iconCategory = findViewById(R.id.iconCategory);
         bio = findViewById(R.id.bio);
 
+        // Set username in actionbar
         assert user != null;
         String currentUname = user.getDisplayName();
         username.setText(currentUname);
 
+        // Shared preference
         sharedPreferences = getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
 
+        // Database
         rootNode = FirebaseDatabase.getInstance("https://level-fecbd-default-rtdb.asia-southeast1.firebasedatabase.app/");
         ref = rootNode.getReference("Posts");
         ref2 = rootNode.getReference("UserData");
 
+        // Get user data and set view
         ValueEventListener dataListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -120,6 +127,7 @@ public class Account extends AppCompatActivity {
         ref2.child(currentUname).addValueEventListener(dataListener);
 
 
+        // Get user posts
         Query query = ref.orderByChild("user").equalTo(user.getDisplayName());
 
         ValueEventListener valueEventListener = new ValueEventListener() {
@@ -139,6 +147,7 @@ public class Account extends AppCompatActivity {
 
         query.addListenerForSingleValueEvent(valueEventListener);
 
+        // Set recycler view
         mRecyclerView = findViewById(R.id.recyclerview2);
         mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
@@ -155,6 +164,7 @@ public class Account extends AppCompatActivity {
         adapter = new AccountAdapter(options, getApplicationContext());
         mRecyclerView.setAdapter(adapter);
 
+        // Bottom navbar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.action_account);
 
@@ -223,11 +233,13 @@ public class Account extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear();
                 editor.apply();
+
                 FirebaseAuth.getInstance().signOut();
 
                 Intent i = new Intent(Account.this, Login.class);
                 startActivity(i);
                 finish();
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

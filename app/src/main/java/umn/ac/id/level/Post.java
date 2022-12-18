@@ -3,6 +3,7 @@ package umn.ac.id.level;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@SuppressWarnings("ALL")
 public class Post implements Serializable
 {
 

@@ -13,9 +13,11 @@ import android.widget.ExpandableListView;
 import java.util.ArrayList;
 import java.util.Objects;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class FAQ extends AppCompatActivity
 {
 
+    @SuppressWarnings("unused")
     private Bitmap bm;
     private ExpandListAdapter ExpAdapter;
     private ArrayList<ExpandListGroup> ExpListItems;
@@ -26,7 +28,7 @@ public class FAQ extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faq);
-        ExpandList = (ExpandableListView) findViewById(R.id.ExpList);
+        ExpandList = findViewById(R.id.ExpList);
         ExpListItems = SetStandardGroups();
         ExpAdapter = new ExpandListAdapter(FAQ.this, ExpListItems);
         ExpandList.setAdapter(ExpAdapter);
@@ -38,8 +40,9 @@ public class FAQ extends AppCompatActivity
 
     public ArrayList<ExpandListGroup> SetStandardGroups()
     {
-        ArrayList<ExpandListGroup> list = new ArrayList<ExpandListGroup>();
-        ArrayList<ExpandListChild> list2 = new ArrayList<ExpandListChild>();
+        ArrayList<ExpandListGroup> list = new ArrayList<>();
+        ArrayList<ExpandListChild> list2;
+        list2 = new ArrayList<>();
         ExpandListGroup gru1 = new ExpandListGroup();
         gru1.setName("What is LeVel?");
         ExpandListChild ch1_1 = new ExpandListChild();
@@ -48,7 +51,7 @@ public class FAQ extends AppCompatActivity
         list2.add(ch1_1);
         gru1.setItems(list2);
 
-        list2 = new ArrayList<ExpandListChild>();
+        list2 = new ArrayList<>();
         ExpandListGroup gru2 = new ExpandListGroup();
         gru2.setName("How many user types on the LeVel?");
         ExpandListChild ch2_1 = new ExpandListChild();
@@ -57,7 +60,7 @@ public class FAQ extends AppCompatActivity
         list2.add(ch2_1);
         gru2.setItems(list2);
 
-        list2 = new ArrayList<ExpandListChild>();
+        list2 = new ArrayList<>();
         ExpandListGroup gru3 = new ExpandListGroup();
         gru3.setName("Privacy Policy");
         ExpandListChild ch3_1 = new ExpandListChild();
@@ -72,7 +75,7 @@ public class FAQ extends AppCompatActivity
         list2.add(ch3_1);
         gru3.setItems(list2);
 
-        list2 = new ArrayList<ExpandListChild>();
+        list2 = new ArrayList<>();
         ExpandListGroup gru4 = new ExpandListGroup();
         gru4.setName("Terms & Conditions");
         ExpandListChild ch4_1 = new ExpandListChild();

@@ -25,6 +25,7 @@ public class AccountAdapter extends
         FirebaseRecyclerAdapter<ExploreItem, AccountAdapter.AccountViewHolder> {
 
     Context context;
+
     public AccountAdapter(@NonNull FirebaseRecyclerOptions<ExploreItem> options, Context context) {
         super(Objects.requireNonNull(options));
         this.context = context;
@@ -51,6 +52,7 @@ public class AccountAdapter extends
                 .into(holder.post);
 
         holder.location.setText(model.getLocation());
+
         holder.post.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), PostDetails.class);
             intent.putExtra("POST", model.getId());

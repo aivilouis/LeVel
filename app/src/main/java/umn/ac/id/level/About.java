@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import java.util.Objects;
 
 public class About extends AppCompatActivity {
+
+    @SuppressWarnings("unused")
     private Bitmap bm;
 
     @Override
@@ -21,7 +23,6 @@ public class About extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.about_actionbar);
-
     }
 
     @Override
@@ -33,6 +34,7 @@ public class About extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
         if (id == R.id.close) {
             Intent intent = new Intent(About.this, Account.class);
             intent.putExtra("IMG", bm);
