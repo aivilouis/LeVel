@@ -33,7 +33,7 @@
         android:id="@+id/locationImg"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:layout_gravity="center_horizontal"/>

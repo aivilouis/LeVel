@@ -56,6 +56,7 @@ public class AddPostDetails extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> activityResultLauncher;
     ImageView locationImg;
+    Button addPhotoBtn;
     ArrayList<Integer> sum = new ArrayList<>();
 
     @Override
@@ -107,6 +108,9 @@ public class AddPostDetails extends AppCompatActivity {
                         locationUri = data.getData();
                         locationImg.setVisibility(View.VISIBLE);
                         locationImg.setImageURI(locationUri);
+                        if (locationUri != null) {
+                            addPhotoBtn.setVisibility(View.GONE);
+                        }
                     }
                 }
         );
@@ -160,14 +164,13 @@ public class AddPostDetails extends AppCompatActivity {
 
         newView = LayoutInflater.from(this).inflate(R.layout.items, container, false);
         locationImg = newView.findViewById(R.id.locationImg);
-        Button addPhotoBtn = newView.findViewById(R.id.addPhotoBtn);
+        addPhotoBtn = newView.findViewById(R.id.addPhotoBtn);
 
         addPhotoBtn.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             activityResultLauncher.launch(intent);
-            addPhotoBtn.setVisibility(View.GONE);
         });
 
         Spinner dropdown = newView.findViewById(R.id.label);
