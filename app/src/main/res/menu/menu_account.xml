@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="HardcodedText">
 
     <item
         android:id="@+id/action_setting"
@@ -22,12 +23,6 @@
                 app:showAsAction="ifRoom"
                 android:icon="@drawable/faq_icon"
                 android:title="FAQ" />
-
-            <item
-                android:id="@+id/about"
-                app:showAsAction="ifRoom"
-                android:icon="@drawable/info_icon"
-                android:title="About"/>
 
             <item
                 android:id="@+id/signout"

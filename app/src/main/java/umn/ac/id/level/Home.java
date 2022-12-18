@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -95,6 +96,15 @@ public class Home extends AppCompatActivity {
                     return false;
                 }
         );
+
+        Button cancelSearch = findViewById(R.id.cancelSearch);
+        cancelSearch.setOnClickListener(v -> {
+            searchBar.setText("");
+            recyclerView.getRecycledViewPool().clear();
+            adapter = new ExploreAdapter(options, getApplicationContext());
+            adapter.startListening();
+            recyclerView.setAdapter(adapter);
+        });
     }
 
     private void filter(String text){
